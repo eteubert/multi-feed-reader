@@ -10,6 +10,23 @@ namespace MultiFeedReader\Settings;
 const HANDLE = 'multi_feed_reader_handle';
 
 /**
+ * Postbox helper function.
+ * 
+ * @param string $name
+ * @param function $content
+ */
+function postbox( $name, $content ) {
+	?>
+	<div class="postbox">
+		<h3><span><?php echo $name; ?></span></h3>
+		<div class="inside">
+			<?php call_user_func( $content ); ?>
+		</div> <!-- .inside -->
+	</div>
+	<?php
+}
+
+/**
  * @todo the whole template can probably be abstracted away
  * @todo reduce set_tab() to only receive the name and auto-deduce id from name
  * 
@@ -76,24 +93,21 @@ function initialize() {
  * @todo this should be a template/partial
  */
 function display_creator_metabox() {
-	?>
-	<div class="postbox">
-		<h3><span><?php echo \MultiFeedReader\t( 'Creator' ) ?></span></h3>
-		<div class="inside">
-			<p>
-				<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
-			</p>
-			<?php
-			/**
-			 * @todo add flattr button
-			 */
-			?>
-			<p>
-				<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
-			</p>
-		</div>
-	</div>
-	<?php
+	postbox( \MultiFeedReader\t( 'Creator' ), function () {
+		?>
+		<p>
+			<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
+		</p>
+		<?php
+		/**
+		 * @todo add flattr button
+		 */
+		?>
+		<p>
+			<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
+		</p>
+		<?php
+	});
 }
 
 /**
@@ -104,25 +118,18 @@ function display_creator_metabox() {
  * manual labour to include all the files. or ... autoload.
  * 
  */
-
 function display_edit_page() {
-	?>
-	<div class="postbox">
-		<h3><span><?php echo \MultiFeedReader\t( 'Edit Template' ) ?></span></h3>
-		<div class="inside">
-			<p>Hi, I'm the edit metabox!</p>
-		</div> <!-- .inside -->
-	</div>	
-	<?php
+	postbox( \MultiFeedReader\t( 'Edit Template' ), function () {
+		?>
+		<p>Hi, I'm the edit metabox!</p>
+		<?php
+	});
 }
 
 function display_add_page() {
-	?>
-	<div class="postbox">
-		<h3><span><?php echo \MultiFeedReader\t( 'Add Template' ) ?></span></h3>
-		<div class="inside">
-			<p>Hi, I'm the add metabox!</p>
-		</div> <!-- .inside -->
-	</div>	
-	<?php
+	postbox( \MultiFeedReader\t( 'Add Template' ), function () {
+		?>
+		<p>Hi, I'm the add metabox!</p>
+		<?php
+	});
 }
