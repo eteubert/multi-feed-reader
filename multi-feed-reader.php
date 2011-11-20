@@ -14,7 +14,7 @@ namespace MultiFeedReader;
 const TEXTDOMAIN = 'multi-feed-reader';
 const DEFAULT_TEMPLATE = 'default';
 
-require_once 'settings.php';
+require_once 'bootstrap.php';
 
 /**
  * Translate text.

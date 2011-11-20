@@ -10,32 +10,6 @@ namespace MultiFeedReader\Settings;
 const HANDLE = 'multi_feed_reader_handle';
 
 /**
- * @todo move in a bootstrapping file
- */
-// autoload all files in /lib
-spl_autoload_register( function ( $class_name ) { 
-	// get class name without namespace
-	$class_name = strtolower( array_pop( explode( '\\', $class_name ) ) );
-	// library directory
-	$lib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
-	
-	// register all possible paths for the class
-	$possibilities = array(
-		$lib . $class_name . '.php'
-	);
-	
-	// search for the class
-	foreach ( $possibilities as $file ) {
-		if ( file_exists( $file ) ) {
-			require_once( $file );
-			return true;
-		}
-	}
-	
-	return false;
-});
-
-/**
  * @todo the whole template can probably be abstracted away
  * 
  * something like
