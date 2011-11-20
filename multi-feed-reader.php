@@ -11,6 +11,7 @@ License: MIT
 
 namespace MultiFeedReader;
 
+const PLUGIN_NAME = 'Multi Feed Reader';
 const TEXTDOMAIN = 'multi-feed-reader';
 const DEFAULT_TEMPLATE = 'default';
 
@@ -53,5 +54,5 @@ function shortcode( $attributes ) {
 }
 
 function add_menu_entry() {
-	add_submenu_page( 'options-general.php', 'Multi Feed Reader', 'Multi Feed Reader', 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
+	add_submenu_page( 'options-general.php', PLUGIN_NAME, PLUGIN_NAME, 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
 }
