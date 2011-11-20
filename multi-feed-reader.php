@@ -73,29 +73,7 @@ function initialize() {
 
 			<div class="inner-sidebar">
 
-				<div class="postbox">
-					<h3><span><?php echo \MultiFeedReader\t( 'Creator' ) ?></span></h3>
-					<div class="inside">
-						<p>
-							<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
-						</p>
-						<?php
-						/**
-						 * @todo add flattr button
-						 */
-						?>
-						<p>
-							<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
-						</p>
-					</div>
-				</div>
-
-				<div class="postbox">
-					<h3><span>Metabox 2</span></h3>
-					<div class="inside">
-						<p>Hi, I'm metabox 2!</p>
-					</div>
-				</div>
+				<?php display_creator_metabox(); ?>
 
 				<!-- ... more boxes ... -->
 
@@ -124,5 +102,29 @@ function initialize() {
 		</div> <!-- .metabox-holder -->
 
 	</div> <!-- .wrap -->
+	<?php
+}
+
+/**
+ * @todo this should be a template/partial
+ */
+function display_creator_metabox() {
+	?>
+	<div class="postbox">
+		<h3><span><?php echo \MultiFeedReader\t( 'Creator' ) ?></span></h3>
+		<div class="inside">
+			<p>
+				<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
+			</p>
+			<?php
+			/**
+			 * @todo add flattr button
+			 */
+			?>
+			<p>
+				<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
+			</p>
+		</div>
+	</div>
 	<?php
 }
