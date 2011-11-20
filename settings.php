@@ -11,6 +11,7 @@ const HANDLE = 'multi_feed_reader_handle';
 
 /**
  * @todo the whole template can probably be abstracted away
+ * @todo reduce set_tab() to only receive the name and auto-deduce id from name
  * 
  * something like
  *   $settings_page = new TwoColumnSettingsPage()
