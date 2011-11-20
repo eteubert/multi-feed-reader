@@ -24,6 +24,8 @@ require_once 'bootstrap.php';
  * Example:
  *   echo \MultiFeedReader\t( 'Hello World' );
  * 
+ * @todo move somewhere else but keep namespace
+ * 
  * @param	string $text
  * @return string
  */
