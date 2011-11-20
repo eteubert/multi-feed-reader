@@ -67,7 +67,6 @@ function initialize() {
 	<div class="wrap">
 
 		<div id="icon-options-general" class="icon32"></div>
-		<!-- <h2><?php echo \MultiFeedReader\t( 'Multi Feed Reader' ); ?></h2> -->
 		<?php $tabs->display() ?>
 
 		<div class="metabox-holder has-right-sidebar">
@@ -75,9 +74,19 @@ function initialize() {
 			<div class="inner-sidebar">
 
 				<div class="postbox">
-					<h3><span>Metabox 1</span></h3>
+					<h3><span><?php echo \MultiFeedReader\t( 'Creator' ) ?></span></h3>
 					<div class="inside">
-						<p>Hi, I'm metabox 1!</p>
+						<p>
+							<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
+						</p>
+						<?php
+						/**
+						 * @todo add flattr button
+						 */
+						?>
+						<p>
+							<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
+						</p>
 					</div>
 				</div>
 

@@ -40,7 +40,7 @@ class Tabs
 		<?php
 	}
 	
-	private function get_current_tab() {
+	public function get_current_tab() {
 		$current_tab = $this->default;
 		foreach ( $this->tabs as $id => $name ) {
 			if ( $_REQUEST[ 'tab' ] == $id ) {
