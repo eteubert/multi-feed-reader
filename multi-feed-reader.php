@@ -18,23 +18,6 @@ const DEFAULT_TEMPLATE = 'default';
 
 require_once 'bootstrap.php';
 
-/**
- * Translate text.
- * 
- * Shorthand method to translate text in the scope of the plugin.
- * 
- * Example:
- *   echo \MultiFeedReader\t( 'Hello World' );
- * 
- * @todo move somewhere else but keep namespace
- * 
- * @param	string $text
- * @return string
- */
-function t( $text ) {
-	return __( $text, TEXTDOMAIN );
-}
-
 function initialize() {
 	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
 	add_action( 'admin_menu', 'MultiFeedReader\add_menu_entry' );

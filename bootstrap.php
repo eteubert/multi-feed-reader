@@ -27,4 +27,5 @@ spl_autoload_register( function ( $class_name ) {
 	return false;
 });
 
+require_once 'lib/general.php';
 require_once 'settings.php';
