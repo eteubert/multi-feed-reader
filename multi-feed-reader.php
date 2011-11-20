@@ -49,17 +49,26 @@ function shortcode( $attributes ) {
 }
 
 function add_menu_entry() {
-	add_submenu_page( 'options-general.php', 'Multi Feed Reader', 'Multi Feed Reader', 'manage_options', 'multi_feed_reader_handle', 'MultiFeedReader\Settings\initialize' );
+	add_submenu_page( 'options-general.php', 'Multi Feed Reader', 'Multi Feed Reader', 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
 }
 
 namespace MultiFeedReader\Settings;
 
+const HANDLE = 'multi_feed_reader_handle';
+
+require_once 'lib/settings.php';
+
 function initialize() {
+	$tabs = new Tabs;
+	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Templates' ) );
+	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Templates' ) );
+	$tabs->set_default( 'edit' );
 	?>
 	<div class="wrap">
 
 		<div id="icon-options-general" class="icon32"></div>
-		<h2><?php echo \MultiFeedReader\t( 'Multi Feed Reader' ); ?></h2>
+		<!-- <h2><?php echo \MultiFeedReader\t( 'Multi Feed Reader' ); ?></h2> -->
+		<?php $tabs->display() ?>
 
 		<div class="metabox-holder has-right-sidebar">
 
