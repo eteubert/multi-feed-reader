@@ -45,10 +45,28 @@ function postbox( $name, $content ) {
  *     have some kind of interface to plug different page classes
  */
 function initialize() {
+	if ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
+		$id = $_POST[ 'mfr_new_feedcollection_name' ];
+		$collection = FeedCollection::create_by_id( $id );
+		if ( ! $collection ) {
+			?>
+			<div class="error">
+				<p>
+					<?php echo wp_sprintf( \MultiFeedReader\t( 'Feedcollection "%1s" already exists.' ), $id ) ?>
+				</p>
+			</div>
+			<?php
+		}
+	}
+	
 	$tabs = new \MultiFeedReader\Lib\Tabs;
-	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Templates' ) );
-	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Templates' ) );
+	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Feedcollection' ) );
+	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Feedcollection' ) );
 	$tabs->set_default( 'edit' );
+	
+	if ( ! FeedCollection::has_entries() ) {
+		$tabs->enforce_tab( 'add' );
+	}
 	?>
 	<div class="wrap">
 
@@ -110,6 +128,105 @@ function display_creator_metabox() {
 	});
 }
 
+class FeedCollection
+{
+	/**
+	 * Dictionary of all FeedCollection objects
+	 */
+	static $feed_collections = NULL;
+	
+	/**
+	 * Reference to the collection itself in self::$feed_collections
+	 */
+	private $self;
+	
+	/**
+	 * The id of the FeedCollection identifying the collection
+	 */
+	private $id = NULL;
+	
+	/**
+	 * A list of feed URLs
+	 */
+	private $feeds = array();
+	
+	private function __construct( $id ) {
+		$this->id = $id;
+	}
+	
+	/**
+	 * Find single FeedCollection by id.
+	 * 
+	 * @return false if not found, else the FeedCollection.
+	 */
+	public static function find_by_id( $id ) {
+		self::load_all();
+		$collection = self::$feed_collections[ $id ];
+		
+		if ( $collection ) {
+			return $collection;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Create single FeedCollection by id.
+	 * 
+	 * @return false if exists already, else the FeedCollection.
+	 */
+	public static function create_by_id( $id ) {
+		self::load_all();
+		$collection = self::$feed_collections[ $id ];
+		
+		if ( $collection ) {
+			return false; // exists already
+		} else {
+			self::$feed_collections[ $id ] = new FeedCollection( $id );
+			self::save_all();
+			return self::$feed_collections[ $id ];
+		}
+	}
+	
+	public function add_feed( $url ) {
+		$this->self->feeds[] = $url;
+		self::save_all();
+	}
+	
+	public static function has_entries() {
+		self::load_all();
+		return is_array( self::$feed_collections ) && count( self::$feed_collections ) > 0;
+	}
+	
+	public static function count() {
+		self::load_all();
+		return count( self::$feed_collections );
+	}
+	
+	public static function get_ids() {
+		return array_keys( self::$feed_collections );
+	}
+	
+	/**
+	 * Load all FeedCollections, but only if they have not been loaded yet.
+	 */
+	private static function load_all() {
+		if ( self::$feed_collections !== NULL ) {
+			return true;
+		}
+
+		self::$feed_collections = get_option( 'feed_collections' );
+	}
+	
+	/**
+	 * Save all data to the database
+	 */
+	private static function save_all() {
+		update_option( 'feed_collections', self::$feed_collections );
+	}
+
+}
+
 /**
  * @todo determine directory / namespace structure for settings pages
  * 
@@ -119,17 +236,59 @@ function display_creator_metabox() {
  * 
  */
 function display_edit_page() {
-	postbox( \MultiFeedReader\t( 'Edit Template' ), function () {
-		?>
-		<p>Hi, I'm the edit metabox!</p>
-		<?php
-	});
+	if ( FeedCollection::count() === 1 ) {
+		$ids = FeedCollection::get_ids();
+		$id = $ids[0];
+		$collection = FeedCollection::find_by_id( $id );
+		
+		postbox( $id, function () {
+			$ids = FeedCollection::get_ids();
+			$id = $ids[0];
+			$collection = FeedCollection::find_by_id( $id );
+			
+			echo "<pre>";
+			var_dump($collection);
+			echo "</pre>";
+		});
+		
+	} else {
+		postbox( \MultiFeedReader\t( 'Not Yet Implemented' ), function () {
+			?>
+			<p>Sorry, I don't know how to handle multiple thingies :/</p>
+			<?php
+		});
+	}
+
 }
 
 function display_add_page() {
-	postbox( \MultiFeedReader\t( 'Add Template' ), function () {
+	postbox( \MultiFeedReader\t( 'Add Feedcollection' ), function () {
 		?>
-		<p>Hi, I'm the add metabox!</p>
+		<form action="" method="post">
+
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<?php echo \MultiFeedReader\t( 'New Feedcollection Name' ) ?>
+						</th>
+						<td>
+							<input type="text" name="mfr_new_feedcollection_name" value="" id="mfr_new_feedcollection_name" class="large-text">
+							<p>
+								<small><?php echo \MultiFeedReader\t( 'This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection "rockstar", then you can use it with the shortcode <em>[multi-feed-reader template="rockstar"]</em>' ) ?></small>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Add New Feedcollection' ) ?>" />
+			</p>
+			
+			<br class="clear" />
+			
+		</form>
 		<?php
 	});
 }

@@ -18,6 +18,7 @@ class Tabs
 {
 	private $tabs;
 	private $default;
+	private $enforced_tab = NULL;
 	
 	public function set_tab( $id, $text ) {
 		$this->tabs[ $id ] = $text;
@@ -42,6 +43,11 @@ class Tabs
 	
 	public function get_current_tab() {
 		$current_tab = $this->default;
+		
+		if ( $this->enforced_tab !== NULL ) {
+			return $this->enforced_tab;
+		}
+		
 		foreach ( $this->tabs as $id => $name ) {
 			if ( $_REQUEST[ 'tab' ] == $id ) {
 				$current_tab = $id;
@@ -50,5 +56,12 @@ class Tabs
 		}
 		
 		return $current_tab;
+	}
+	
+	/**
+	 * Override the default tab selection behaviour.
+	 */
+	public function enforce_tab( $tab_id ) {
+		$this->enforced_tab = $tab_id;
 	}
 }
