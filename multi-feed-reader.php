@@ -56,10 +56,13 @@ namespace MultiFeedReader\Settings;
 
 const HANDLE = 'multi_feed_reader_handle';
 
-require_once 'lib/settings.php';
+/**
+ * @todo autoload all files in /lib
+ */
+require_once 'lib/tabs.php';
 
 function initialize() {
-	$tabs = new Tabs;
+	$tabs = new \MultiFeedReader\Lib\Tabs;
 	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Templates' ) );
 	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Templates' ) );
 	$tabs->set_default( 'edit' );
@@ -134,9 +137,6 @@ function display_creator_metabox() {
  * \MFR\Settings\Pages\EditTemplate
  * manual labour to include all the files. or ... autoload.
  * 
- * @todo fix helper class namespace
- * 
- * maybe \MFR\Lib\Helper (/lib/helper/tabs.php) ?
  */
 
 function display_edit_page() {
