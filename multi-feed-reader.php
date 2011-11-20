@@ -81,21 +81,19 @@ function initialize() {
 
 			<div id="post-body">
 				<div id="post-body-content">
-
-					<div class="postbox">
-						<h3><span>Metabox 3</span></h3>
-						<div class="inside">
-							<p>Hi, I'm metabox 3!</p>
-						</div> <!-- .inside -->
-					</div>
-
-					<div class="postbox">
-						<h3><span>Metabox 4</span></h3>
-						<div class="inside">
-							<p>Hi, I'm metabox 4!</p>
-						</div> <!-- .inside -->
-					</div>
-
+					<?php
+					switch ( $tabs->get_current_tab() ) {
+						case 'edit':
+							display_edit_page();
+							break;
+						case 'add':
+							display_add_page();
+							break;
+						default:
+							die( 'Whoops! The tab "' . $tabs->get_current_tab() . '" does not exist.' );
+							break;
+					}
+					?>
 				</div> <!-- #post-body-content -->
 			</div> <!-- #post-body -->
 
@@ -126,5 +124,39 @@ function display_creator_metabox() {
 			</p>
 		</div>
 	</div>
+	<?php
+}
+
+/**
+ * @todo determine directory / namespace structure for settings pages
+ * 
+ * \MFR\Settings\Pages\AddTemplate
+ * \MFR\Settings\Pages\EditTemplate
+ * manual labour to include all the files. or ... autoload.
+ * 
+ * @todo fix helper class namespace
+ * 
+ * maybe \MFR\Lib\Helper (/lib/helper/tabs.php) ?
+ */
+
+function display_edit_page() {
+	?>
+	<div class="postbox">
+		<h3><span><?php echo \MultiFeedReader\t( 'Edit Template' ) ?></span></h3>
+		<div class="inside">
+			<p>Hi, I'm the edit metabox!</p>
+		</div> <!-- .inside -->
+	</div>	
+	<?php
+}
+
+function display_add_page() {
+	?>
+	<div class="postbox">
+		<h3><span><?php echo \MultiFeedReader\t( 'Add Template' ) ?></span></h3>
+		<div class="inside">
+			<p>Hi, I'm the add metabox!</p>
+		</div> <!-- .inside -->
+	</div>	
 	<?php
 }
