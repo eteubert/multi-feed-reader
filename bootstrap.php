@@ -1,4 +1,8 @@
 <?php
+namespace MultiFeedReader;
+
+const PLUGIN_NAME = 'Multi Feed Reader';
+const TEXTDOMAIN = 'multi-feed-reader';
 
 // autoload all files in /lib
 spl_autoload_register( function ( $class_name ) { 

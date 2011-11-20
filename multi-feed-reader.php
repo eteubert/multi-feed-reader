@@ -11,8 +11,6 @@ License: MIT
 
 namespace MultiFeedReader;
 
-const PLUGIN_NAME = 'Multi Feed Reader';
-const TEXTDOMAIN = 'multi-feed-reader';
 const DEFAULT_TEMPLATE = 'default';
 
 require_once 'bootstrap.php';
