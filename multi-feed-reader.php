@@ -14,8 +14,24 @@ namespace MultiFeedReader;
 const TEXTDOMAIN = 'multi-feed-reader';
 const DEFAULT_TEMPLATE = 'default';
 
+/**
+ * Translate text.
+ * 
+ * Shorthand method to translate text in the scope of the plugin.
+ * 
+ * Example:
+ *   echo \MultiFeedReader\t( 'Hello World' );
+ * 
+ * @param	string $text
+ * @return string
+ */
+function t( $text ) {
+	return __( $text, TEXTDOMAIN );
+}
+
 function initialize() {
 	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
+	add_action( 'admin_menu', 'MultiFeedReader\add_menu_entry' );
 }
 add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
