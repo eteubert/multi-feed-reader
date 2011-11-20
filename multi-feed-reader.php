@@ -82,6 +82,23 @@ spl_autoload_register( function ( $class_name ) {
 	return false;
 });
 
+/**
+ * @todo the whole template can probably be abstracted away
+ * 
+ * something like
+ *   $settings_page = new TwoColumnSettingsPage()
+ *   $tabs = new \MultiFeedReader\Lib\Tabs;
+ *   // configure tabs ...
+ *   $settings_page->add_tabs( $tabs );
+ * 
+ *   - display of content naming-convention based
+ *   - needs a flexible soution for sidebar, though; first step might be to
+ *     redefine sidebar for each tab separately
+ *   - bonus abstraction: intelligently display page based on whether there
+ *     are tabs or not
+ *   - next bonus abstraction: Also implement SingleColumnSettingsPage() and
+ *     have some kind of interface to plug different page classes
+ */
 function initialize() {
 	$tabs = new \MultiFeedReader\Lib\Tabs;
 	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Templates' ) );
