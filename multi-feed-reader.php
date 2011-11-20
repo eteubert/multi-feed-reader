@@ -47,3 +47,64 @@ function shortcode( $attributes ) {
 	
 	echo $template;
 }
+
+function add_menu_entry() {
+	add_submenu_page( 'options-general.php', 'Multi Feed Reader', 'Multi Feed Reader', 'manage_options', 'multi_feed_reader_handle', 'MultiFeedReader\Settings\initialize' );
+}
+
+namespace MultiFeedReader\Settings;
+
+function initialize() {
+	?>
+	<div class="wrap">
+
+		<div id="icon-options-general" class="icon32"></div>
+		<h2><?php echo \MultiFeedReader\t( 'Multi Feed Reader' ); ?></h2>
+
+		<div class="metabox-holder has-right-sidebar">
+
+			<div class="inner-sidebar">
+
+				<div class="postbox">
+					<h3><span>Metabox 1</span></h3>
+					<div class="inside">
+						<p>Hi, I'm metabox 1!</p>
+					</div>
+				</div>
+
+				<div class="postbox">
+					<h3><span>Metabox 2</span></h3>
+					<div class="inside">
+						<p>Hi, I'm metabox 2!</p>
+					</div>
+				</div>
+
+				<!-- ... more boxes ... -->
+
+			</div> <!-- .inner-sidebar -->
+
+			<div id="post-body">
+				<div id="post-body-content">
+
+					<div class="postbox">
+						<h3><span>Metabox 3</span></h3>
+						<div class="inside">
+							<p>Hi, I'm metabox 3!</p>
+						</div> <!-- .inside -->
+					</div>
+
+					<div class="postbox">
+						<h3><span>Metabox 4</span></h3>
+						<div class="inside">
+							<p>Hi, I'm metabox 4!</p>
+						</div> <!-- .inside -->
+					</div>
+
+				</div> <!-- #post-body-content -->
+			</div> <!-- #post-body -->
+
+		</div> <!-- .metabox-holder -->
+
+	</div> <!-- .wrap -->
+	<?php
+}
