@@ -32,4 +32,5 @@ spl_autoload_register( function ( $class_name ) {
 });
 
 require_once 'lib/general.php';
+require_once 'models/feed_collection.php';
 require_once 'settings.php';
