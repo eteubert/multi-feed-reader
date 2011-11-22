@@ -4,6 +4,10 @@ namespace MultiFeedReader;
 const PLUGIN_NAME = 'Multi Feed Reader';
 const TEXTDOMAIN = 'multi-feed-reader';
 
+/**
+ * @todo idea: namespace always reflects directory structure
+ * not sure if this is a good thing but it would make autoloading truly awesome
+ */
 // autoload all files in /lib
 spl_autoload_register( function ( $class_name ) { 
 	// get class name without namespace
