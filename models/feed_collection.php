@@ -27,6 +27,15 @@ class FeedCollection
 		$this->id = $id;
 	}
 	
+	public function add_feed( $url ) {
+		$this->self->feeds[] = $url;
+		self::save_all();
+	}
+	
+	public function get_id() {
+		return $this->id;
+	}
+	
 	/**
 	 * Find single FeedCollection by id.
 	 * 
@@ -61,9 +70,9 @@ class FeedCollection
 		}
 	}
 	
-	public function add_feed( $url ) {
-		$this->self->feeds[] = $url;
-		self::save_all();
+	public static function first() {
+		$ids = self::get_ids();
+		return FeedCollection::find_by_id( $ids[ 0 ] );
 	}
 	
 	public static function has_entries() {

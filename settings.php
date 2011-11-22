@@ -139,14 +139,8 @@ function display_creator_metabox() {
  */
 function display_edit_page() {
 	if ( FeedCollection::count() === 1 ) {
-		$ids = FeedCollection::get_ids();
-		$id = $ids[0];
-		$collection = FeedCollection::find_by_id( $id );
-		
-		postbox( $id, function () {
-			$ids = FeedCollection::get_ids();
-			$id = $ids[0];
-			$collection = FeedCollection::find_by_id( $id );
+		postbox( FeedCollection::first()->get_id(), function () {
+			$collection = FeedCollection::first();
 			
 			echo "<pre>";
 			var_dump($collection);
