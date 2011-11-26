@@ -10,7 +10,10 @@ abstract class Base
 	
 	private $is_new = true;
 	
-	private $data;
+	/**
+	 * Contains property values
+	 */
+	private $data = array();
 	
 	public function __set( $name, $value ) {
 		if ( self::has_property( $name ) ) {
@@ -58,6 +61,11 @@ abstract class Base
 		);
 	}
 	
+	/**
+	 * Return a list of property dictionaries.
+	 * 
+	 * @return array property list
+	 */
 	private static function properties() {
 		$class = get_called_class();
 		
@@ -68,12 +76,64 @@ abstract class Base
 		return self::$properties[ $class ];
 	}
 	
+	/**
+	 * Does the given property exist?
+	 * 
+	 * @param string $name name of the property to test
+	 * @return bool True if the property exists, else false.
+	 */
 	public static function has_property( $name ) {
 		return in_array( $name, self::property_names() );
 	}
 	
+	/**
+	 * Return a list of property names.
+	 * 
+	 * @return array property names
+	 */
 	private static function property_names() {
 		return array_map( function ( $p ) { return $p[ 'name' ]; }, self::properties() );
+	}
+	
+	/**
+	 * Does the table have any entries?
+	 * 
+	 * @return bool True if there is at least one entry, else false.
+	 */
+	public static function has_entries() {
+		return self::count() > 0;
+	}
+	
+	/**
+	 * Return number of rows in the table.
+	 * 
+	 * @return int number of rows
+	 */
+	public static function count() {
+		global $wpdb;
+		
+		$sql = 'SELECT COUNT(*) FROM ' . self::table_name();
+		return (int) $wpdb->get_var( $wpdb->prepare( $sql ) );
+	}
+	
+	/**
+	 * Retrieve first item from the table.
+	 * 
+	 * @return model object
+	 */
+	public static function first() {
+		global $wpdb;
+		
+		$class = get_called_class();
+		$model = new $class();
+		$model->flag_as_not_new();
+		
+		$row = $wpdb->get_row( 'SELECT * FROM ' . self::table_name() . ' LIMIT 0,1' );
+		foreach ( $row as $property => $value ) {
+			$model->$property = $value;
+		}
+		
+		return $model;
 	}
 	
 	/**
