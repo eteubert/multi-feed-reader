@@ -25,6 +25,7 @@ abstract class Base
 	 * Create database table based on defined properties.
 	 * 
 	 * Automatically includes an id column as auto incrementing primary key.
+	 * @todo allow model changes
 	 */
 	public static function build() {
 		global $wpdb;
