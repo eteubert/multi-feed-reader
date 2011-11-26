@@ -9,7 +9,10 @@ class FeedCollection extends Base
 	}
 	
 	public static function count() {
-		return 1;
+		global $wpdb;
+		
+		$sql = 'SELECT COUNT(*) FROM ' . self::table_name();
+		return (int) $wpdb->get_var( $wpdb->prepare( $sql ) );
 	}
 	
 	public static function first() {
