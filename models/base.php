@@ -3,6 +3,9 @@ namespace MultiFeedReader\Models;
 
 abstract class Base
 {
+	/**
+	 * Property dictionary for all tables
+	 */
 	private static $properties = array();
 	
 	/**
@@ -15,10 +18,26 @@ abstract class Base
 	 * @param string $type mySQL column type 
 	 */
 	public static function property( $name, $type ) {
-		self::$properties[] = array(
+		$class = get_called_class();
+		
+		if ( ! isset( self::$properties[ $class ] ) ) {
+			self::$properties[ $class ] = array();
+		}
+		
+		self::$properties[ $class ][] = array(
 			'name' => $name,
 			'type' => $type
 		);
+	}
+	
+	private static function properties() {
+		$class = get_called_class();
+		
+		if ( ! isset( self::$properties[ $class ] ) ) {
+			self::$properties[ $class ] = array();
+		}
+		
+		return self::$properties[ $class ];
 	}
 	
 	/**
@@ -31,7 +50,8 @@ abstract class Base
 		global $wpdb;
 		
 		$property_sql = array();
-		foreach ( self::$properties as $property ) {
+		$properties = self::properties();
+		foreach ( $properties as $property ) {
 			$property_sql[] = "`{$property['name']}` {$property['type']}";
 		}
 		

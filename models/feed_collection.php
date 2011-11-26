@@ -1,13 +1,6 @@
 <?php
 namespace MultiFeedReader\Models;
 
-FeedCollection::property( 'name', 'VARCHAR(255)' );
-FeedCollection::property( 'before_template', 'TEXT' );
-FeedCollection::property( 'body_template', 'TEXT' );
-FeedCollection::property( 'after_template', 'TEXT' );
-// FeedCollection::has_many( 'MultiFeedReader\Models\Feed' );
-FeedCollection::build();
-
 class FeedCollection extends Base
 {
 
@@ -116,3 +109,10 @@ class FeedCollection extends Base
 	}
 
 }
+
+FeedCollection::property( 'name', 'VARCHAR(255)' );
+FeedCollection::property( 'before_template', 'TEXT' );
+FeedCollection::property( 'body_template', 'TEXT' );
+FeedCollection::property( 'after_template', 'TEXT' );
+// FeedCollection::has_many( 'MultiFeedReader\Models\Feed' );
+FeedCollection::build();
