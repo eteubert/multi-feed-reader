@@ -47,13 +47,16 @@ function postbox( $name, $content ) {
  */
 function initialize() {
 	if ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
-		$id = $_POST[ 'mfr_new_feedcollection_name' ];
-		$collection = FeedCollection::create_by_id( $id );
-		if ( ! $collection ) {
+		$name = $_POST[ 'mfr_new_feedcollection_name' ];
+		$fc = new FeedCollection();
+		$fc->name = $name;
+		
+		// $collection = FeedCollection::create_by_id( $id );
+		if ( ! $fc->save() ) {
 			?>
 			<div class="error">
 				<p>
-					<?php echo wp_sprintf( \MultiFeedReader\t( 'Feedcollection "%1s" already exists.' ), $id ) ?>
+					<?php echo wp_sprintf( \MultiFeedReader\t( 'Feedcollection "%1s" already exists.' ), $name ) ?>
 				</p>
 			</div>
 			<?php
@@ -139,7 +142,7 @@ function display_creator_metabox() {
  */
 function display_edit_page() {
 	if ( FeedCollection::count() === 1 ) {
-		postbox( FeedCollection::first()->get_id(), function () {
+		postbox( FeedCollection::first()->name, function () {
 			$collection = FeedCollection::first();
 			
 			echo "<pre>";

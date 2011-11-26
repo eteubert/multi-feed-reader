@@ -8,6 +8,34 @@ abstract class Base
 	 */
 	private static $properties = array();
 	
+	private $is_new = true;
+	
+	private $data;
+	
+	public function __set( $name, $value ) {
+		if ( self::has_property( $name ) ) {
+			$this->set_property( $name, $value );
+		} else {
+			$this->$name = $value;
+		}
+	}
+	
+	private function set_property( $name, $value ) {
+		$this->data[ $name ] = $value;
+	}
+	
+	public function __get( $name ) {
+		if ( self::has_property( $name ) ) {
+			return $this->get_property( $name );
+		} else {
+			return $this->$name;
+		}
+	}
+	
+	private function get_property( $name ) {
+		return $this->data[ $name ];
+	}
+	
 	/**
 	 * Define a property with name and type.
 	 * 
@@ -40,6 +68,60 @@ abstract class Base
 		return self::$properties[ $class ];
 	}
 	
+	public static function has_property( $name ) {
+		return in_array( $name, self::property_names() );
+	}
+	
+	private static function property_names() {
+		return array_map( function ( $p ) { return $p[ 'name' ]; }, self::properties() );
+	}
+	
+	/**
+	 * True if not yet saved to database. Else false.
+	 */
+	public function is_new() {
+		return $this->is_new;
+	}
+	
+	public function flag_as_not_new() {
+		$this->is_new = false;
+	}
+	
+	/**
+	 * Saves changes to database.
+	 */
+	public function save() {
+		global $wpdb;
+		
+		if ( $this->is_new() ) {
+			$sql = 'INSERT INTO '
+			     . self::table_name()
+			     . ' ( '
+			     . implode( ',', self::property_names() )
+			     . ' ) '
+			     . 'VALUES'
+			     . ' ( '
+			     . implode( ',', array_map( array( $this, 'property_name_to_sql_value' ), self::property_names() ) )
+			     . ' );'
+			;
+			$success = $wpdb->query( $sql );
+		} else {
+			throw new \Exception("missing implementation");
+		}
+		
+		$this->is_new = false;
+		
+		return $success;
+	}
+	
+	private function property_name_to_sql_value( $p ) {
+		if ( $this->$p ) {
+			return "'{$this->$p}'";
+		} else {
+			return 'NULL';
+		}
+	}
+	
 	/**
 	 * Create database table based on defined properties.
 	 * 
@@ -58,7 +140,6 @@ abstract class Base
 		$sql = 'CREATE TABLE IF NOT EXISTS '
 		     . self::table_name()
 		     . ' ('
-		     . '`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,'
 		     . implode( ',', $property_sql )
 		     . ' );'
 		;
