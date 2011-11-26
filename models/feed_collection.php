@@ -5,7 +5,7 @@ class FeedCollection extends Base
 {
 	
 	public static function has_entries() {
-		return true;
+		return self::count() > 0;
 	}
 	
 	public static function count() {
