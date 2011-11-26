@@ -51,6 +51,7 @@ abstract class Base
 	 * 
 	 * The name is derived from the namespace an class name. Additionally, it
 	 * is prefixed with the global WordPress database table prefix.
+	 * @todo cache
 	 * 
 	 * @return string database table name
 	 */
