@@ -28,6 +28,13 @@ class FeedCollection extends Base
 	public static function get_default() {
 		return self::first();
 	}
+	
+	/**
+	 * Relationship: FeedCollection has many Feeds
+	 */
+	public function feeds() {
+		return \MultiFeedReader\Models\Feed::find_by_feed_collection_id( $this->id );
+	}
 }
 
 FeedCollection::property( 'id', 'INT NOT NULL AUTO_INCREMENT PRIMARY KEY' );
@@ -35,5 +42,5 @@ FeedCollection::property( 'name', 'VARCHAR(255)' );
 FeedCollection::property( 'before_template', 'TEXT' );
 FeedCollection::property( 'body_template', 'TEXT' );
 FeedCollection::property( 'after_template', 'TEXT' );
-// FeedCollection::has_many( 'MultiFeedReader\Models\Feed' );
+// FeedCollection::has_many( 'MultiFeedReader\Models\Feed', array( 'plural' => 'feeds' ) );
 FeedCollection::build();

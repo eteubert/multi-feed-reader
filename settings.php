@@ -7,6 +7,7 @@
  */
 namespace MultiFeedReader\Settings;
 use MultiFeedReader\Models\FeedCollection as FeedCollection;
+use MultiFeedReader\Models\Feed as Feed;
 
 const HANDLE = 'multi_feed_reader_handle';
 
@@ -56,6 +57,31 @@ function initialize() {
 			}
 		}
 		$current->save();
+		
+		if ( isset( $_POST[ 'feedcollection' ][ 'feeds' ] ) ) {
+			// update feeds
+			foreach ( $_POST[ 'feedcollection' ][ 'feeds' ] as $feed_id => $feed_url ) {
+				if ( ! is_numeric( $feed_id ) ) {
+					continue;
+				}
+				$feed = Feed::find_by_id( $feed_id );
+				if ( $feed->url != $feed_url ) {
+					$feed->url = $feed_url;
+					$feed->save();
+				}
+			}
+			
+			// create feeds
+			if ( isset( $_POST[ 'feedcollection' ][ 'feeds' ][ 'new' ] ) ) {
+				foreach ( $_POST[ 'feedcollection' ][ 'feeds' ][ 'new' ] as $feed_url ) {
+					$feed = new Feed();
+					$feed->feed_collection_id = $current->id;
+					$feed->url = $feed_url;
+					$feed->save();
+				}
+			}
+		}
+		
 	}
 	
 	// CREATE action
@@ -203,12 +229,45 @@ function display_edit_page() {
 	
 	postbox( wp_sprintf( \MultiFeedReader\t( 'Settings for "%1s" Collection' ), FeedCollection::current()->name ), function () {
 		$current = FeedCollection::current();
+		$feeds = $current->feeds();
 		?>
+		<script type="text/javascript" charset="utf-8">
+		jQuery( document ).ready( function( $ ) {
+			$("#feed_form .add_feed").click(function(e) {
+				e.preventDefault();
+				
+				var input_html = '<input type="text" name="feedcollection[feeds][new][]" value="" class="large-text" />';
+				$(input_html).insertAfter("#feed_form input:last");
+				
+				return false;
+			});
+		});
+		</script>
+		
 		<form action="<?php echo admin_url( 'options-general.php?page=' . HANDLE ) ?>" method="post">
 			<input type="hidden" name="choose_template_id" value="<?php echo $current->id ?>">
 			
 			<table class="form-table">
 				<tbody>
+					<tr valign="top">
+						<th scope="row" colspan="2">
+							<h4><?php echo \MultiFeedReader\t( 'Feeds' ) ?></h4>
+						</th>
+					</tr>
+					<tr valign="top">
+						<th></th>
+						<td scope="row" id="feed_form">
+							<?php foreach ( $feeds as $feed ): ?>
+								<input type="text" name="feedcollection[feeds][<?php echo $feed->id ?>]" value="<?php echo $feed->url; ?>" class="large-text" />
+							<?php endforeach; ?>
+							<a href="#" class="add_feed">Add Feed</a>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row" colspan="2">
+							<h4><?php echo \MultiFeedReader\t( 'Template Options' ) ?></h4>
+						</th>
+					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<?php echo \MultiFeedReader\t( 'Template Name' ) ?>
