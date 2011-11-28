@@ -116,6 +116,21 @@ abstract class Base
 		return (int) $wpdb->get_var( $wpdb->prepare( $sql ) );
 	}
 	
+	public static function find_by_id( $id ) {
+		global $wpdb;
+		
+		$class = get_called_class();
+		$model = new $class();
+		$model->flag_as_not_new();
+		
+		$row = $wpdb->get_row( 'SELECT * FROM ' . self::table_name() . ' WHERE id = ' . (int) $id );
+		foreach ( $row as $property => $value ) {
+			$model->$property = $value;
+		}
+		
+		return $model;
+	}
+	
 	/**
 	 * Retrieve first item from the table.
 	 * 

@@ -195,6 +195,14 @@ function display_edit_page() {
 			</form>
 			<?php
 		});
+		
+		postbox( wp_sprintf( \MultiFeedReader\t( 'Settings for %1s Collection' ), FeedCollection::current()->name ), function () {
+			$collection = FeedCollection::current();
+			
+			echo "<pre>";
+			var_dump($collection);
+			echo "</pre>";
+		});
 	}
 
 }
