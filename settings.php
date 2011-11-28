@@ -46,6 +46,19 @@ function postbox( $name, $content ) {
  *     have some kind of interface to plug different page classes
  */
 function initialize() {
+	// UPDATE action
+	if ( isset( $_POST[ 'feedcollection' ] ) ) {
+		$current = FeedCollection::current();
+		// TODO iterate properties, not POST entries
+		foreach ( FeedCollection::property_names() as $property ) {
+			if ( isset( $_POST[ 'feedcollection' ][ $property ] ) ) {
+				$current->$property = $_POST[ 'feedcollection' ][ $property ];
+			}
+		}
+		$current->save();
+	}
+	
+	// CREATE action
 	if ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
 		$name = $_POST[ 'mfr_new_feedcollection_name' ];
 		$fc = new FeedCollection();
@@ -141,16 +154,7 @@ function display_creator_metabox() {
  * 
  */
 function display_edit_page() {
-	if ( FeedCollection::count() === 1 ) {
-		postbox( FeedCollection::first()->name, function () {
-			$collection = FeedCollection::first();
-			
-			echo "<pre>";
-			var_dump($collection);
-			echo "</pre>";
-		});
-		
-	} else {
+	if ( FeedCollection::count() > 1 ) {
 		postbox( \MultiFeedReader\t( 'Choose Template' ), function () {
 			$all = FeedCollection::all();
 			?>
@@ -195,15 +199,60 @@ function display_edit_page() {
 			</form>
 			<?php
 		});
-		
-		postbox( wp_sprintf( \MultiFeedReader\t( 'Settings for %1s Collection' ), FeedCollection::current()->name ), function () {
-			$collection = FeedCollection::current();
-			
-			echo "<pre>";
-			var_dump($collection);
-			echo "</pre>";
-		});
 	}
+	
+	postbox( wp_sprintf( \MultiFeedReader\t( 'Settings for "%1s" Collection' ), FeedCollection::current()->name ), function () {
+		$current = FeedCollection::current();
+		?>
+		<form action="<?php echo admin_url( 'options-general.php?page=' . HANDLE ) ?>" method="post">
+			<input type="hidden" name="choose_template_id" value="<?php echo $current->id ?>">
+			
+			<table class="form-table">
+				<tbody>
+					<tr valign="top">
+						<th scope="row">
+							<?php echo \MultiFeedReader\t( 'Template Name' ) ?>
+						</th>
+						<td>
+							<input type="text" name="feedcollection[name]" value="<?php echo $current->name ?>" class="large-text">
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<?php echo \MultiFeedReader\t( 'Before Template' ) ?>
+						</th>
+						<td>
+							<textarea name="feedcollection[before_template]" rows="10" class="large-text"><?php echo $current->before_template ?></textarea>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<?php echo \MultiFeedReader\t( 'Body Template' ) ?>
+						</th>
+						<td>
+							<textarea name="feedcollection[body_template]" rows="10" class="large-text"><?php echo $current->body_template ?></textarea>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<?php echo \MultiFeedReader\t( 'After Template' ) ?>
+						</th>
+						<td>
+							<textarea name="feedcollection[after_template]" rows="10" class="large-text"><?php echo $current->after_template ?></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php _e( 'Save Changes' ) ?>" style="float:right" />
+				<input type="submit" class="button-secondary" style="color:#BC0B0B; margin-right:20px; float: right" name="delete" value="<?php echo \MultiFeedReader\t( 'delete permanently' ) ?>">
+			</p>
+			
+			<br class="clear" />
+		</form>
+		<?php
+	});
 
 }
 
@@ -216,12 +265,12 @@ function display_add_page() {
 				<tbody>
 					<tr>
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'New Feedcollection Name' ) ?>
+							<?php echo \MultiFeedReader\t( 'New Feedcollection Name' ); ?>
 						</th>
 						<td>
 							<input type="text" name="mfr_new_feedcollection_name" value="" id="mfr_new_feedcollection_name" class="large-text">
 							<p>
-								<small><?php echo \MultiFeedReader\t( 'This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection "rockstar", then you can use it with the shortcode <em>[multi-feed-reader template="rockstar"]</em>' ) ?></small>
+								<small><?php echo \MultiFeedReader\t( 'This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection "rockstar", then you can use it with the shortcode <em>[multi-feed-reader template="rockstar"]</em>' ); ?></small>
 							</p>
 						</td>
 					</tr>
@@ -229,12 +278,12 @@ function display_add_page() {
 			</table>
 
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Add New Feedcollection' ) ?>" />
+				<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Add New Feedcollection' ); ?>" />
 			</p>
 			
 			<br class="clear" />
 			
 		</form>
 		<?php
-	});
+	} );
 }

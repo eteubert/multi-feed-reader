@@ -91,7 +91,7 @@ abstract class Base
 	 * 
 	 * @return array property names
 	 */
-	private static function property_names() {
+	public static function property_names() {
 		return array_map( function ( $p ) { return $p[ 'name' ]; }, self::properties() );
 	}
 	
@@ -205,12 +205,25 @@ abstract class Base
 			;
 			$success = $wpdb->query( $sql );
 		} else {
-			throw new \Exception("missing implementation");
+			$sql = 'UPDATE ' . self::table_name()
+			     . ' SET '
+			     . implode( ',', array_map( array( $this, 'property_name_to_sql_update_statement' ), self::property_names() ) )
+			     . ' WHERE id = ' . $this->id
+			;
+			$success = $wpdb->query( $sql );
 		}
 		
 		$this->is_new = false;
 		
 		return $success;
+	}
+
+	private function property_name_to_sql_update_statement( $p ) {
+		if ( $this->$p ) {
+			return "$p = '{$this->$p}'";
+		} else {
+			return "$p = $p";
+		}
 	}
 	
 	private function property_name_to_sql_value( $p ) {
