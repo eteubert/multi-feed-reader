@@ -151,9 +151,48 @@ function display_edit_page() {
 		});
 		
 	} else {
-		postbox( \MultiFeedReader\t( 'Not Yet Implemented' ), function () {
+		postbox( \MultiFeedReader\t( 'Choose Template' ), function () {
+			$all = FeedCollection::all();
 			?>
-			<p>Sorry, I don't know how to handle multiple thingies :/</p>
+			<form action="<?php echo admin_url( 'options-general.php' ) ?>" method="get">
+				<input type="hidden" name="page" value="<?php echo HANDLE ?>">
+
+				<script type="text/javascript" charset="utf-8">
+					jQuery( document ).ready( function() {
+						// hide button only if js is enabled
+						jQuery( '#choose_template_button' ).hide();
+						// if js is enabled, auto-submit form on change
+						jQuery( '#choose_template_id' ).change( function() {
+							this.form.submit();
+						} );
+					});
+				</script>
+
+				<table class="form-table">
+					<tbody>
+						<tr>
+							<th scope="row">
+								<?php echo \MultiFeedReader\t( 'Template to Edit' ) ?>
+							</th>
+							<td>
+								<select name="choose_template_id" id="choose_template_id" style="width:99%">
+									<?php foreach ( $all as $c ): ?>
+										<?php $selected = ( $_REQUEST[ 'choose_template_id' ] == $c->id ) ? 'selected="selected"' : ''; ?>
+										<option value="<?php echo $c->id ?>" <?php echo $selected ?>><?php echo $c->name ?></option>
+									<?php endforeach ?>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p class="submit" id="choose_template_button">
+					<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Choose Template' ) ?>" />
+				</p>
+
+				<br class="clear" />
+
+			</form>
 			<?php
 		});
 	}

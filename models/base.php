@@ -137,6 +137,30 @@ abstract class Base
 	}
 	
 	/**
+	 * Retrieve all entries from the table.
+	 * 
+	 * @return array list of model objects
+	 */
+	public static function all() {
+		global $wpdb;
+		
+		$class = get_called_class();
+		$models = array();
+		
+		$rows = $wpdb->get_results( 'SELECT * FROM ' . self::table_name() );
+		foreach ( $rows as $row ) {
+			$model = new $class();
+			$model->flag_as_not_new();
+			foreach ( $row as $property => $value ) {
+				$model->$property = $value;
+			}
+			$models[] = $model;
+		}
+		
+		return $models;
+	}
+	
+	/**
 	 * True if not yet saved to database. Else false.
 	 */
 	public function is_new() {
