@@ -65,7 +65,9 @@ function initialize() {
 					continue;
 				}
 				$feed = Feed::find_by_id( $feed_id );
-				if ( $feed->url != $feed_url ) {
+				if ( empty( $feed_url ) ) {
+					$feed->delete();
+				} else if ( $feed->url != $feed_url ) {
 					$feed->url = $feed_url;
 					$feed->save();
 				}

@@ -217,12 +217,21 @@ abstract class Base
 		
 		return $success;
 	}
+	
+	public function delete() {
+		global $wpdb;
+		
+		$sql = 'DELETE FROM '
+		     . self::table_name()
+		     . ' WHERE id = ' . $this->id;
+		return $wpdb->query( $sql );
+	}
 
 	private function property_name_to_sql_update_statement( $p ) {
 		if ( $this->$p ) {
 			return "$p = '{$this->$p}'";
 		} else {
-			return "$p = $p";
+			return "$p = NULL";
 		}
 	}
 	
