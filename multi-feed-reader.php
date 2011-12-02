@@ -34,7 +34,13 @@ function shortcode( $attributes ) {
 		)
 	);
 	
-	echo $template;
+	$collection = Models\FeedCollection::find_one_by_name( $template );
+	$feeds      = $collection->feeds();
+	
+	echo "<pre>";
+	var_dump( $feeds );
+	echo "</pre>";
+	
 }
 
 function add_menu_entry() {

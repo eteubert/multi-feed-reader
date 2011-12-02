@@ -130,6 +130,40 @@ abstract class Base
 		
 		return $model;
 	}
+
+	public static function find_one_by_property( $property, $value ) {
+		global $wpdb;
+		
+		$class = get_called_class();
+		$model = new $class();
+		$model->flag_as_not_new();
+		
+		$row = $wpdb->get_row(
+			'SELECT * FROM ' . self::table_name() . ' WHERE ' . $property .  ' = \'' . $value . '\' LIMIT 0,1'
+		);
+		
+		foreach ( $row as $property => $value ) {
+			$model->$property = $value;
+		}
+		
+		return $model;
+	}
+
+	// mimic ::find_by_<property>
+	public static function __callStatic( $name, $arguments ) {
+		
+		$property = preg_replace_callback(
+			"/^find_one_by_(\w+)$/",
+			function ( $property ) { return $property[1]; },
+			$name
+		);
+		
+		if ( $property !== $name ) {
+			return self::find_one_by_property( $property, $arguments[0] );
+		} else {
+			throw new \Exception("Fatal Error: Call to unknown static method $name.");
+		}
+  }
 	
 	/**
 	 * Retrieve first item from the table.
