@@ -37,9 +37,12 @@ function shortcode( $attributes ) {
 	$collection = Models\FeedCollection::find_one_by_name( $template );
 	$feeds      = $collection->feeds();
 	
-	echo "<pre>";
-	var_dump( $feeds );
-	echo "</pre>";
+	echo $collection->before_template;
+	foreach ( $feeds as $feed ) {
+		$feed->parse();
+		echo $collection->body_template;
+	}
+	echo $collection->after_template;
 	
 }
 

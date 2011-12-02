@@ -1,8 +1,48 @@
 <?php
 namespace MultiFeedReader\Models;
 
+function xpath( $xml, $path ) {
+	$element = $xml->xpath( $path );
+	return $element[ 0 ];
+}
+
 class Feed extends Base
 {
+	public function parse() {
+		$result = array();
+
+		$xml_string = file_get_contents( $this->url );
+		$xml = new \SimpleXMLElement( $xml_string );
+		
+		$result[ 'feed' ] = array(
+			'title'    => (string) xpath( $xml, './channel/title' ),
+			'link'     => (string) xpath( $xml, './channel/link'),
+			'subtitle' => (string) xpath( $xml, './channel/itunes:subtitle'),
+			'summary'  => (string) xpath( $xml, './channel/itunes:summary'),
+			'image'    => (string) xpath( $xml, './channel/itunes:image[1]')->attributes()->href
+		);
+		
+		$result[ 'items' ] = array();
+		
+		$items = $xml->xpath( './channel/item' );
+		foreach ( $items as $item ) {
+			$result[ 'items' ][] = array(
+				'content'     => (string) xpath( $item, './content:encoded'),
+				'duration'    => (string) xpath( $item, './itunes:duration'),
+				'subtitle'    => (string) xpath( $item, './itunes:subtitle'),
+				'summary'     => (string) xpath( $item, './itunes:summary'),
+				'title'       => (string) xpath( $item, './title'),
+				'link'        => (string) xpath( $item, './link'),
+				'pubDate'     => (string) xpath( $item, './pubDate'),
+				'guid'        => (string) xpath( $item, './guid'),
+				'description' => (string) xpath( $item, './itunes:description'),
+				'enclosure'   => (string) xpath( $item, './enclosure[1]')->attributes()->url
+			);
+		}
+		
+		return $result;
+	}
+	
 	public static function find_by_feed_collection_id( $id ) {
 		global $wpdb;
 
