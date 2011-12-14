@@ -37,9 +37,22 @@ function shortcode( $attributes ) {
 	$collection = Models\FeedCollection::find_one_by_name( $template );
 	$feeds      = $collection->feeds();
 	
-	echo $collection->before_template;
+	$feed_items = array();
 	foreach ( $feeds as $feed ) {
-		$feed->parse();
+		$parsed = $feed->parse();
+		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
+	}
+	
+	// order by publication date
+	usort( $feed_items, function ( $a, $b ) {
+	    if ( $a[ 'pubDateTime' ] == $b[ 'pubDateTime' ] ) {
+	        return 0;
+	    }
+	    return ( $a[ 'pubDateTime' ] > $b[ 'pubDateTime' ] ) ? -1 : 1;
+	} );
+	
+	echo $collection->before_template;
+	foreach ( $feed_items as $item ) {
 		echo $collection->body_template;
 	}
 	echo $collection->after_template;

@@ -34,6 +34,7 @@ class Feed extends Base
 				'title'       => (string) xpath( $item, './title'),
 				'link'        => (string) xpath( $item, './link'),
 				'pubDate'     => (string) xpath( $item, './pubDate'),
+				'pubDateTime' => strtotime( xpath( $item, './pubDate' ) ),
 				'guid'        => (string) xpath( $item, './guid'),
 				'description' => (string) xpath( $item, './itunes:description'),
 				'enclosure'   => (string) xpath( $item, './enclosure[1]')->attributes()->url
