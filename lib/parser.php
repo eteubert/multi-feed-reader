@@ -16,7 +16,9 @@ function parse( $template, $values ) {
 	$template = str_replace( '%GUID%', $values[ 'guid' ], $template );
 	$template = str_replace( '%DESCRIPTION%', $values[ 'description' ], $template );
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );
-    // $template = str_replace( '%THUMB%', '<img src="' . $values[ 'thumbnail' ] . '" />', $template );
+
+    // insert thumbnail, optional dimensions (width x height)
+    // Examples: %THUMBNAIL%, %THUMBNAIL|50x50%
     $template = preg_replace_callback( '/%THUMBNAIL(?:\|(\d+)x(\d+))?%/', function ( $matches ) use ( $values ) {
         $src = $values[ 'thumbnail' ];
         
