@@ -26,9 +26,27 @@ class Feed extends Base
 		
 		$items = $xml->xpath( './channel/item' );
 		foreach ( $items as $item ) {
+		    $encoded_content = (string) xpath( $item, './content:encoded');
+            
+            // extract feature image
+            // TODO there must be a better / more stable way?
+            // <itunes:image> is also supported on episode level!
+            $doc = new \DOMDocument();
+            $doc->loadHTML( $encoded_content );
+            $xml2 = simplexml_import_dom( $doc );
+            $images = $xml2->xpath('//img');
+            foreach ( $images as $image ) {
+                if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 ) {
+                    $thumbnail = $image[ 'src' ];
+                    break;
+                }
+            }
+            
 			$result[ 'items' ][] = array(
-				'content'     => (string) xpath( $item, './content:encoded'),
+				'content'     => $encoded_content,
 				'duration'    => (string) xpath( $item, './itunes:duration'),
+                'thumbnail'   => (string) $thumbnail,
+                // 'thumbnail'   => (string) xpath( $item, './itunes:image[1]')->attributes()->href,
 				'subtitle'    => (string) xpath( $item, './itunes:subtitle'),
 				'summary'     => (string) xpath( $item, './itunes:summary'),
 				'title'       => (string) xpath( $item, './title'),

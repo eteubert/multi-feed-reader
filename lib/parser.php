@@ -16,6 +16,22 @@ function parse( $template, $values ) {
 	$template = str_replace( '%GUID%', $values[ 'guid' ], $template );
 	$template = str_replace( '%DESCRIPTION%', $values[ 'description' ], $template );
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );
+    // $template = str_replace( '%THUMB%', '<img src="' . $values[ 'thumbnail' ] . '" />', $template );
+    $template = preg_replace_callback( '/%THUMBNAIL(?:\|(\d+)x(\d+))?%/', function ( $matches ) use ( $values ) {
+        $src = $values[ 'thumbnail' ];
+        
+        if ( $src ) {
+            if ( $matches[ 1 ] && $matches[ 2 ] ) {
+                $out = '<img src="' . $src . '" width="' . $matches[ 1 ] .  '" height="' . $matches[ 2 ] .  '" />';
+            } else {
+                $out = '<img src="' . $src . '" />';
+            }
+        } else {
+            $out = '';
+        }
+        
+        return $out;
+    }, $template );
 	
 	return $template;
 }
