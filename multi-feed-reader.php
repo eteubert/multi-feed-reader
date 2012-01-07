@@ -51,7 +51,6 @@ function shortcode( $attributes ) {
 	    return ( $a[ 'pubDateTime' ] > $b[ 'pubDateTime' ] ) ? -1 : 1;
 	} );
 	
-	// TODO: need feed data somehow ...
 	echo $collection->before_template;
 	foreach ( $feed_items as $item ) {
 		echo Parser\parse( $collection->body_template, $item );
