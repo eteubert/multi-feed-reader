@@ -24,6 +24,8 @@ function initialize() {
 }
 add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
+// TODO destroy hook: remove database tables
+
 function shortcode( $attributes ) {
 	extract(
 		shortcode_atts(
