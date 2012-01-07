@@ -123,7 +123,7 @@ function initialize() {
 			<div class="inner-sidebar">
 
 				<?php display_creator_metabox(); ?>
-
+                <?php display_help_metabox(); ?>
 				<!-- ... more boxes ... -->
 
 			</div> <!-- .inner-sidebar -->
@@ -169,6 +169,33 @@ function display_creator_metabox() {
 		<p>
 			<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
 		</p>
+		<?php
+	});
+}
+
+function display_help_metabox() {
+    postbox( \MultiFeedReader\t( 'Placeholders' ), function () {
+		?>
+        <style type="text/css" media="screen">
+    		.inline-pre pre {
+    			display: inline !important;
+    		}
+    	</style>
+    	<div class="inline-pre">
+    	   <p>
+           	<pre>%TITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode title (&lt;title&gt;).' ); ?><br/><br/>
+           	<pre>%SUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode subtitle (&lt;itunes:subtitle&gt;).' ); ?><br/><br/>
+           	<pre>%CONTENT%</pre><br/><?php echo \MultiFeedReader\t( 'Episode content (&lt;content:encoded&gt;).' ); ?><br/><br/>
+           	<pre>%DURATION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode duration (&lt;itunes:duration&gt;).' ); ?><br/><br/>
+           	<pre>%SUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Episode summary (&lt;itunes:summary&gt;).' ); ?><br/><br/>
+           	<pre>%LINK%</pre><br/><?php echo \MultiFeedReader\t( 'Episode link (&lt;link&gt;).' ); ?><br/><br/>
+           	<pre>%GUID%</pre><br/><?php echo \MultiFeedReader\t( 'Episode Globally Unique Identifier (&lt;guid&gt;)' ); ?><br/><br/>
+           	<pre>%DESCRIPTION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode description (&lt;itunes:description&gt;).' ); ?><br/><br/>
+           	<pre>%ENCLOSURE%</pre><br/><?php echo \MultiFeedReader\t( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).' ); ?><br/><br/>
+            <pre>%THUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).' ); ?><br/><br/>
+            <pre>%THUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.' ); ?><br/><br/>
+    	   </p>
+    	</div>
 		<?php
 	});
 }
