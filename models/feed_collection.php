@@ -35,6 +35,13 @@ class FeedCollection extends Base
 	public function feeds() {
 		return \MultiFeedReader\Models\Feed::find_by_feed_collection_id( $this->id );
 	}
+	
+	/**
+	 * Delete cached HTML.
+	 */
+	public function delete_cache() {
+	   delete_transient( \MultiFeedReader\get_cache_key( $this->name ) );
+	}
 }
 
 FeedCollection::property( 'id', 'INT NOT NULL AUTO_INCREMENT PRIMARY KEY' );

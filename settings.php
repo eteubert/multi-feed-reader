@@ -83,6 +83,7 @@ function initialize() {
 				}
 			}
 		}
+        $current->delete_cache();
 		
 	}
 	
