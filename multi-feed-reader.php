@@ -36,13 +36,17 @@ function shortcode( $attributes ) {
 		)
 	);
 	
-	$cache_key = 'multi_feed_result_for_' . substr( sha1( $template ), 0, 6 );
+	$cache_key = get_cache_key( $template );
     if ( false === ( $out = get_transient( $cache_key ) ) ) {
         $out = generate_html_by_template( $template );
         set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
     }
 
 	echo $out;
+}
+
+function get_cache_key( $template ) {
+    return 'multi_feed_result_for_' . substr( sha1( $template ), 0, 6 );
 }
 
 function generate_html_by_template( $template ) {
