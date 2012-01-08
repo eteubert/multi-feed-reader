@@ -36,15 +36,25 @@ function shortcode( $attributes ) {
 		)
 	);
 	
-	$collection = Models\FeedCollection::find_one_by_name( $template );
+	$cache_key = 'multi_feed_result_for_' . substr( sha1( $template ), 0, 6 );
+    if ( false === ( $out = get_transient( $cache_key ) ) ) {
+        $out = generate_html_by_template( $template );
+        set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
+    }
+
+	echo $out;
+}
+
+function generate_html_by_template( $template ) {
+    $collection = Models\FeedCollection::find_one_by_name( $template );
 	$feeds      = $collection->feeds();
-	
+
 	$feed_items = array();
 	foreach ( $feeds as $feed ) {
 		$parsed = $feed->parse();
 		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
 	}
-	
+
 	// order by publication date
 	usort( $feed_items, function ( $a, $b ) {
 	    if ( $a[ 'pubDateTime' ] == $b[ 'pubDateTime' ] ) {
@@ -53,13 +63,13 @@ function shortcode( $attributes ) {
 	    return ( $a[ 'pubDateTime' ] > $b[ 'pubDateTime' ] ) ? -1 : 1;
 	} );
 	
-	// FIXME http://codex.wordpress.org/Transients_API
-	echo $collection->before_template;
+	$out = $collection->before_template;
 	foreach ( $feed_items as $item ) {
-		echo Parser\parse( $collection->body_template, $item );
+		$out .= Parser\parse( $collection->body_template, $item );
 	}
-	echo $collection->after_template;
+	$out .= $collection->after_template;
 	
+	return $out;
 }
 
 function add_menu_entry() {
