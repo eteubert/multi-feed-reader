@@ -13,6 +13,7 @@ namespace MultiFeedReader;
 
 /**
  * @todo custom constant definitions should go somewhere else
+ * @todo FIXME adding new feed does not change to edit template
  */
 const DEFAULT_TEMPLATE = 'default';
 

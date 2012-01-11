@@ -10,6 +10,24 @@ use MultiFeedReader\Models\FeedCollection as FeedCollection;
 use MultiFeedReader\Models\Feed as Feed;
 
 const HANDLE = 'multi_feed_reader_handle';
+const DEFAULT_BEFORE_TEMPLATE = '<table>
+<thead>
+<th style="width:74px"></th>
+<th>Titel</th>
+<th>Dauer</th>
+</thead>
+<tbody>';
+const DEFAULT_BODY_TEMPLATE = '<tr class="podcast_archive_element">
+	<td class="thumbnail">%THUMBNAIL|64x64%</td>
+	<td class="title" style="vertical-align:top">
+		<a href="%LINK%"><strong>%TITLE%</strong></a><br/><em>%SUBTITLE%</em>
+	</td>
+	<td class="duration" style="vertical-align:top">
+		%DURATION%
+	</td>
+</tr>';
+const DEFAULT_AFTER_TEMPLATE = '</tbody>
+</table>';
 
 /**
  * Postbox helper function.
@@ -92,6 +110,9 @@ function initialize() {
 		$name = $_POST[ 'mfr_new_feedcollection_name' ];
 		$fc = new FeedCollection();
 		$fc->name = $name;
+		$fc->before_template = DEFAULT_BEFORE_TEMPLATE;
+		$fc->body_template = DEFAULT_BODY_TEMPLATE;
+		$fc->after_template = DEFAULT_AFTER_TEMPLATE;
 		
 		// $collection = FeedCollection::create_by_id( $id );
 		if ( ! $fc->save() ) {
@@ -289,9 +310,13 @@ function display_edit_page() {
 					<tr valign="top">
 						<th></th>
 						<td scope="row" id="feed_form">
-							<?php foreach ( $feeds as $feed ): ?>
-								<input type="text" name="feedcollection[feeds][<?php echo $feed->id ?>]" value="<?php echo $feed->url; ?>" class="large-text" />
-							<?php endforeach; ?>
+							<?php if ( $feeds ): ?>
+								<?php foreach ( $feeds as $feed ): ?>
+									<input type="text" name="feedcollection[feeds][<?php echo $feed->id ?>]" value="<?php echo $feed->url; ?>" class="large-text" />
+								<?php endforeach; ?>
+							<?php else: ?>
+								<input type="text" name="feedcollection[feeds][new][]" value="" class="large-text" />
+							<?php endif; ?>
 							<a href="#" class="add_feed">Add Feed</a>
 						</td>
 					</tr>
