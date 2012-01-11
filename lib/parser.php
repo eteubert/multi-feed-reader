@@ -16,6 +16,16 @@ function parse( $template, $values ) {
 	$template = str_replace( '%GUID%', $values[ 'guid' ], $template );
 	$template = str_replace( '%DESCRIPTION%', $values[ 'description' ], $template );
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );
+	$template = str_replace( '%DATE%', date( get_option( 'date_format' ), $values[ 'pubDateTime' ] ), $template );
+	
+	// custom date format
+	$template = preg_replace_callback(
+	    '/%DATE\|(.*)%/',
+	    function ( $matches ) use ( $values ) {
+	        return date( $matches[ 1 ], $values[ 'pubDateTime' ] );
+	    },
+	 	$template
+	 );
 
     // insert thumbnail, optional dimensions (width x height)
     // Examples: %THUMBNAIL%, %THUMBNAIL|50x50%
