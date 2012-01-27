@@ -46,25 +46,7 @@ function postbox( $name, $content ) {
 	<?php
 }
 
-/**
- * @todo the whole template can probably be abstracted away
- * @todo reduce set_tab() to only receive the name and auto-deduce id from name
- * 
- * something like
- *   $settings_page = new TwoColumnSettingsPage()
- *   $tabs = new \MultiFeedReader\Lib\Tabs;
- *   // configure tabs ...
- *   $settings_page->add_tabs( $tabs );
- * 
- *   - display of content naming-convention based
- *   - needs a flexible soution for sidebar, though; first step might be to
- *     redefine sidebar for each tab separately
- *   - bonus abstraction: intelligently display page based on whether there
- *     are tabs or not
- *   - next bonus abstraction: Also implement SingleColumnSettingsPage() and
- *     have some kind of interface to plug different page classes
- */
-function initialize() {
+function process_forms() {
 	// UPDATE action
 	if ( isset( $_POST[ 'feedcollection' ] ) ) {
 		$current = FeedCollection::current();
@@ -123,9 +105,37 @@ function initialize() {
 				</p>
 			</div>
 			<?php
+		} else {
+			wp_redirect(
+				admin_url(
+					'options-general.php?page=' . $_REQUEST[ 'page' ]
+					. '&choose_template_id=' . $fc->id )
+			);
+			exit;
 		}
 	}
-	
+}
+add_action( 'admin_init', 'MultiFeedReader\Settings\process_forms' );
+
+/**
+ * @todo the whole template can probably be abstracted away
+ * @todo reduce set_tab() to only receive the name and auto-deduce id from name
+ * 
+ * something like
+ *   $settings_page = new TwoColumnSettingsPage()
+ *   $tabs = new \MultiFeedReader\Lib\Tabs;
+ *   // configure tabs ...
+ *   $settings_page->add_tabs( $tabs );
+ * 
+ *   - display of content naming-convention based
+ *   - needs a flexible soution for sidebar, though; first step might be to
+ *     redefine sidebar for each tab separately
+ *   - bonus abstraction: intelligently display page based on whether there
+ *     are tabs or not
+ *   - next bonus abstraction: Also implement SingleColumnSettingsPage() and
+ *     have some kind of interface to plug different page classes
+ */
+function initialize() {
 	$tabs = new \MultiFeedReader\Lib\Tabs;
 	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Feedcollection' ) );
 	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Feedcollection' ) );

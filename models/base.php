@@ -222,6 +222,8 @@ abstract class Base
 	
 	/**
 	 * Saves changes to database.
+	 * 
+	 * @todo use wpdb::insert()
 	 */
 	public function save() {
 		global $wpdb;
@@ -238,6 +240,9 @@ abstract class Base
 			     . ' );'
 			;
 			$success = $wpdb->query( $sql );
+			if ( $success ) {
+				$this->id = mysql_insert_id();
+			}
 		} else {
 			$sql = 'UPDATE ' . self::table_name()
 			     . ' SET '
