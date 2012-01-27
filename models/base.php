@@ -142,6 +142,10 @@ abstract class Base
 			'SELECT * FROM ' . self::table_name() . ' WHERE ' . $property .  ' = \'' . $value . '\' LIMIT 0,1'
 		);
 		
+		if ( ! $row ) {
+			return NULL;
+		}
+		
 		foreach ( $row as $property => $value ) {
 			$model->$property = $value;
 		}

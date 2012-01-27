@@ -90,26 +90,30 @@ function process_forms() {
 	// CREATE action
 	if ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
 		$name = $_POST[ 'mfr_new_feedcollection_name' ];
-		$fc = new FeedCollection();
-		$fc->name = $name;
-		$fc->before_template = DEFAULT_BEFORE_TEMPLATE;
-		$fc->body_template = DEFAULT_BODY_TEMPLATE;
-		$fc->after_template = DEFAULT_AFTER_TEMPLATE;
-		
-		// $collection = FeedCollection::create_by_id( $id );
-		if ( ! $fc->save() ) {
-			?>
-			<div class="error">
-				<p>
-					<?php echo wp_sprintf( \MultiFeedReader\t( 'Feedcollection "%1s" already exists.' ), $name ) ?>
-				</p>
-			</div>
-			<?php
+		$existing = FeedCollection::find_one_by_name( $name );
+
+		if ( ! $existing ) {
+			$fc = new FeedCollection();
+			$fc->name = $name;
+			$fc->before_template = DEFAULT_BEFORE_TEMPLATE;
+			$fc->body_template = DEFAULT_BODY_TEMPLATE;
+			$fc->after_template = DEFAULT_AFTER_TEMPLATE;
+			$fc->save();
+			
+			wp_redirect(
+				admin_url(
+					'options-general.php?page=' . $_REQUEST[ 'page' ]
+					. '&choose_template_id=' . $fc->id
+				)
+			);
+			exit;
 		} else {
 			wp_redirect(
 				admin_url(
 					'options-general.php?page=' . $_REQUEST[ 'page' ]
-					. '&choose_template_id=' . $fc->id )
+					. '&tab=add'
+					. '&message=fc_exists'
+				)
 			);
 			exit;
 		}
@@ -149,6 +153,21 @@ function initialize() {
 
 		<div id="icon-options-general" class="icon32"></div>
 		<?php $tabs->display() ?>
+		
+		<?php if ( ! empty( $_REQUEST[ 'message' ] ) ): ?>
+			<div id="message" class="updated">
+				<p>
+					<?php
+					switch ( $_REQUEST[ 'message' ] ) {
+						case 'fc_exists':
+							_e( 'Feedcollection already exists. Please choose another name.' );
+							break;
+					}
+					?>
+				</p>
+			</div>
+		<?php endif; ?>
+		
 
 		<div class="metabox-holder has-right-sidebar">
 
