@@ -47,10 +47,16 @@ function postbox( $name, $content ) {
 }
 
 function process_forms() {
-	// UPDATE action
-	if ( isset( $_POST[ 'feedcollection' ] ) ) {
+	// DELETE action
+	if ( isset( $_POST[ 'delete' ] ) ) {
 		$current = FeedCollection::current();
-		// TODO iterate properties, not POST entries
+		if ( $current ) {
+			$current->delete();
+			// TODO delete sub feeds
+		}
+	// UPDATE action
+	} elseif ( isset( $_POST[ 'feedcollection' ] ) ) {
+		$current = FeedCollection::current();
 		foreach ( FeedCollection::property_names() as $property ) {
 			if ( isset( $_POST[ 'feedcollection' ][ $property ] ) ) {
 				$current->$property = $_POST[ 'feedcollection' ][ $property ];
@@ -85,10 +91,8 @@ function process_forms() {
 		}
         $current->delete_cache();
 		
-	}
-	
 	// CREATE action
-	if ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
+	} elseif ( isset( $_POST[ 'mfr_new_feedcollection_name' ] ) ) {
 		$name = $_POST[ 'mfr_new_feedcollection_name' ];
 		$existing = FeedCollection::find_one_by_name( $name );
 

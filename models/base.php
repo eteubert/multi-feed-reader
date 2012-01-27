@@ -124,6 +124,11 @@ abstract class Base
 		$model->flag_as_not_new();
 		
 		$row = $wpdb->get_row( 'SELECT * FROM ' . self::table_name() . ' WHERE id = ' . (int) $id );
+		
+		if ( ! $row ) {
+			return NULL;
+		}
+		
 		foreach ( $row as $property => $value ) {
 			$model->$property = $value;
 		}
@@ -267,6 +272,7 @@ abstract class Base
 		$sql = 'DELETE FROM '
 		     . self::table_name()
 		     . ' WHERE id = ' . $this->id;
+
 		return $wpdb->query( $sql );
 	}
 
