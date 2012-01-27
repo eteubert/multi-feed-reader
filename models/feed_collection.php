@@ -10,9 +10,8 @@ class FeedCollection extends Base
 	 * @return FeedCollection
 	 */
 	public static function current() {
-		$id = (int) $_REQUEST[ 'choose_template_id' ];
-		
-		if ( $id ) {
+		if ( ! empty( $_REQUEST[ 'choose_template_id' ] ) ) {
+			$id = (int) $_REQUEST[ 'choose_template_id' ];
 			return self::find_by_id( $id );
 		} else {
 			return self::get_default();

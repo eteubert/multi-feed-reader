@@ -11,7 +11,8 @@ const TEXTDOMAIN = 'multi-feed-reader';
 // autoload all files in /lib
 spl_autoload_register( function ( $class_name ) { 
 	// get class name without namespace
-	$class_name = strtolower( array_pop( explode( '\\', $class_name ) ) );
+	$splitted_class = explode( '\\', $class_name );
+	$class_name     = strtolower( array_pop( $splitted_class ) );
 	// library directory
 	$lib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
 	

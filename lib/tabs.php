@@ -48,10 +48,12 @@ class Tabs
 			return $this->enforced_tab;
 		}
 		
-		foreach ( $this->tabs as $id => $name ) {
-			if ( $_REQUEST[ 'tab' ] == $id ) {
-				$current_tab = $id;
-				break;
+		if ( ! empty( $_REQUEST[ 'tab' ] ) ) {
+			foreach ( $this->tabs as $id => $name ) {
+				if ( $_REQUEST[ 'tab' ] == $id ) {
+					$current_tab = $id;
+					break;
+				}
 			}
 		}
 		
