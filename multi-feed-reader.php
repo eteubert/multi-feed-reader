@@ -21,8 +21,8 @@ if ( ! $correct_php_version ) {
  * @todo idea: namespace always reflects directory structure
  * not sure if this is a good thing but it would make autoloading truly awesome
  */
-// autoload all files in /lib
-function mfr_autoloader( $class_name ) { 
+// autoload all classes in /lib
+function mfr_autoloader( $class_name ) {
 	// get class name without namespace
 	$split  = explode( '\\', $class_name );
 	// remove "MultiFeedReader" namespace
@@ -34,8 +34,8 @@ function mfr_autoloader( $class_name ) {
 	
 	// class name without namespace
 	$class_name = array_pop( $split );
-	// camel case to snake case
-	$class_name = preg_replace('/([a-z])([A-Z])/', '$1_$2', $class_name );
+	// CamelCase to snake_case
+	$class_name = preg_replace( '/([a-z])([A-Z])/', '$1_$2', $class_name );
 
 	// the rest of the namespace, if any
 	$namespaces = $split;
@@ -50,8 +50,6 @@ function mfr_autoloader( $class_name ) {
 	} else {
 		$possibilities[] = strtolower( $lib . $class_name . '.php' );
 	}
-	
-	file_put_contents('/tmp/php.log', print_r($possibilities, true), FILE_APPEND | LOCK_EX);
 	
 	// search for the class
 	foreach ( $possibilities as $file ) {
