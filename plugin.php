@@ -1,13 +1,31 @@
 <?php
 namespace MultiFeedReader;
 
-function initialize() {
+$plugin_file = plugin_dir_path( __FILE__ ) . 'multi-feed-reader.php';
+register_activation_hook(   $plugin_file, __NAMESPACE__ . '\activate' );
+register_deactivation_hook( $plugin_file, __NAMESPACE__ . '\deactivate' );
+register_uninstall_hook(    $plugin_file, __NAMESPACE__ . '\uninstall' );
+
+function initialize() {	
 	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
 	add_action( 'admin_menu', 'MultiFeedReader\add_menu_entry' );
 }
 add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
-// TODO destroy hook: remove database tables
+
+function activate() {
+	MultiFeedReader\Models\Feed::build();
+	MultiFeedReader\Models\FeedCollection::build();
+}
+
+function deactivate() {
+
+}
+
+function uninstall() {
+	MultiFeedReader\Models\Feed::destroy();
+	MultiFeedReader\Models\FeedCollection::destroy();
+}
 
 function shortcode( $attributes ) {
 	extract(

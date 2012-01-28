@@ -54,4 +54,3 @@ FeedCollection::property( 'before_template', 'TEXT' );
 FeedCollection::property( 'body_template', 'TEXT' );
 FeedCollection::property( 'after_template', 'TEXT' );
 // FeedCollection::has_many( 'MultiFeedReader\Models\Feed', array( 'plural' => 'feeds' ) );
-FeedCollection::build();

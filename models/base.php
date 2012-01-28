@@ -339,5 +339,10 @@ abstract class Base
 		$table_name = strtolower( $table_name );
 		// prefix with $wpdb prefix
 		return $wpdb->prefix . $table_name;
-	}	
+	}
+	
+	public static function destroy() {
+		global $wpdb;
+		$wpdb->query( 'DROP TABLE ' . self::table_name() );
+	}
 }
