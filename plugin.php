@@ -1,10 +1,10 @@
 <?php
 namespace MultiFeedReader;
 
-$plugin_file = plugin_dir_path( __FILE__ ) . 'multi-feed-reader.php';
-register_activation_hook(   $plugin_file, __NAMESPACE__ . '\activate' );
-register_deactivation_hook( $plugin_file, __NAMESPACE__ . '\deactivate' );
-register_uninstall_hook(    $plugin_file, __NAMESPACE__ . '\uninstall' );
+
+register_activation_hook(   PLUGIN_FILE, __NAMESPACE__ . '\activate' );
+register_deactivation_hook( PLUGIN_FILE, __NAMESPACE__ . '\deactivate' );
+register_uninstall_hook(    PLUGIN_FILE, __NAMESPACE__ . '\uninstall' );
 
 function initialize() {	
 	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
@@ -25,6 +25,10 @@ function deactivate() {
 function uninstall() {
 	MultiFeedReader\Models\Feed::destroy();
 	MultiFeedReader\Models\FeedCollection::destroy();
+}
+
+function add_menu_entry() {
+	add_submenu_page( 'options-general.php', PLUGIN_NAME, PLUGIN_NAME, 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
 }
 
 function shortcode( $attributes ) {
@@ -75,8 +79,4 @@ function generate_html_by_template( $template ) {
 	$out .= $collection->after_template;
 	
 	return $out;
-}
-
-function add_menu_entry() {
-	add_submenu_page( 'options-general.php', PLUGIN_NAME, PLUGIN_NAME, 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
 }
