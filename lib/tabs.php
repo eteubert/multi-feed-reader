@@ -11,7 +11,6 @@ namespace MultiFeedReader;
  *   $tabs->set_default( 'edit' );
  *   $tabs->display();
  * 
- * @todo refactor into separate file /lib/settings/tabs.php
  */
 class Tabs
 {
