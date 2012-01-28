@@ -1,5 +1,5 @@
 <?php
-namespace MultiFeedReader\Lib;
+namespace MultiFeedReader;
 
 /**
  * A helper class to manage tabs in options pages.

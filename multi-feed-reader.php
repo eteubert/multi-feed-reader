@@ -24,15 +24,34 @@ if ( ! $correct_php_version ) {
 // autoload all files in /lib
 function mfr_autoloader( $class_name ) { 
 	// get class name without namespace
-	$splitted_class = explode( '\\', $class_name );
-	$class_name     = strtolower( array_pop( $splitted_class ) );
+	$split  = explode( '\\', $class_name );
+	// remove "MultiFeedReader" namespace
+	$plugin = array_shift( $split ); 
+	
+	// only load classes prefixed with <Plugin> namespace
+	if ( $plugin != "MultiFeedReader" )
+		return false;
+	
+	// class name without namespace
+	$class_name = array_pop( $split );
+	// camel case to snake case
+	$class_name = preg_replace('/([a-z])([A-Z])/', '$1_$2', $class_name );
+
+	// the rest of the namespace, if any
+	$namespaces = $split;
+
 	// library directory
 	$lib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
 	
 	// register all possible paths for the class
-	$possibilities = array(
-		$lib . $class_name . '.php'
-	);
+	$possibilities = array();
+	if ( count( $namespaces ) >= 1 ) {
+		$possibilities[] = strtolower( $lib . implode( DIRECTORY_SEPARATOR, $namespaces ) . DIRECTORY_SEPARATOR . $class_name . '.php' );
+	} else {
+		$possibilities[] = strtolower( $lib . $class_name . '.php' );
+	}
+	
+	file_put_contents('/tmp/php.log', print_r($possibilities, true), FILE_APPEND | LOCK_EX);
 	
 	// search for the class
 	foreach ( $possibilities as $file ) {
@@ -49,9 +68,6 @@ spl_autoload_register( 'mfr_autoloader' );
 require_once 'constants.php';
 require_once 'lib/general.php';
 require_once 'lib/parser.php';
-require_once 'models/base.php';
-require_once 'models/feed_collection.php';
-require_once 'models/feed.php';
 require_once 'settings.php';
 
 require_once 'plugin.php';

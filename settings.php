@@ -111,7 +111,7 @@ add_action( 'admin_init', 'MultiFeedReader\Settings\process_forms' );
  * 
  * something like
  *   $settings_page = new TwoColumnSettingsPage()
- *   $tabs = new \MultiFeedReader\Lib\Tabs;
+ *   $tabs = new \MultiFeedReader\Tabs;
  *   // configure tabs ...
  *   $settings_page->add_tabs( $tabs );
  * 
@@ -124,7 +124,7 @@ add_action( 'admin_init', 'MultiFeedReader\Settings\process_forms' );
  *     have some kind of interface to plug different page classes
  */
 function initialize() {
-	$tabs = new \MultiFeedReader\Lib\Tabs;
+	$tabs = new \MultiFeedReader\Tabs;
 	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Feedcollection' ) );
 	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Feedcollection' ) );
 	$tabs->set_default( 'edit' );
