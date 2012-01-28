@@ -15,7 +15,7 @@ define( 'PLUGIN_FILE', plugin_dir_path( __FILE__ ) . PLUGIN_FILE_NAME );
 /**
  * Get a value of the plugin header
  */
-function get_plugin_header( $value ) {
+function get_plugin_header( $tag_name ) {
 	static $plugin_data; // only load file once
 	
 	if ( ! function_exists( 'get_plugin_data' ) ) {
@@ -23,9 +23,8 @@ function get_plugin_header( $value ) {
 	}
 	
 	$plugin_data  = get_plugin_data( PLUGIN_FILE );
-	$plugin_value = $plugin_data[ $value ];
 	
-	return $plugin_value;
+	return $plugin_data[ $tag_name ];
 }
 
 define( 'PLUGIN_NAME', get_plugin_header( 'Name' ) );
