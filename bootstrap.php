@@ -29,6 +29,7 @@ spl_autoload_register( function ( $class_name ) {
 	return false;
 });
 
+require_once 'constants.php';
 require_once 'lib/general.php';
 require_once 'lib/parser.php';
 require_once 'models/base.php';

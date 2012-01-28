@@ -11,7 +11,6 @@ License: MIT
 
 namespace MultiFeedReader;
 
-require_once 'constants.php';
 require_once 'bootstrap.php';
 
 function initialize() {

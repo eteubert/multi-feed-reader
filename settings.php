@@ -316,12 +316,9 @@ function display_edit_page() {
 			<table class="form-table">
 				<tbody>
 					<tr valign="top">
-						<th scope="row" colspan="2">
+						<th scope="row">
 							<h4><?php echo \MultiFeedReader\t( 'Feeds' ) ?></h4>
 						</th>
-					</tr>
-					<tr valign="top">
-						<th></th>
 						<td scope="row" id="feed_form">
 							<?php if ( $feeds ): ?>
 								<?php foreach ( $feeds as $feed ): ?>
