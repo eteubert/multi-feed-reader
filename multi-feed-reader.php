@@ -9,68 +9,49 @@ Author URI: ericteubert@googlemail.com
 License: MIT
 */
 
-namespace MultiFeedReader;
+$correct_php_version = version_compare( phpversion(), "5.3", ">=" );
 
-require_once 'bootstrap.php';
-
-function initialize() {
-	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
-	add_action( 'admin_menu', 'MultiFeedReader\add_menu_entry' );
+if ( ! $correct_php_version ) {
+	echo "Multi Feed Reader requires <strong>PHP 5.3</strong> or higher.<br>";
+	echo "You are running PHP " . phpversion();
+	exit;
 }
-add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
-// TODO destroy hook: remove database tables
-
-function shortcode( $attributes ) {
-	extract(
-		shortcode_atts(
-			array(
-				'template' => DEFAULT_TEMPLATE
-			),
-			$attributes
-		)
+/**
+ * @todo idea: namespace always reflects directory structure
+ * not sure if this is a good thing but it would make autoloading truly awesome
+ */
+// autoload all files in /lib
+function mfr_autoloader( $class_name ) { 
+	// get class name without namespace
+	$splitted_class = explode( '\\', $class_name );
+	$class_name     = strtolower( array_pop( $splitted_class ) );
+	// library directory
+	$lib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
+	
+	// register all possible paths for the class
+	$possibilities = array(
+		$lib . $class_name . '.php'
 	);
 	
-	$cache_key = get_cache_key( $template );
-    if ( false === ( $out = get_transient( $cache_key ) ) ) {
-        $out = generate_html_by_template( $template );
-        set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
-    }
-
-	echo $out;
-}
-
-function get_cache_key( $template ) {
-    return 'multi_feed_result_for_' . substr( sha1( $template ), 0, 6 );
-}
-
-function generate_html_by_template( $template ) {
-    $collection = Models\FeedCollection::find_one_by_name( $template );
-	$feeds      = $collection->feeds();
-
-	$feed_items = array();
-	foreach ( $feeds as $feed ) {
-		$parsed = $feed->parse();
-		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
+	// search for the class
+	foreach ( $possibilities as $file ) {
+		if ( file_exists( $file ) ) {
+			require_once( $file );
+			return true;
+		}
 	}
-
-	// order by publication date
-	usort( $feed_items, function ( $a, $b ) {
-	    if ( $a[ 'pubDateTime' ] == $b[ 'pubDateTime' ] ) {
-	        return 0;
-	    }
-	    return ( $a[ 'pubDateTime' ] > $b[ 'pubDateTime' ] ) ? -1 : 1;
-	} );
 	
-	$out = $collection->before_template;
-	foreach ( $feed_items as $item ) {
-		$out .= Parser\parse( $collection->body_template, $item );
-	}
-	$out .= $collection->after_template;
-	
-	return $out;
+	return false;
 }
+spl_autoload_register( 'mfr_autoloader' );
 
-function add_menu_entry() {
-	add_submenu_page( 'options-general.php', PLUGIN_NAME, PLUGIN_NAME, 'manage_options', \MultiFeedReader\Settings\HANDLE, 'MultiFeedReader\Settings\initialize' );
-}
+require_once 'constants.php';
+require_once 'lib/general.php';
+require_once 'lib/parser.php';
+require_once 'models/base.php';
+require_once 'models/feed_collection.php';
+require_once 'models/feed.php';
+require_once 'settings.php';
+
+require_once 'plugin.php';
