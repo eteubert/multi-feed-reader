@@ -11,7 +11,6 @@ namespace MultiFeedReader;
  *   $tabs->set_default( 'edit' );
  *   $tabs->display();
  * 
- * @todo should not be dependent on the knowledge about \MultiFeedReader\Settings\HANDLE
  * @todo refactor into separate file /lib/settings/tabs.php
  */
 class Tabs
@@ -33,7 +32,7 @@ class Tabs
 		?>
 		<h2 class="nav-tab-wrapper">
 			<?php foreach ( $this->tabs as $id => $name ): ?>
-				<a href="<?php echo admin_url( 'options-general.php?page=' . \MultiFeedReader\Settings\HANDLE . '&tab=' . $id ) ?>" class="nav-tab <?php echo ( $id == $current_tab ) ? 'nav-tab-active' : '' ?>">
+				<a href="<?php echo admin_url( 'options-general.php?page=' . $_REQUEST[ 'page' ] . '&tab=' . $id ) ?>" class="nav-tab <?php echo ( $id == $current_tab ) ? 'nav-tab-active' : '' ?>">
 					<?php echo $name ?>
 				</a>
 			<?php endforeach ?>
