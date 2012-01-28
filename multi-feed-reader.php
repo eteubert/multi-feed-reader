@@ -11,11 +11,7 @@ License: MIT
 
 namespace MultiFeedReader;
 
-/**
- * @todo custom constant definitions should go somewhere else
- */
-const DEFAULT_TEMPLATE = 'default';
-
+require_once 'constants.php';
 require_once 'bootstrap.php';
 
 function initialize() {
