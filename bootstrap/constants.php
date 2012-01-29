@@ -8,9 +8,11 @@ namespace MultiFeedReader;
  * 	Plugin Namespace:	ThisIsMyPlugin
  * 	Plugin File:		this-is-my-plugin.php
  * 	Plugin Textdomain:	this-is-my-plugin
+ * 	Plugin Directory:	this-is-my-plugin
  */
 define( 'PLUGIN_FILE_NAME', strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', __NAMESPACE__ ) ) . '.php' );
-define( 'PLUGIN_FILE', dirname( __FILE__ ). '/../' . PLUGIN_FILE_NAME );
+define( 'PLUGIN_DIR' , dirname( __FILE__ ). '/../' );
+define( 'PLUGIN_FILE', PLUGIN_DIR . PLUGIN_FILE_NAME );
 
 /**
  * Get a value of the plugin header
@@ -29,6 +31,7 @@ function get_plugin_header( $tag_name ) {
 
 define( 'PLUGIN_NAME', get_plugin_header( 'Name' ) );
 define( 'TEXTDOMAIN', strtolower( str_replace( ' ', '-', PLUGIN_NAME ) ) );
+load_plugin_textdomain( TEXTDOMAIN, FALSE, TEXTDOMAIN . '/languages' );
 
 namespace MultiFeedReader\Settings;
 

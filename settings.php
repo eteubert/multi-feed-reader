@@ -107,7 +107,6 @@ add_action( 'admin_init', 'MultiFeedReader\Settings\process_forms' );
 
 /**
  * @todo the whole template can probably be abstracted away
- * @todo reduce set_tab() to only receive the name and auto-deduce id from name
  * 
  * something like
  *   $settings_page = new TwoColumnSettingsPage()
