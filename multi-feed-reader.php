@@ -17,51 +17,7 @@ if ( ! $correct_php_version ) {
 	exit;
 }
 
-/**
- * @todo idea: namespace always reflects directory structure
- * not sure if this is a good thing but it would make autoloading truly awesome
- */
-// autoload all classes in /lib
-function mfr_autoloader( $class_name ) {
-	// get class name without namespace
-	$split  = explode( '\\', $class_name );
-	// remove "MultiFeedReader" namespace
-	$plugin = array_shift( $split ); 
-	
-	// only load classes prefixed with <Plugin> namespace
-	if ( $plugin != "MultiFeedReader" )
-		return false;
-	
-	// class name without namespace
-	$class_name = array_pop( $split );
-	// CamelCase to snake_case
-	$class_name = preg_replace( '/([a-z])([A-Z])/', '$1_$2', $class_name );
-
-	// the rest of the namespace, if any
-	$namespaces = $split;
-
-	// library directory
-	$lib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
-	
-	// register all possible paths for the class
-	$possibilities = array();
-	if ( count( $namespaces ) >= 1 ) {
-		$possibilities[] = strtolower( $lib . implode( DIRECTORY_SEPARATOR, $namespaces ) . DIRECTORY_SEPARATOR . $class_name . '.php' );
-	} else {
-		$possibilities[] = strtolower( $lib . $class_name . '.php' );
-	}
-	
-	// search for the class
-	foreach ( $possibilities as $file ) {
-		if ( file_exists( $file ) ) {
-			require_once( $file );
-			return true;
-		}
-	}
-	
-	return false;
-}
-spl_autoload_register( 'mfr_autoloader' );
+require_once 'bootstrap/bootstrap.php';
 
 require_once 'constants.php';
 require_once 'lib/general.php';
