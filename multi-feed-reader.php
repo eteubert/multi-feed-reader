@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Multi Feed Reader
-Plugin URI: 
+Plugin URI: https://github.com/eteubert/multi-feed-reader
 Description: Reads multiple feeds. Output can be customized via templates. Is displayed via Shortcodes.
 Version: 1.0
 Author: Eric Teubert
