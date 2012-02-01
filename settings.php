@@ -157,7 +157,7 @@ function initialize() {
 			<div class="inner-sidebar">
 
 				<?php display_creator_metabox(); ?>
-                <?php display_help_metabox(); ?>
+                <?php display_help_metabox( $tabs ); ?>
 				<!-- ... more boxes ... -->
 
 			</div> <!-- .inner-sidebar -->
@@ -207,8 +207,8 @@ function display_creator_metabox() {
 	});
 }
 
-function display_help_metabox() {
-	if ( $_REQUEST[ 'tab' ] == 'edit' && $c = FeedCollection::current() ) {
+function display_help_metabox( $tabs ) {
+	if ( $tabs->get_current_tab() == 'edit' && $c = FeedCollection::current() ) {
 		$value = '[' . \MultiFeedReader\SHORTCODE . ' template=&quot;' . $c->name . '&quot;';
 		postbox( \MultiFeedReader\t( 'Usage' ), function () use ( $value ) {
 			?>
