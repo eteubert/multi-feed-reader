@@ -1,6 +1,6 @@
 === Multi Feed Reader ===
 Contributors: eteubert
-Donate link:
+Donate link: https://flattr.com/thing/474620/WordPress-Plugin-Multi-Feed-Reader
 Tags: feed, rss, archive, shortcode, custom, template, html, customizable
 Requires at least: 3.0
 Tested up to: 3.3
