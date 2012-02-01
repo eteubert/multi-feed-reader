@@ -34,15 +34,16 @@ function shortcode( $attributes ) {
 	extract(
 		shortcode_atts(
 			array(
-				'template' => DEFAULT_TEMPLATE
+				'template' => DEFAULT_TEMPLATE,
+				'limit'    => DEFAULT_LIMIT
 			),
 			$attributes
 		)
 	);
 	
-	$cache_key = get_cache_key( $template );
+	$cache_key = get_cache_key( $template . $limit );
     if ( false === ( $out = get_transient( $cache_key ) ) ) {
-        $out = generate_html_by_template( $template );
+        $out = generate_html_by_template( $template, $limit );
         set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
     }
 
@@ -53,7 +54,7 @@ function get_cache_key( $template ) {
     return 'multi_feed_result_for_' . substr( sha1( $template ), 0, 6 );
 }
 
-function generate_html_by_template( $template ) {
+function generate_html_by_template( $template, $limit ) {
     $collection = Models\FeedCollection::find_one_by_name( $template );
 	$feeds      = $collection->feeds();
 
@@ -61,6 +62,10 @@ function generate_html_by_template( $template ) {
 	foreach ( $feeds as $feed ) {
 		$parsed = $feed->parse();
 		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
+	}
+	
+	if ( $limit > 0 ) {
+		$feed_items = array_slice( $feed_items, 0, $limit );
 	}
 
 	// order by publication date

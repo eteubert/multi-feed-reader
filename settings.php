@@ -209,14 +209,20 @@ function display_creator_metabox() {
 
 function display_help_metabox() {
 	if ( $_REQUEST[ 'tab' ] == 'edit' && $c = FeedCollection::current() ) {
-		$value = "[" . \MultiFeedReader\SHORTCODE . " template=&quot;" . $c->name . "&quot;]";
+		$value = '[' . \MultiFeedReader\SHORTCODE . ' template=&quot;' . $c->name . '&quot;';
 		postbox( \MultiFeedReader\t( 'Usage' ), function () use ( $value ) {
 			?>
 			<p>
 				<?php
 				echo \MultiFeedReader\t( 'Use this shortcode in any post or page:' );
 				?>
-				<input type="text" class="large-text" value="<?php echo $value; ?>" />
+				<input type="text" class="large-text" value="<?php echo $value . ']'; ?>" />
+			</p>
+			<p>
+				<?php
+				echo \MultiFeedReader\t( 'You can limit the amount of posts displayed:' );
+				?>
+				<input type="text" class="large-text" value="<?php echo $value . ' limit=&quot;5&quot;]'; ?>" />				
 			</p>
 			<?php
 		});
