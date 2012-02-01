@@ -13,8 +13,8 @@ add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
 
 function activate() {
-	MultiFeedReader\Models\Feed::build();
-	MultiFeedReader\Models\FeedCollection::build();
+	Models\Feed::build();
+	Models\FeedCollection::build();
 }
 
 function deactivate() {
@@ -22,8 +22,8 @@ function deactivate() {
 }
 
 function uninstall() {
-	MultiFeedReader\Models\Feed::destroy();
-	MultiFeedReader\Models\FeedCollection::destroy();
+	Models\Feed::destroy();
+	Models\FeedCollection::destroy();
 }
 
 function add_menu_entry() {
