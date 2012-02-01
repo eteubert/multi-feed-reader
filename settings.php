@@ -208,6 +208,20 @@ function display_creator_metabox() {
 }
 
 function display_help_metabox() {
+	if ( $_REQUEST[ 'tab' ] == 'edit' && $c = FeedCollection::current() ) {
+		$value = "[" . \MultiFeedReader\SHORTCODE . " template=&quot;" . $c->name . "&quot;]";
+		postbox( \MultiFeedReader\t( 'Usage' ), function () use ( $value ) {
+			?>
+			<p>
+				<?php
+				echo \MultiFeedReader\t( 'Use this shortcode in any post or page:' );
+				?>
+				<input type="text" class="large-text" value="<?php echo $value; ?>" />
+			</p>
+			<?php
+		});
+	}
+	
     postbox( \MultiFeedReader\t( 'Placeholders' ), function () {
 		?>
         <style type="text/css" media="screen">

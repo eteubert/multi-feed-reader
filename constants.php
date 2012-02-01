@@ -2,6 +2,7 @@
 namespace MultiFeedReader;
 
 const DEFAULT_TEMPLATE = 'default';
+const SHORTCODE = 'multi-feed-reader';
 
 namespace MultiFeedReader\Settings;
 

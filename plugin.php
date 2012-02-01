@@ -1,13 +1,12 @@
 <?php
 namespace MultiFeedReader;
 
-
 register_activation_hook(   PLUGIN_FILE, __NAMESPACE__ . '\activate' );
 register_deactivation_hook( PLUGIN_FILE, __NAMESPACE__ . '\deactivate' );
 register_uninstall_hook(    PLUGIN_FILE, __NAMESPACE__ . '\uninstall' );
 
 function initialize() {	
-	add_shortcode( 'multi-feed-reader', 'MultiFeedReader\shortcode' );
+	add_shortcode( SHORTCODE, 'MultiFeedReader\shortcode' );
 	add_action( 'admin_menu', 'MultiFeedReader\add_menu_entry' );
 }
 add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );

@@ -187,10 +187,15 @@ abstract class Base
 		$model->flag_as_not_new();
 		
 		$row = $wpdb->get_row( 'SELECT * FROM ' . self::table_name() . ' LIMIT 0,1' );
+		
+		if ( ! $row ) {
+			return NULL;
+		}
+		
 		foreach ( $row as $property => $value ) {
 			$model->$property = $value;
 		}
-		
+
 		return $model;
 	}
 	

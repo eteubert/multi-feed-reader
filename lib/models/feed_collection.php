@@ -15,7 +15,7 @@ class FeedCollection extends Base
 			$id = (int) $_REQUEST[ 'choose_template_id' ];
 			$current = self::find_by_id( $id );
 		}
-
+		
 		if ( $current ) {
 			return $current;
 		} else {
