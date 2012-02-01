@@ -195,11 +195,19 @@ function display_creator_metabox() {
 		<p>
 			<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
 		</p>
-		<?php
-		/**
-		 * @todo add flattr button
-		 */
-		?>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+		    (function() {
+		        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+		        s.type = 'text/javascript';
+		        s.async = true;
+		        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+		        t.parentNode.insertBefore(s, t);
+		    })();
+		/* ]]> */</script>
+		<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://wordpress.org/extend/plugins/multi-feed-reader/"></a>
+		<noscript><a href="http://flattr.com/thing/474620/WordPress-Plugin-Multi-Feed-Reader" target="_blank">
+		<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 		<p>
 			<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
 		</p>
