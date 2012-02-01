@@ -37,9 +37,9 @@ Use HTML and any of the following template placeholders.
 - `%DESCRIPTION%` - Episode description (&lt;itunes:description&gt;).
 - `%ENCLOSURE%` - Url of first episode enclosure (&lt;enclosure&gt; url attribute).
 - `%THUMBNAIL%` - Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).
-- `%THUMBNAIL|...x...%` - Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.
+- `%THUMBNAIL|...x...%` - Same as above but with certain dimensions. Example: `%THUMBNAIL|75x75%`.
 - `%DATE%` - Episode publish date (&lt;pubDate&gt;) in WordPress default format. 
-- `%DATE|...%` - Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>.
+- `%DATE|...%` - Same as above but in a custom format. Example: `%DATE|Y/m/d%`.
 
 == Installation ==
 
