@@ -31,9 +31,13 @@ class Feed extends Base
             // extract feature image
             // TODO there must be a better / more stable way?
             // <itunes:image> is also supported on episode level!
-            $doc = new \DOMDocument();
-            $doc->loadHTML( $encoded_content );
-            $xml2 = simplexml_import_dom( $doc );
+            $doc     = new \DOMDocument();
+            $success = $doc->loadHTML( $encoded_content );
+			if ( ! $success ) {
+				wp_die( "Whoops! The feed <strong>" . $this->url . "</strong> faulty :/" );
+			}
+            $xml2    = simplexml_import_dom( $doc );
+
             $images = $xml2->xpath('//img');
             foreach ( $images as $image ) {
                 if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 ) {

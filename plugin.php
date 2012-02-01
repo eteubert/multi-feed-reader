@@ -35,17 +35,22 @@ function shortcode( $attributes ) {
 		shortcode_atts(
 			array(
 				'template' => DEFAULT_TEMPLATE,
-				'limit'    => DEFAULT_LIMIT
+				'limit'    => DEFAULT_LIMIT,
+				'nocache'  => false
 			),
 			$attributes
 		)
 	);
 	
-	$cache_key = get_cache_key( $template . $limit );
-    if ( false === ( $out = get_transient( $cache_key ) ) ) {
-        $out = generate_html_by_template( $template, $limit );
-        set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
-    }
+	if ( $nocache === false ) {
+		$cache_key = get_cache_key( $template . $limit );
+	    if ( false === ( $out = get_transient( $cache_key ) ) ) {
+	        $out = generate_html_by_template( $template, $limit );
+	        set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
+	    }
+	} else {
+		$out = generate_html_by_template( $template, $limit );
+	}
 
 	echo $out;
 }
@@ -63,10 +68,6 @@ function generate_html_by_template( $template, $limit ) {
 		$parsed = $feed->parse();
 		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
 	}
-	
-	if ( $limit > 0 ) {
-		$feed_items = array_slice( $feed_items, 0, $limit );
-	}
 
 	// order by publication date
 	usort( $feed_items, function ( $a, $b ) {
@@ -75,6 +76,10 @@ function generate_html_by_template( $template, $limit ) {
 	    }
 	    return ( $a[ 'pubDateTime' ] > $b[ 'pubDateTime' ] ) ? -1 : 1;
 	} );
+	
+	if ( $limit > 0 ) {
+		$feed_items = array_slice( $feed_items, 0, $limit );
+	}
 	
 	$out = $collection->before_template;
 	foreach ( $feed_items as $item ) {
