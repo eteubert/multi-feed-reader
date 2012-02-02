@@ -61,6 +61,9 @@ function get_cache_key( $template ) {
 
 function generate_html_by_template( $template, $limit ) {
     $collection = Models\FeedCollection::find_one_by_name( $template );
+	if ( ! $collection ) {
+		wp_die( "Whoops! The template <strong>" . $template . "</strong> does not exist :/" );
+	}
 	$feeds      = $collection->feeds();
 
 	$feed_items = array();

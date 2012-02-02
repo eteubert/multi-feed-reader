@@ -26,31 +26,10 @@ class Feed extends Base
 		
 		$items = $xml->xpath( './channel/item' );
 		foreach ( $items as $item ) {
-		    $encoded_content = (string) xpath( $item, './content:encoded');
-            
-            // extract feature image
-            // TODO there must be a better / more stable way?
-            // <itunes:image> is also supported on episode level!
-            $doc     = new \DOMDocument();
-            $success = $doc->loadHTML( $encoded_content );
-			if ( ! $success ) {
-				wp_die( "Whoops! The feed <strong>" . $this->url . "</strong> faulty :/" );
-			}
-            $xml2    = simplexml_import_dom( $doc );
-
-            $images = $xml2->xpath('//img');
-            foreach ( $images as $image ) {
-                if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 ) {
-                    $thumbnail = $image[ 'src' ];
-                    break;
-                }
-            }
-            
 			$result[ 'items' ][] = array(
-				'content'     => $encoded_content,
+				'content'     => (string) xpath( $item, './content:encoded'),
 				'duration'    => (string) xpath( $item, './itunes:duration'),
-                'thumbnail'   => (string) $thumbnail,
-                // 'thumbnail'   => (string) xpath( $item, './itunes:image[1]')->attributes()->href,
+                'thumbnail'   => (string) $this->extract_thumbnail( $item ),
 				'subtitle'    => (string) xpath( $item, './itunes:subtitle'),
 				'summary'     => (string) xpath( $item, './itunes:summary'),
 				'title'       => (string) xpath( $item, './title'),
@@ -84,6 +63,39 @@ class Feed extends Base
 		}
 
 		return $models;
+	}
+	
+	/**
+	 * Extract thumbnail from feed item.
+	 * 
+	 * Use <itunes:image> if available. Otherwise, use the first <img> in
+	 * <content:encoded> which is larger than 1x1 (to skip counter pixels).
+	 * 
+	 * @param $item
+	 * @return string | NULL
+	 */
+	private function extract_thumbnail( $item ) {
+		// look for <itunes:image> and use this if available
+		$thumbnail_node = xpath( $item, './itunes:image[1]');
+		if ( $thumbnail_node )
+			return (string) $thumbnail_node->attributes()->href;
+		
+		// otherwise look for the first available <img>
+		$doc = new \DOMDocument();
+		$encoded_content = (string) xpath( $item, './content:encoded');
+		$success = $doc->loadHTML( $encoded_content );
+		
+		if ( ! $success )
+			return false;
+		
+		$xml2 = simplexml_import_dom( $doc );
+		$images = $xml2->xpath('//img');
+		
+		foreach ( $images as $image )
+			if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 )
+				return $image[ 'src' ];
+		
+		return NULL;
 	}
 }
 
