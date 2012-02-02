@@ -17,6 +17,7 @@ class Feed extends Base
 		$result[ 'feed' ] = array(
 			'title'    => (string) xpath( $xml, './channel/title' ),
 			'link'     => (string) xpath( $xml, './channel/link'),
+			'language' => (string) xpath( $xml, './channel/language'),
 			'subtitle' => (string) xpath( $xml, './channel/itunes:subtitle'),
 			'summary'  => (string) xpath( $xml, './channel/itunes:summary'),
 			'image'    => (string) xpath( $xml, './channel/itunes:image[1]')->attributes()->href
@@ -27,6 +28,7 @@ class Feed extends Base
 		$items = $xml->xpath( './channel/item' );
 		foreach ( $items as $item ) {
 			$result[ 'items' ][] = array(
+				'feed_id'     => $this->id,
 				'content'     => (string) xpath( $item, './content:encoded'),
 				'duration'    => (string) xpath( $item, './itunes:duration'),
                 'thumbnail'   => (string) $this->extract_thumbnail( $item ),

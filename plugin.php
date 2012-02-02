@@ -67,8 +67,10 @@ function generate_html_by_template( $template, $limit ) {
 	$feeds      = $collection->feeds();
 
 	$feed_items = array();
+	$feed_data  = array();
 	foreach ( $feeds as $feed ) {
 		$parsed = $feed->parse();
+		$feed_data[ $feed->id ] = $parsed[ 'feed' ];
 		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
 	}
 
@@ -86,7 +88,7 @@ function generate_html_by_template( $template, $limit ) {
 	
 	$out = $collection->before_template;
 	foreach ( $feed_items as $item ) {
-		$out .= Parser\parse( $collection->body_template, $item );
+		$out .= Parser\parse( $collection->body_template, $item, $feed_data[ $item[ 'feed_id' ] ] );
 	}
 	$out .= $collection->after_template;
 	

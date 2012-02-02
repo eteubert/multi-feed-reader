@@ -244,21 +244,33 @@ function display_help_metabox( $tabs ) {
     		}
     	</style>
     	<div class="inline-pre">
-    	   <p>
-           	<pre>%TITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode title (&lt;title&gt;).' ); ?><br/><br/>
-           	<pre>%SUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode subtitle (&lt;itunes:subtitle&gt;).' ); ?><br/><br/>
-           	<pre>%CONTENT%</pre><br/><?php echo \MultiFeedReader\t( 'Episode content (&lt;content:encoded&gt;).' ); ?><br/><br/>
-           	<pre>%DURATION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode duration (&lt;itunes:duration&gt;).' ); ?><br/><br/>
-           	<pre>%SUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Episode summary (&lt;itunes:summary&gt;).' ); ?><br/><br/>
-           	<pre>%LINK%</pre><br/><?php echo \MultiFeedReader\t( 'Episode link (&lt;link&gt;).' ); ?><br/><br/>
-           	<pre>%GUID%</pre><br/><?php echo \MultiFeedReader\t( 'Episode Globally Unique Identifier (&lt;guid&gt;)' ); ?><br/><br/>
-           	<pre>%DESCRIPTION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode description (&lt;itunes:description&gt;).' ); ?><br/><br/>
-           	<pre>%ENCLOSURE%</pre><br/><?php echo \MultiFeedReader\t( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).' ); ?><br/><br/>
-            <pre>%THUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).' ); ?><br/><br/>
-            <pre>%THUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.' ); ?><br/><br/>
-            <pre>%DATE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode publish date (&lt;pubDate&gt;) in WordPress default format. ' ); ?><br/><br/>
-            <pre>%DATE|...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>.' ); ?><br/><br/>
-    	   </p>
+			<strong><?php echo \MultiFeedReader\t( 'Feed item data' ); ?></strong>
+			<p>
+           		<pre>%TITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode title (&lt;title&gt;).' ); ?><br/><br/>
+           		<pre>%SUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode subtitle (&lt;itunes:subtitle&gt;).' ); ?><br/><br/>
+           		<pre>%CONTENT%</pre><br/><?php echo \MultiFeedReader\t( 'Episode content (&lt;content:encoded&gt;).' ); ?><br/><br/>
+           		<pre>%DURATION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode duration (&lt;itunes:duration&gt;).' ); ?><br/><br/>
+           		<pre>%SUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Episode summary (&lt;itunes:summary&gt;).' ); ?><br/><br/>
+           		<pre>%LINK%</pre><br/><?php echo \MultiFeedReader\t( 'Episode link (&lt;link&gt;).' ); ?><br/><br/>
+           		<pre>%GUID%</pre><br/><?php echo \MultiFeedReader\t( 'Episode Globally Unique Identifier (&lt;guid&gt;)' ); ?><br/><br/>
+           		<pre>%DESCRIPTION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode description (&lt;itunes:description&gt;).' ); ?><br/><br/>
+           		<pre>%ENCLOSURE%</pre><br/><?php echo \MultiFeedReader\t( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).' ); ?><br/><br/>
+            	<pre>%THUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).' ); ?><br/><br/>
+            	<pre>%THUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.' ); ?><br/><br/>
+            	<pre>%DATE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode publish date (&lt;pubDate&gt;) in WordPress default format. ' ); ?><br/><br/>
+            	<pre>%DATE|...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>.' ); ?><br/><br/>
+			</p>
+			<strong><?php echo \MultiFeedReader\t( 'Global feed data' ); ?></strong>
+			<p>
+				<pre>%FEEDTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed title (&lt;title&gt;).'); ?><br/><br/>
+				<pre>%FEEDSUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed subtitle (&lt;itunes:subtitle&gt;).'); ?><br/><br/>
+				<pre>%FEEDSUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Feed summary (&lt;itunes:summary&gt;).'); ?><br/><br/>
+				<pre>%FEEDLINK%</pre><br/><?php echo \MultiFeedReader\t( 'Feed link (&lt;link&gt;).'); ?><br/><br/>
+				<pre>%FEEDLANGUAGE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed language (&lt;language&gt;).'); ?><br/><br/>
+				<pre>%FEEDTHUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Feed image (&lt;itunes:image&gt;).'); ?><br/><br/>
+				<pre>%FEEDTHUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>.'); ?><br/><br/>
+				
+			</p>
     	</div>
 		<?php
 	});

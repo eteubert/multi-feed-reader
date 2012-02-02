@@ -1,18 +1,48 @@
 <?php
 namespace MultiFeedReader\Parser;
 
-function parse( $template, $values ) {
+/**
+ * Parses the given template.
+ * 
+ * @param string $template - HTML template.
+ * @param array $values - Feed item values.
+ * @param array $feed - Feed values.
+ * @return string Parsed template.
+ */
+function parse( $template, $values, $feed ) {
 	
+	// replace global feed stuff
+	$template = str_replace( '%FEEDTITLE%', $feed[ 'title' ], $template );
+	$template = str_replace( '%FEEDSUBTITLE%', $feed[ 'subtitle' ], $template );
+	$template = str_replace( '%FEEDSUMMARY%', $feed[ 'summary' ], $template );
+	$template = str_replace( '%FEEDLINK%', $feed[ 'link' ], $template );
+	$template = str_replace( '%FEEDLANGUAGE%', $feed[ 'language' ], $template );
+	
+	// insert thumbnail, optional dimensions (width x height)
+    // Examples: %FEEDTHUMBNAIL%, %FEEDTHUMBNAIL|50x50%
+    $template = preg_replace_callback( '/%FEEDTHUMBNAIL(?:\|(\d+)x(\d+))?%/', function ( $matches ) use ( $feed ) {
+        $src = $feed[ 'image' ];
+        
+        if ( $src ) {
+            if ( $matches[ 1 ] && $matches[ 2 ] ) {
+                $out = '<img src="' . $src . '" width="' . $matches[ 1 ] .  '" height="' . $matches[ 2 ] .  '" />';
+            } else {
+                $out = '<img src="' . $src . '" />';
+            }
+        } else {
+            $out = '';
+        }
+        
+        return $out;
+    }, $template );
+
+	// replace feed item stuff
 	$template = str_replace( '%TITLE%', $values[ 'title' ], $template );
 	$template = str_replace( '%SUBTITLE%', $values[ 'subtitle' ], $template );
 	$template = str_replace( '%CONTENT%', $values[ 'content' ], $template );
 	$template = str_replace( '%DURATION%', $values[ 'duration' ], $template );
 	$template = str_replace( '%SUMMARY%', $values[ 'summary' ], $template );
 	$template = str_replace( '%LINK%', $values[ 'link' ], $template );
-	// TODO: default human readable pubdate string
-	// TODO: customizable human readable pubdate string
-	// $template = str_replace( '%TITLE%', $values[ 'pubDate' ], $template );
-	// $template = str_replace( '%TITLE%', $values[ 'pubDateTime' ], $template );
 	$template = str_replace( '%GUID%', $values[ 'guid' ], $template );
 	$template = str_replace( '%DESCRIPTION%', $values[ 'description' ], $template );
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );

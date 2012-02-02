@@ -41,6 +41,16 @@ Use HTML and any of the following template placeholders.
 - `%DATE%` - Episode publish date (&lt;pubDate&gt;) in WordPress default format. 
 - `%DATE|...%` - Same as above but in a custom format. Example: `%DATE|Y/m/d%`.
 
+Use these placeholders to access global feed data:
+
+- `%FEEDTITLE%` - Feed title (&lt;title&gt;).
+- `%FEEDSUBTITLE%` - Feed subtitle (&lt;itunes:subtitle&gt;).
+- `%FEEDSUMMARY%` - Feed summary (&lt;itunes:summary&gt;).
+- `%FEEDLINK%` - Feed link (&lt;link&gt;).
+- `%FEEDLANGUAGE%` - Feed language (&lt;language&gt;).
+- `%FEEDTHUMBNAIL%` - Feed image (&lt;itunes:image&gt;).
+- `%FEEDTHUMBNAIL|...x...%` - Same as above but with certain dimensions. Example: `%FEEDTHUMBNAIL|75x75%`.
+
 == Installation ==
 
 1. Upload the `multi-feed-reader` directory to the `/wp-content/plugins/` directory
@@ -68,6 +78,10 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 2. Example Archive
 
 == Changelog ==
+
+= 1.1 =
+* `%THUMBNAIL%`: Use &lt;itunes:image&gt; if available. Otherwise, look for the first suitable &lt;img&gt; in &lt;content:encoded&gt;
+* add support for global feed data: `%FEEDTITLE%`, `%FEEDSUBTITLE%`, `%FEEDSUMMARY%`, `%FEEDLINK%`, `%FEEDLANGUAGE%`, `%FEEDTHUMBNAIL%`, `%FEEDTHUMBNAIL|...x...%`
 
 = 1.0 =
 * Release

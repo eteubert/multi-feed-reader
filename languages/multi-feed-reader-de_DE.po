@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Multi Feed Reader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-01 17:30+0100\n"
-"PO-Revision-Date: 2012-02-01 17:31+0100\n"
+"POT-Creation-Date: 2012-02-02 09:20+0100\n"
+"PO-Revision-Date: 2012-02-02 09:22+0100\n"
 "Last-Translator: Eric Teubert <ericteubert@googlemail.com>\n"
 "Language-Team: Eric Teubert <ericteubert@googlemail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Edit Feedcollection"
 msgstr "Feedsammlung bearbeiten"
 
 #: /Users/ericteubert/code/multi-feed-reader/settings.php:128
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:413
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:425
 msgid "Add Feedcollection"
 msgstr "Feedsammlung hinzufügen"
 
@@ -58,113 +58,149 @@ msgstr "Beschränke die Anzahl Einträge:"
 msgid "Placeholders"
 msgstr "Platzhalter"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:248
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:247
+msgid "Feed item data"
+msgstr "Feed Element Daten"
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:249
 msgid "Episode title (&lt;title&gt;)."
 msgstr "Episoden Titel (&lt;title&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:249
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:250
 msgid "Episode subtitle (&lt;itunes:subtitle&gt;)."
 msgstr "Episoden Untertitel (&lt;itunes:subtitle&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:250
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:251
 msgid "Episode content (&lt;content:encoded&gt;)."
 msgstr "Episoden Inhalt (&lt;content:encoded&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:251
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:252
 msgid "Episode duration (&lt;itunes:duration&gt;)."
 msgstr "Episoden Dauer (&lt;itunes:duration&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:252
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:253
 msgid "Episode summary (&lt;itunes:summary&gt;)."
 msgstr "Episode Zusammenfassung (&lt;itunes:summary&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:253
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:254
 msgid "Episode link (&lt;link&gt;)."
 msgstr "Episoden Link (&lt;link&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:254
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:255
 msgid "Episode Globally Unique Identifier (&lt;guid&gt;)"
 msgstr "Episoden ID (&lt;guid&gt;)"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:255
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:256
 msgid "Episode description (&lt;itunes:description&gt;)."
 msgstr "Episoden Beschreibung (&lt;itunes:description&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:256
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:257
 msgid "Url of first episode enclosure (&lt;enclosure&gt; url attribute)."
 msgstr "URL des ersten Episoden Anhangs (&lt;enclosure&gt; url attribute)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:257
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:258
 msgid "Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;)."
 msgstr "Thumbnail Tag in Originalgröße (&lt;itunes:image&gt; oder erstes gefundenes Bild in &lt;content:encoded&gt;)."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:258
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:259
 msgid "Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>."
 msgstr "Wie das vorhergehende, aber mit spezifischer Größe. Beispiel: <pre>%THUMBNAIL|75x75%</pre>."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:259
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:260
 msgid "Episode publish date (&lt;pubDate&gt;) in WordPress default format. "
 msgstr "Episoden Erscheinungsdatum (&lt;pubDate&gt;) im WordPress Standard Format. "
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:260
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:261
 msgid "Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>."
 msgstr "Wie das vorhergehende, aber mit spezifischem Format. Beispiel: <pre>%DATE|Y/m/d%</pre>."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:277
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:313
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:263
+msgid "Global feed data"
+msgstr "Globale Feed Daten"
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:265
+msgid "Feed title (&lt;title&gt;)."
+msgstr "Feed Titel (&lt;title&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:266
+msgid "Feed subtitle (&lt;itunes:subtitle&gt;)."
+msgstr "Feed Untertitel (&lt;itunes:subtitle&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:267
+msgid "Feed summary (&lt;itunes:summary&gt;)."
+msgstr "Feed Zusammenfassung (&lt;itunes:summary&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:268
+msgid "Feed link (&lt;link&gt;)."
+msgstr "Feed Link (&lt;link&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:269
+msgid "Feed language (&lt;language&gt;)."
+msgstr "Feed Sprache (&lt;language&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:270
+msgid "Feed image (&lt;itunes:image&gt;)."
+msgstr "Feed Thumbnail (&lt;itunes:image&gt;)."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:271
+msgid "Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
+msgstr "Wie das vorhergehende, aber mit spezifischer Größe. Beispiel: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
+
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:289
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:325
 msgid "Choose Template"
 msgstr "Vorlage Wählen"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:298
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:310
 msgid "Template to Edit"
 msgstr "Zu bearbeitende Vorlage"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:323
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:335
 #, php-format
 msgid "Settings for \"%1s\" Collection"
 msgstr "Einstellungen für Feedsammlung \"%1s\""
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:347
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:359
 msgid "Feeds"
 msgstr "Feeds"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:362
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:374
 msgid "Template Options"
 msgstr "Vorlagen Optionen"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:367
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:379
 msgid "Template Name"
 msgstr "Vorlagen Name"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:375
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:387
 msgid "Before Template"
 msgstr "Vor Vorlage"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:383
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:395
 msgid "Body Template"
 msgstr "Vorlage"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:391
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:403
 msgid "After Template"
 msgstr "Nach Vorlage"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:401
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:413
 msgid "Save Changes"
 msgstr ""
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:402
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:414
 msgid "delete permanently"
 msgstr "permanent löschen"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:421
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:433
 msgid "New Feedcollection Name"
 msgstr "Neuer Feedsammlungs Name"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:426
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:438
 msgid "This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection \"rockstar\", then you can use it with the shortcode <em>[multi-feed-reader template=\"rockstar\"]</em>"
 msgstr "Dieser Name wird im Shortcode benutzt werden, um die Feedsammlung zu identifizieren.<br/>Beispiel: Wenn du die Sammlung \"rockstar\" nennst, dann kannst du sie mit folgendem Shortcode aufrufen: <em>[multi-feed-reader template=\"rockstar\"]</em>"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:434
+#: /Users/ericteubert/code/multi-feed-reader/settings.php:446
 msgid "Add New Feedcollection"
 msgstr "Neue Feedsammlung Hinzufügen"
 
