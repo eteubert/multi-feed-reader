@@ -88,7 +88,7 @@ class Feed extends Base
 		$success = $doc->loadHTML( $encoded_content );
 		
 		if ( ! $success )
-			return false;
+			return NULL;
 		
 		$xml2 = simplexml_import_dom( $doc );
 		$images = $xml2->xpath('//img');
