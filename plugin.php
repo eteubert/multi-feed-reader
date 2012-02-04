@@ -52,7 +52,7 @@ function shortcode( $attributes ) {
 		$out = generate_html_by_template( $template, $limit );
 	}
 
-	echo $out;
+	return $out;
 }
 
 function get_cache_key( $template ) {
