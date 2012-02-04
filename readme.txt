@@ -79,6 +79,9 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 1.1.1 =
+* Bugfix: Shortcode prints template in the correct place now
+
 = 1.1 =
 * `%THUMBNAIL%`: Use &lt;itunes:image&gt; if available. Otherwise, look for the first suitable &lt;img&gt; in &lt;content:encoded&gt;
 * add support for global feed data: `%FEEDTITLE%`, `%FEEDSUBTITLE%`, `%FEEDSUMMARY%`, `%FEEDLINK%`, `%FEEDLANGUAGE%`, `%FEEDTHUMBNAIL%`, `%FEEDTHUMBNAIL|...x...%`
