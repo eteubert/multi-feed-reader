@@ -79,6 +79,9 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 1.1.2 =
+* enhance feed parser robustness
+
 = 1.1.1 =
 * Bugfix: Shortcode prints template in the correct place now
 

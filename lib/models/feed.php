@@ -2,8 +2,8 @@
 namespace MultiFeedReader\Models;
 
 function xpath( $xml, $path ) {
-	$element = $xml->xpath( $path );
-	return $element[ 0 ];
+	$element = @$xml->xpath( $path );
+	return ( $element ) ? $element[ 0 ] : NULL;
 }
 
 class Feed extends Base
@@ -15,32 +15,32 @@ class Feed extends Base
 		$xml = new \SimpleXMLElement( $xml_string );
 		
 		$result[ 'feed' ] = array(
-			'title'    => (string) xpath( $xml, './channel/title' ),
-			'link'     => (string) xpath( $xml, './channel/link'),
-			'language' => (string) xpath( $xml, './channel/language'),
-			'subtitle' => (string) xpath( $xml, './channel/itunes:subtitle'),
-			'summary'  => (string) xpath( $xml, './channel/itunes:summary'),
-			'image'    => (string) xpath( $xml, './channel/itunes:image[1]')->attributes()->href
+			'title'    => (string) xpath( $xml, 'channel/title' ),
+			'link'     => (string) xpath( $xml, 'channel/link'),
+			'language' => (string) xpath( $xml, 'channel/language'),
+			'subtitle' => (string) xpath( $xml, 'channel/itunes:subtitle'),
+			'summary'  => (string) xpath( $xml, 'channel/itunes:summary'),
+			'image'    => $this->extract_global_thumbnail( $xml )
 		);
 		
 		$result[ 'items' ] = array();
 		
-		$items = $xml->xpath( './channel/item' );
+		$items = $xml->xpath( 'channel/item' );
 		foreach ( $items as $item ) {
 			$result[ 'items' ][] = array(
 				'feed_id'     => $this->id,
-				'content'     => (string) xpath( $item, './content:encoded'),
-				'duration'    => (string) xpath( $item, './itunes:duration'),
-                'thumbnail'   => (string) $this->extract_thumbnail( $item ),
-				'subtitle'    => (string) xpath( $item, './itunes:subtitle'),
-				'summary'     => (string) xpath( $item, './itunes:summary'),
-				'title'       => (string) xpath( $item, './title'),
-				'link'        => (string) xpath( $item, './link'),
-				'pubDate'     => (string) xpath( $item, './pubDate'),
-				'pubDateTime' => strtotime( xpath( $item, './pubDate' ) ),
-				'guid'        => (string) xpath( $item, './guid'),
-				'description' => (string) xpath( $item, './itunes:description'),
-				'enclosure'   => (string) xpath( $item, './enclosure[1]')->attributes()->url
+				'content'     => (string) xpath( $item, 'content:encoded'),
+				'duration'    => (string) xpath( $item, 'itunes:duration'),
+                'thumbnail'   => $this->extract_thumbnail( $item ),
+				'subtitle'    => (string) xpath( $item, 'itunes:subtitle'),
+				'summary'     => (string) xpath( $item, 'itunes:summary'),
+				'title'       => (string) xpath( $item, 'title'),
+				'link'        => (string) xpath( $item, 'link'),
+				'pubDate'     => (string) xpath( $item, 'pubDate'),
+				'pubDateTime' => strtotime( xpath( $item, 'pubDate' ) ),
+				'guid'        => (string) xpath( $item, 'guid'),
+				'description' => (string) xpath( $item, 'itunes:description'),
+				'enclosure'   => $this->extract_enclosure_url( $item )
 			);
 		}
 		
@@ -68,23 +68,55 @@ class Feed extends Base
 	}
 	
 	/**
+	 * Extract url of first enclosure.
+	 * 
+	 * @param $xml
+	 * @return string | NULL
+	 */
+	private function extract_enclosure_url( $xml ) {
+		$enclosure = xpath( $xml, './enclosure[1]');
+		if ( $enclosure )
+			return (string) $enclosure->attributes()->url;
+
+		return NULL;
+	}
+	
+	/**
+	 * Extract global podcast thumbnail.
+	 * 
+	 * @param $xml
+	 * @return string | NULL
+	 */
+	private function extract_global_thumbnail( $xml ) {
+		$enclosure = xpath( $xml, 'channel/itunes:image[1]');
+		if ( $enclosure )
+			return (string) $enclosure->attributes()->href;
+
+		return NULL;
+	}
+	
+	/**
 	 * Extract thumbnail from feed item.
 	 * 
 	 * Use <itunes:image> if available. Otherwise, use the first <img> in
 	 * <content:encoded> which is larger than 1x1 (to skip counter pixels).
 	 * 
-	 * @param $item
+	 * @param $xml
 	 * @return string | NULL
 	 */
-	private function extract_thumbnail( $item ) {
+	private function extract_thumbnail( $xml ) {
 		// look for <itunes:image> and use this if available
-		$thumbnail_node = xpath( $item, './itunes:image[1]');
+		$thumbnail_node = xpath( $xml, './itunes:image[1]');
 		if ( $thumbnail_node )
 			return (string) $thumbnail_node->attributes()->href;
 		
 		// otherwise look for the first available <img>
 		$doc = new \DOMDocument();
-		$encoded_content = (string) xpath( $item, './content:encoded');
+		$encoded_content = (string) xpath( $xml, './content:encoded');
+		
+		if ( ! $encoded_content )
+			return NULL;
+		
 		$success = $doc->loadHTML( $encoded_content );
 		
 		if ( ! $success )
@@ -95,7 +127,7 @@ class Feed extends Base
 		
 		foreach ( $images as $image )
 			if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 )
-				return $image[ 'src' ];
+				return (string) $image[ 'src' ];
 		
 		return NULL;
 	}
