@@ -10,6 +10,8 @@ Reads multiple feeds. Output can be customized via templates. Is displayed via S
 
 == Description ==
 
+This plugin was created with the iTunes Podcast Feed in mind. However, you can feed it any RSS feed you like. If you would like to display some tags which are not supported right now, please feel free to contact me.
+
 = Quick Start =
 
 Create a template "myfeeds" in `Settings > Multi Feed Reader`.
