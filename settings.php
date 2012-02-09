@@ -254,6 +254,7 @@ function display_help_metabox( $tabs ) {
            		<pre>%LINK%</pre><br/><?php echo \MultiFeedReader\t( 'Episode link (&lt;link&gt;).' ); ?><br/><br/>
            		<pre>%GUID%</pre><br/><?php echo \MultiFeedReader\t( 'Episode Globally Unique Identifier (&lt;guid&gt;)' ); ?><br/><br/>
            		<pre>%DESCRIPTION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode description (&lt;itunes:description&gt;).' ); ?><br/><br/>
+           		<pre>%DESCRIPTION|...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but truncated to the given amount of words.' ); ?><br/><br/>
            		<pre>%ENCLOSURE%</pre><br/><?php echo \MultiFeedReader\t( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).' ); ?><br/><br/>
             	<pre>%THUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).' ); ?><br/><br/>
             	<pre>%THUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.' ); ?><br/><br/>

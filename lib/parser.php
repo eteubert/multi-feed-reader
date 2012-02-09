@@ -48,9 +48,26 @@ function parse( $template, $values, $feed ) {
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );
 	$template = str_replace( '%DATE%', date( get_option( 'date_format' ), $values[ 'pubDateTime' ] ), $template );
 	
+	// truncated description
+	$template = preg_replace_callback(
+	    '/%DESCRIPTION\|(\d+)%/',
+	    function ( $matches ) use ( $values ) {
+			$stripped = strip_tags( $values[ 'description' ] );
+			$short = preg_replace( '/((\S+\s){' . $matches[ 1 ] . '}(\w+))(.*)/i', '${1}', $stripped );
+			
+			$ellipsis = '';
+			if ( $short != $stripped )
+				$ellipsis = ' ...';
+				
+				
+	        return $short . $ellipsis;
+	    },
+	 	$template
+	 );
+	
 	// custom date format
 	$template = preg_replace_callback(
-	    '/%DATE\|(.*)%/',
+	    '/%DATE\|(.+)%/',
 	    function ( $matches ) use ( $values ) {
 	        return date( $matches[ 1 ], $values[ 'pubDateTime' ] );
 	    },

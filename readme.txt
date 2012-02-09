@@ -37,6 +37,7 @@ Use HTML and any of the following template placeholders.
 - `%LINK%` - Episode link (&lt;link&gt;).
 - `%GUID%` - Episode Globally Unique Identifier (&lt;guid&gt;)
 - `%DESCRIPTION%` - Episode description (&lt;itunes:description&gt; or &lt;description&gt;).
+- `%DESCRIPTION|...%` - Same as above but truncated to the given amount of words.
 - `%ENCLOSURE%` - Url of first episode enclosure (&lt;enclosure&gt; url attribute).
 - `%THUMBNAIL%` - Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).
 - `%THUMBNAIL|...x...%` - Same as above but with certain dimensions. Example: `%THUMBNAIL|75x75%`.
