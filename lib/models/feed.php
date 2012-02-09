@@ -27,6 +27,11 @@ class Feed extends Base
 		
 		$items = $xml->xpath( 'channel/item' );
 		foreach ( $items as $item ) {
+			
+			$description = (string) xpath( $item, 'itunes:description');
+			if ( ! $description )
+				$description = (string) xpath( $item, 'description');
+			
 			$result[ 'items' ][] = array(
 				'feed_id'     => $this->id,
 				'content'     => (string) xpath( $item, 'content:encoded'),
@@ -39,7 +44,7 @@ class Feed extends Base
 				'pubDate'     => (string) xpath( $item, 'pubDate'),
 				'pubDateTime' => strtotime( xpath( $item, 'pubDate' ) ),
 				'guid'        => (string) xpath( $item, 'guid'),
-				'description' => (string) xpath( $item, 'itunes:description'),
+				'description' => $description,
 				'enclosure'   => $this->extract_enclosure_url( $item )
 			);
 		}
