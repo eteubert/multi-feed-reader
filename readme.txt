@@ -82,6 +82,10 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 1.1.3 =
+* add `DESCRIPTION|...` placeholder
+* enhanced description parsing
+
 = 1.1.2 =
 * enhance feed parser robustness
 

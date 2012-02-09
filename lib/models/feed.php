@@ -10,10 +10,21 @@ class Feed extends Base
 {
 	public function parse() {
 		$result = array();
+		
+		// validate url
+		$url = $this->url;
+		if ( false === strpos( $url, '://' ) )
+		    $url = 'http://' . $url;
 
-		$xml_string = file_get_contents( $this->url );
+		// fetch feed data
+		$xml_string = file_get_contents( $url );
+		if ( ! $xml_string )
+			die( '<strong>Multi Feed Reader Error:</strong> cannot reach ' . $url . '.' );
+		
+		// parse xml
 		$xml = new \SimpleXMLElement( $xml_string );
 		
+		// read global feed data
 		$result[ 'feed' ] = array(
 			'title'    => (string) xpath( $xml, 'channel/title' ),
 			'link'     => (string) xpath( $xml, 'channel/link'),
@@ -23,6 +34,7 @@ class Feed extends Base
 			'image'    => $this->extract_global_thumbnail( $xml )
 		);
 		
+		// read feed items
 		$result[ 'items' ] = array();
 		
 		$items = $xml->xpath( 'channel/item' );
