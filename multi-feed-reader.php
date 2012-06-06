@@ -20,6 +20,7 @@ if ( ! $correct_php_version ) {
 require_once 'bootstrap/bootstrap.php';
 
 require_once 'constants.php';
+require_once 'lib/timer.php';
 require_once 'lib/general.php';
 require_once 'lib/parser.php';
 require_once 'settings.php';

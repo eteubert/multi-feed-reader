@@ -61,12 +61,17 @@ function get_cache_key( $template ) {
 }
 
 function generate_html_by_template( $template, $limit ) {
+	$timer = new Timer();
+
+	$timer->start( 'fetch' );
     $collection = Models\FeedCollection::find_one_by_name( $template );
 	if ( ! $collection ) {
 		wp_die( "Whoops! The template <strong>" . $template . "</strong> does not exist :/" );
 	}
-	$feeds      = $collection->feeds();
+	$feeds = $collection->feeds();
+	$timer->stop( 'fetch' );
 
+	$timer->start( 'parse' );
 	$feed_items = array();
 	$feed_data  = array();
 	foreach ( $feeds as $feed ) {
@@ -74,7 +79,9 @@ function generate_html_by_template( $template, $limit ) {
 		$feed_data[ $feed->id ] = $parsed[ 'feed' ];
 		$feed_items = array_merge( $feed_items, $parsed[ 'items' ] );
 	}
+	$timer->stop( 'parse' );
 
+	$timer->start( 'sort' );
 	// order by publication date
 	usort( $feed_items, function ( $a, $b ) {
 	    if ( $a[ 'pubDateTime' ] == $b[ 'pubDateTime' ] ) {
@@ -86,12 +93,25 @@ function generate_html_by_template( $template, $limit ) {
 	if ( $limit > 0 ) {
 		$feed_items = array_slice( $feed_items, 0, $limit );
 	}
+	$timer->stop( 'sort' );
 	
+	$timer->start( 'render' );
 	$out = $collection->before_template;
 	foreach ( $feed_items as $item ) {
 		$out .= Parser\parse( $collection->body_template, $item, $feed_data[ $item[ 'feed_id' ] ] );
 	}
 	$out .= $collection->after_template;
+	$timer->stop( 'render' );
+
+	write_log(
+		sprintf(
+			'template generated. fetch: %ss, parse: %ss, sort: %ss, render: %ss',
+			$timer->get( 'fetch', 'range_human' ),
+			$timer->get( 'parse', 'range_human' ),
+			$timer->get( 'sort', 'range_human' ),
+			$timer->get( 'render', 'range_human' )
+		)
+	);
 	
 	return $out;
 }

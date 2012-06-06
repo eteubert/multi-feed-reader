@@ -33,6 +33,9 @@ class Feed extends Base
 	public function parse() {
 		require_once ABSPATH . WPINC . '/class-simplepie.php';
 
+		$timer = new \MultiFeedReader\Timer();
+
+		$timer->start( 'load' );
 		$feed = new \SimplePie();
 		// $feed->handle_content_type();
 		$feed->set_feed_url( $this->url );
@@ -40,7 +43,9 @@ class Feed extends Base
 		$feed->enable_order_by_date( false ); // we will sort later manually
 		$feed->set_cache_location( \MultiFeedReader\get_cache_directory() );
 		$feed->init();
+		$timer->stop( 'load' );
 
+		$timer->start( 'parse' );
 		$result = array();
 		
 		// read global feed data
@@ -79,6 +84,16 @@ class Feed extends Base
 				'enclosure'   => $item->get_enclosure()->link
 			);
 		}
+		$timer->stop( 'parse' );
+
+		\MultiFeedReader\write_log(
+			sprintf(
+				'Fetched and parsed Feed "%s". load: %ss, parse: %ss',
+				$this->url,
+				$timer->get( 'load', 'range_human' ),
+				$timer->get( 'parse', 'range_human' )
+			)
+		);		
 
 		return $result;
 	}
