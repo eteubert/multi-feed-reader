@@ -36,7 +36,11 @@ abstract class Base
 	}
 	
 	private function get_property( $name ) {
-		return $this->data[ $name ];
+		if ( isset( $this->data[ $name ] ) ) {
+			return $this->data[ $name ];
+		} else {
+			return NULL;
+		}
 	}
 	
 	/**

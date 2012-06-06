@@ -1,66 +1,85 @@
 <?php
 namespace MultiFeedReader\Models;
 
-function xpath( $xml, $path ) {
-	$element = @$xml->xpath( $path );
-	return ( $element ) ? $element[ 0 ] : NULL;
-}
-
 class Feed extends Base
 {
-	public function parse() {
-		$result = array();
-		
-		// validate url
-		$url = $this->url;
-		if ( false === strpos( $url, '://' ) )
-		    $url = 'http://' . $url;
+	private function get_itunes_item_tag( $item, $tag ) {
+		$raw = $item->get_item_tags( SIMPLEPIE_NAMESPACE_ITUNES, $tag );
 
-		// fetch feed data
-		$xml_string = file_get_contents( $url );
-		if ( ! $xml_string )
-			die( '<strong>Multi Feed Reader Error:</strong> cannot reach ' . $url . '.' );
-		
-		// parse xml
-		$xml = new \SimpleXMLElement( $xml_string );
+		if ( $raw && isset( $raw[0]['data'] ) )
+			return $raw[0]['data'];
+		else
+			return '';
+	}
+
+	private function get_itunes_channel_tag( $feed, $tag ) {
+		$raw = $feed->get_channel_tags( SIMPLEPIE_NAMESPACE_ITUNES, $tag );
+
+		if ( $raw && isset( $raw[0]['data'] ) ) 
+			return $raw[0]['data'];
+		else
+			return '';
+	}
+
+	private function get_itunes_item_image( $item ) {
+		$raw = $item->get_item_tags( SIMPLEPIE_NAMESPACE_ITUNES, 'image' );
+
+		if ( $raw && isset( $raw[0]['attribs']['']['href'] ) )
+			return $raw[0]['attribs']['']['href'];
+		else
+			return '';
+	}
+
+	public function parse() {
+		require_once ABSPATH . WPINC . '/class-simplepie.php';
+
+		$feed = new \SimplePie();
+		// $feed->handle_content_type();
+		$feed->set_feed_url( $this->url );
+		$feed->set_cache_duration( 3600 ); // 1 hour is default
+		$feed->enable_order_by_date( false ); // we will sort later manually
+		$feed->set_cache_location( \MultiFeedReader\get_cache_directory() );
+		$feed->init();
+
+		$result = array();
 		
 		// read global feed data
 		$result[ 'feed' ] = array(
-			'title'    => (string) xpath( $xml, 'channel/title' ),
-			'link'     => (string) xpath( $xml, 'channel/link'),
-			'language' => (string) xpath( $xml, 'channel/language'),
-			'subtitle' => (string) xpath( $xml, 'channel/itunes:subtitle'),
-			'summary'  => (string) xpath( $xml, 'channel/itunes:summary'),
-			'image'    => $this->extract_global_thumbnail( $xml )
+			'title'    => $feed->get_title(),
+			'link'     => $feed->get_link(),
+			'language' => $feed->get_language(),
+			'subtitle' => $this->get_itunes_channel_tag( $feed, 'subtitle' ),
+			'summary'  => $this->get_itunes_channel_tag( $feed, 'summary' ),
+			'image'    => $feed->get_image_url()
 		);
 		
 		// read feed items
 		$result[ 'items' ] = array();
 		
-		$items = $xml->xpath( 'channel/item' );
+		$items = $feed->get_items();
 		foreach ( $items as $item ) {
 			
-			$description = (string) xpath( $item, 'itunes:description');
+			$description = $this->get_itunes_item_tag( $item, 'description' );
 			if ( ! $description )
-				$description = (string) xpath( $item, 'description');
+				$description = $item->get_description();
 			
 			$result[ 'items' ][] = array(
 				'feed_id'     => $this->id,
-				'content'     => (string) xpath( $item, 'content:encoded'),
-				'duration'    => (string) xpath( $item, 'itunes:duration'),
-                'thumbnail'   => $this->extract_thumbnail( $item ),
-				'subtitle'    => (string) xpath( $item, 'itunes:subtitle'),
-				'summary'     => (string) xpath( $item, 'itunes:summary'),
-				'title'       => (string) xpath( $item, 'title'),
-				'link'        => (string) xpath( $item, 'link'),
-				'pubDate'     => (string) xpath( $item, 'pubDate'),
-				'pubDateTime' => strtotime( xpath( $item, 'pubDate' ) ),
-				'guid'        => (string) xpath( $item, 'guid'),
+				'content'     => $item->get_content(),
+				'duration'    => $this->get_itunes_item_tag( $item, 'duration' ),
+                'thumbnail'   => $this->get_itunes_item_image( $item ),
+				'subtitle'    => $this->get_itunes_item_tag( $item, 'subtitle' ),
+				'summary'     => $this->get_itunes_item_tag( $item, 'summary' ),
+				'title'       => $item->get_title(),
+				'link'        => $item->get_link(),
+				'pubDate'     => $item->get_date(),
+				'pubDateTime' => strtotime( $item->get_date() ),
+				'guid'        => $item->get_id(),
 				'description' => $description,
-				'enclosure'   => $this->extract_enclosure_url( $item )
+				'enclosure'   => $item->get_enclosure()->link
 			);
 		}
-		
+
 		return $result;
 	}
 	
@@ -82,72 +101,6 @@ class Feed extends Base
 		}
 
 		return $models;
-	}
-	
-	/**
-	 * Extract url of first enclosure.
-	 * 
-	 * @param $xml
-	 * @return string | NULL
-	 */
-	private function extract_enclosure_url( $xml ) {
-		$enclosure = xpath( $xml, './enclosure[1]');
-		if ( $enclosure )
-			return (string) $enclosure->attributes()->url;
-
-		return NULL;
-	}
-	
-	/**
-	 * Extract global podcast thumbnail.
-	 * 
-	 * @param $xml
-	 * @return string | NULL
-	 */
-	private function extract_global_thumbnail( $xml ) {
-		$enclosure = xpath( $xml, 'channel/itunes:image[1]');
-		if ( $enclosure )
-			return (string) $enclosure->attributes()->href;
-
-		return NULL;
-	}
-	
-	/**
-	 * Extract thumbnail from feed item.
-	 * 
-	 * Use <itunes:image> if available. Otherwise, use the first <img> in
-	 * <content:encoded> which is larger than 1x1 (to skip counter pixels).
-	 * 
-	 * @todo use blogger.com media tag. Example: <media:thumbnail xmlns:media='http://search.yahoo.com/mrss/' url='http://2.bp.blogspot.com/-Rmzqa9Thr18/TzF_-AZ-ybI/AAAAAAAAFCA/8X-CIEOm2eY/s72-c/stallhagen-winter.jpg' height='72' width='72'/>
-	 * @param $xml
-	 * @return string | NULL
-	 */
-	private function extract_thumbnail( $xml ) {
-		// look for <itunes:image> and use this if available
-		$thumbnail_node = xpath( $xml, './itunes:image[1]');
-		if ( $thumbnail_node )
-			return (string) $thumbnail_node->attributes()->href;
-		
-		// otherwise look for the first available <img>
-		$doc = new \DOMDocument();
-		$encoded_content = (string) xpath( $xml, './content:encoded');
-		
-		if ( ! $encoded_content )
-			return NULL;
-		
-		$success = $doc->loadHTML( $encoded_content );
-		
-		if ( ! $success )
-			return NULL;
-		
-		$xml2 = simplexml_import_dom( $doc );
-		$images = $xml2->xpath('//img');
-		
-		foreach ( $images as $image )
-			if ( $image[ 'height' ] > 1 && $image[ 'width' ] > 1 )
-				return (string) $image[ 'src' ];
-		
-		return NULL;
 	}
 }
 

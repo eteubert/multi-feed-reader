@@ -37,7 +37,7 @@ function shortcode( $attributes ) {
 			array(
 				'template' => DEFAULT_TEMPLATE,
 				'limit'    => DEFAULT_LIMIT,
-				'nocache'  => false
+				'nocache'  => isset( $_GET[ 'nocache' ] )
 			),
 			$attributes
 		)
