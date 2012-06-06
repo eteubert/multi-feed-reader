@@ -3,7 +3,7 @@
 Plugin Name: Multi Feed Reader
 Plugin URI: https://github.com/eteubert/multi-feed-reader
 Description: Reads multiple feeds. Output can be customized via templates. Is displayed via Shortcodes.
-Version: 1.1.3
+Version: 2.0.0alpha
 Author: Eric Teubert
 Author URI: ericteubert@googlemail.com
 License: MIT
