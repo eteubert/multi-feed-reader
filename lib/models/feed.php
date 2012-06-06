@@ -118,6 +118,7 @@ class Feed extends Base
 	 * Use <itunes:image> if available. Otherwise, use the first <img> in
 	 * <content:encoded> which is larger than 1x1 (to skip counter pixels).
 	 * 
+	 * @todo use blogger.com media tag. Example: <media:thumbnail xmlns:media='http://search.yahoo.com/mrss/' url='http://2.bp.blogspot.com/-Rmzqa9Thr18/TzF_-AZ-ybI/AAAAAAAAFCA/8X-CIEOm2eY/s72-c/stallhagen-winter.jpg' height='72' width='72'/>
 	 * @param $xml
 	 * @return string | NULL
 	 */

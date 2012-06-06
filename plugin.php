@@ -13,6 +13,7 @@ add_action( 'plugins_loaded', 'MultiFeedReader\initialize' );
 
 
 function activate() {
+	maybe_create_content_directories();
 	Models\Feed::build();
 	Models\FeedCollection::build();
 }
@@ -93,4 +94,60 @@ function generate_html_by_template( $template, $limit ) {
 	$out .= $collection->after_template;
 	
 	return $out;
+}
+
+function get_content_directory() {
+	return apply_filters( 'mfr_content_directory', WP_CONTENT_DIR . '/multi-feed-reader' );
+}
+
+function get_log_directory() {
+	return apply_filters( 'mfr_log_directory', get_content_directory() );
+}
+
+function get_cache_directory() {
+	return apply_filters( 'mfr_cache_directory', get_content_directory() . '/cache' );
+}
+
+/**
+ * Log a message to the logfile.
+ * 
+ * @param  string $message
+ * @param  string $type    Message category. Default: INFO
+ * @return void
+ */
+function write_log( $message, $type = 'INFO' ) {
+	maybe_create_content_directories( 'log' );
+	$file = get_log_directory() . '/reader.log';
+	$log = "[$type] " . date( 'Y-m-d G:i:s' ) . " | $message\n";
+	file_put_contents( $file, $log, FILE_APPEND | LOCK_EX );
+}
+
+/**
+ * Creates directories necessary for the plugin to work.
+ *
+ * @param string $filter Default: all. Create only one directory.
+ */
+function maybe_create_content_directories( $filter = 'all' ) {
+	$directories = array(
+		'log'   => get_log_directory(),
+		'cache' => get_cache_directory()
+	);
+
+	$directories = apply_filters( 'mfr_content_directories', $directories );
+
+	$check_dir = function ( $dir ) {
+		if ( is_dir( $dir ) )
+			return;
+
+		if ( ! mkdir( $dir, 0755, true ) )
+			wp_die( 'MultiFeedReader: Can\'t create directory "' . $dir . '" :(' );
+	};
+
+	if ( $filter === 'all' ) {
+		foreach ( $directories as $dir )
+			$check_dir( $dir );
+	} else {
+		$check_dir( $directories[ $filter ] );
+	}
+
 }
