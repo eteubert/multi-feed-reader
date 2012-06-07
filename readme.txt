@@ -39,7 +39,7 @@ Use HTML and any of the following template placeholders.
 - `%DESCRIPTION%` - Episode description (&lt;itunes:description&gt; or &lt;description&gt;).
 - `%DESCRIPTION|...%` - Same as above but truncated to the given amount of words.
 - `%ENCLOSURE%` - Url of first episode enclosure (&lt;enclosure&gt; url attribute).
-- `%THUMBNAIL%` - Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;).
+- `%THUMBNAIL%` - Thumbnail tag in original size (&lt;itunes:image&gt;).
 - `%THUMBNAIL|...x...%` - Same as above but with certain dimensions. Example: `%THUMBNAIL|75x75%`.
 - `%DATE%` - Episode publish date (&lt;pubDate&gt;) in WordPress default format. 
 - `%DATE|...%` - Same as above but in a custom format. Example: `%DATE|Y/m/d%`.
@@ -81,6 +81,10 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 2. Example Archive
 
 == Changelog ==
+
+= 2.0.0 =
+* finally supports a wide variety of feeds
+* logs feed fetching info to a log file
 
 = 1.1.3 =
 * add `DESCRIPTION|...` placeholder
