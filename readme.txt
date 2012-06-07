@@ -69,6 +69,12 @@ PHP 5.3 is available since June 2009.
 It introduced some long overdue features to the language and I refuse to support legacy junk.
 Please ask your hoster to update, kindly.
 
+= How many feeds can I add to a collection? =
+
+That depends on two aspects: Feed response time and feed size. Each feed you add increases the time needed to display the final page. The results are cached, so most of the time the page will render in a snap. If you'd like to see how long the page rendering takes when the cache is expired, have a look at the logfile (/wp-content/multi-feed-reader/reader.log). Look for the last line containing "template generated". It contains the durations.
+
+Rule of thumb: On average, one feed requires one second. 5 Feeds are fine. 10 might work. 20 is probably too much. Your mileage may vary :)
+
 = Can I help to add a feature? =
 
 That would be awesome!
