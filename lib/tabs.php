@@ -6,8 +6,8 @@ namespace MultiFeedReader;
  * 
  * Example:
  *   $tabs = new Tabs;
- *   $tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Templates' ) );
- *   $tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Templates' ) );
+ *   $tabs->set_tab( 'edit', __( 'Edit Templates', 'multi-feed-reader' ) );
+ *   $tabs->set_tab( 'add', __( 'Add Templates', 'multi-feed-reader' ) );
  *   $tabs->set_default( 'edit' );
  *   $tabs->display();
  * 

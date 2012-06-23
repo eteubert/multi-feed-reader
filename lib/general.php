@@ -9,19 +9,4 @@
  */
 namespace MultiFeedReader;
 
-/**
- * Translate text.
- * 
- * Shorthand method to translate text in the scope of the plugin.
- * 
- * Example:
- *   echo \MultiFeedReader\t( 'Hello World' );
- * 
- * @todo move somewhere else but keep namespace
- * 
- * @param	string $text
- * @return string
- */
-function t( $text ) {
-	return __( $text, TEXTDOMAIN );
-}
+// some time ago, here was a function. it's gone.

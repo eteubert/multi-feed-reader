@@ -1,210 +1,293 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Multi Feed Reader\n"
+"Project-Id-Version: Multi Feed Reader v2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-09 20:57+0100\n"
-"PO-Revision-Date: 2012-02-09 20:57+0100\n"
+"PO-Revision-Date: 2012-06-23 16:03:20+0000\n"
 "Last-Translator: Eric Teubert <ericteubert@googlemail.com>\n"
 "Language-Team: Eric Teubert <ericteubert@googlemail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;\\t\n"
-"X-Poedit-Basepath: /Users/ericteubert/code/multi-feed-reader\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: Germany\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: /Users/ericteubert/code/multi-feed-reader\n"
+"X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: /Users/ericteubert/code/multi-feed-reader\n"
+"X-Textdomain-Support: yes"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:127
-msgid "Edit Feedcollection"
-msgstr "Feedsammlung bearbeiten"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:128
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:426
-msgid "Add Feedcollection"
-msgstr "Feedsammlung hinzufügen"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:146
+#: settings.php:146
+#@ default
 msgid "Feedcollection already exists. Please choose another name."
 msgstr "Feedsammlung existiert bereits. Bitte wähle einen anderen Namen."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:193
-msgid "Creator"
-msgstr "Entwickler"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:196
-msgid "Hey, I'm Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer."
-msgstr "Hi, ich bin Eric. Ich habe das Plugin geschrieben.<br/> Wenn du es magst, kannst du mir ein Bier flattrn."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:212
-#, php-format
-msgid "Get in touch: Visit my <a href=\"%1s\">Homepage</a>, follow me on <a href=\"%2s\">Twitter</a> or look at my projects on <a href=\"%3s\">GitHub</a>."
-msgstr "Kontaktmöglichkeiten: Besuche meine <a href=\"%1s\">Homepage</a>, folge mir auf <a href=\"%2s\">Twitter</a> oder schau dir meine Projekte auf <a href=\"%3s\">GitHub</a> an."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:221
-msgid "Usage"
-msgstr "Benutzung"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:225
-msgid "Use this shortcode in any post or page:"
-msgstr "Kopiere diesen Shortcode in Artikel:"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:231
-msgid "You can limit the amount of posts displayed:"
-msgstr "Beschränke die Anzahl Einträge:"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:239
-msgid "Placeholders"
-msgstr "Platzhalter"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:247
-msgid "Feed item data"
-msgstr "Feed Element Daten"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:249
-msgid "Episode title (&lt;title&gt;)."
-msgstr "Episoden Titel (&lt;title&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:250
-msgid "Episode subtitle (&lt;itunes:subtitle&gt;)."
-msgstr "Episoden Untertitel (&lt;itunes:subtitle&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:251
-msgid "Episode content (&lt;content:encoded&gt;)."
-msgstr "Episoden Inhalt (&lt;content:encoded&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:252
-msgid "Episode duration (&lt;itunes:duration&gt;)."
-msgstr "Episoden Dauer (&lt;itunes:duration&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:253
-msgid "Episode summary (&lt;itunes:summary&gt;)."
-msgstr "Episode Zusammenfassung (&lt;itunes:summary&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:254
-msgid "Episode link (&lt;link&gt;)."
-msgstr "Episoden Link (&lt;link&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:255
-msgid "Episode Globally Unique Identifier (&lt;guid&gt;)"
-msgstr "Episoden ID (&lt;guid&gt;)"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:256
-msgid "Episode description (&lt;itunes:description&gt;)."
-msgstr "Episoden Beschreibung (&lt;itunes:description&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:257
-msgid "Same as above but truncated to the given amount of words."
-msgstr "Wie das vorhergehende, aber beschränkt auf eine bestimmte Anzahl Wörter."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:258
-msgid "Url of first episode enclosure (&lt;enclosure&gt; url attribute)."
-msgstr "URL des ersten Episoden Anhangs (&lt;enclosure&gt; url attribute)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:259
-msgid "Thumbnail tag in original size (&lt;itunes:image&gt; or first found image in &lt;content:encoded&gt;)."
-msgstr "Thumbnail Tag in Originalgröße (&lt;itunes:image&gt; oder erstes gefundenes Bild in &lt;content:encoded&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:260
-msgid "Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>."
-msgstr "Wie das vorhergehende, aber mit spezifischer Größe. Beispiel: <pre>%THUMBNAIL|75x75%</pre>."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:261
-msgid "Episode publish date (&lt;pubDate&gt;) in WordPress default format. "
-msgstr "Episoden Erscheinungsdatum (&lt;pubDate&gt;) im WordPress Standard Format. "
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:262
-msgid "Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>."
-msgstr "Wie das vorhergehende, aber mit spezifischem Format. Beispiel: <pre>%DATE|Y/m/d%</pre>."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:264
-msgid "Global feed data"
-msgstr "Globale Feed Daten"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:266
-msgid "Feed title (&lt;title&gt;)."
-msgstr "Feed Titel (&lt;title&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:267
-msgid "Feed subtitle (&lt;itunes:subtitle&gt;)."
-msgstr "Feed Untertitel (&lt;itunes:subtitle&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:268
-msgid "Feed summary (&lt;itunes:summary&gt;)."
-msgstr "Feed Zusammenfassung (&lt;itunes:summary&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:269
-msgid "Feed link (&lt;link&gt;)."
-msgstr "Feed Link (&lt;link&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:270
-msgid "Feed language (&lt;language&gt;)."
-msgstr "Feed Sprache (&lt;language&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:271
-msgid "Feed image (&lt;itunes:image&gt;)."
-msgstr "Feed Thumbnail (&lt;itunes:image&gt;)."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:272
-msgid "Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
-msgstr "Wie das vorhergehende, aber mit spezifischer Größe. Beispiel: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:290
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:326
-msgid "Choose Template"
-msgstr "Vorlage Wählen"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:311
-msgid "Template to Edit"
-msgstr "Zu bearbeitende Vorlage"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:336
-#, php-format
-msgid "Settings for \"%1s\" Collection"
-msgstr "Einstellungen für Feedsammlung \"%1s\""
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:360
-msgid "Feeds"
-msgstr "Feeds"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:375
-msgid "Template Options"
-msgstr "Vorlagen Optionen"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:380
-msgid "Template Name"
-msgstr "Vorlagen Name"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:388
-msgid "Before Template"
-msgstr "Vor Vorlage"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:396
-msgid "Body Template"
-msgstr "Vorlage"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:404
-msgid "After Template"
-msgstr "Nach Vorlage"
-
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:414
+#: settings.php:422
+#@ default
 msgid "Save Changes"
 msgstr ""
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:415
+#: settings.php:127
+#@ multi-feed-reader
+msgid "Edit Feedcollection"
+msgstr "Feedsammlung bearbeiten"
+
+#: settings.php:128
+#: settings.php:434
+#@ multi-feed-reader
+msgid "Add Feedcollection"
+msgstr "Feedsammlung Hinzufügen"
+
+#: settings.php:193
+#@ multi-feed-reader
+msgid "Creator"
+msgstr "Autor"
+
+#: settings.php:196
+#@ multi-feed-reader
+msgid "Hey, I'm Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer."
+msgstr "Hi, mein Name ist Eric. Ich habe dieses Plugin geschrieben.<br/> Wenn Du es magst, würde ich mich über einen geflatterten Drink freuen :)"
+
+#: settings.php:212
+#, php-format
+#@ multi-feed-reader
+msgid "Get in touch: Visit my <a href=\"%1s\">Homepage</a>, follow me on <a href=\"%2s\">Twitter</a> or look at my projects on <a href=\"%3s\">GitHub</a>."
+msgstr "Sag hallo:  <a href=\"%1s\">Besuch mich</a>, folge mir auf <a href=\"%2s\">Twitter</a> oder schau dir meine anderen Projekte auf <a href=\"%3s\">GitHub</a> an."
+
+#: settings.php:221
+#@ multi-feed-reader
+msgid "Usage"
+msgstr "Benutzung"
+
+#: settings.php:225
+#@ multi-feed-reader
+msgid "Use this shortcode in any post or page:"
+msgstr "Benutze diesen Shortcode in Artikeln und Seiten:"
+
+#: settings.php:231
+#@ multi-feed-reader
+msgid "You can limit the amount of posts displayed:"
+msgstr "Anzahl Einträge limitieren:"
+
+#: settings.php:239
+#@ multi-feed-reader
+msgid "Placeholders"
+msgstr "Platzhalter"
+
+#: settings.php:247
+#@ multi-feed-reader
+msgid "Feed item data"
+msgstr "Feed Item Daten"
+
+#: settings.php:249
+#@ multi-feed-reader
+msgid "Episode title (&lt;title&gt;)."
+msgstr "Episoden Titel (&lt;title&gt;)."
+
+#: settings.php:250
+#@ multi-feed-reader
+msgid "Episode subtitle (&lt;itunes:subtitle&gt;)."
+msgstr "Episoden Untertitel (&lt;itunes:subtitle&gt;)."
+
+#: settings.php:251
+#@ multi-feed-reader
+msgid "Episode content (&lt;content:encoded&gt;)."
+msgstr "Episoden Inhalt (&lt;content:encoded&gt;)."
+
+#: settings.php:252
+#@ multi-feed-reader
+msgid "Episode duration (&lt;itunes:duration&gt;)."
+msgstr "Episoden Dauer (&lt;itunes:duration&gt;)."
+
+#: settings.php:253
+#@ multi-feed-reader
+msgid "Episode summary (&lt;itunes:summary&gt;)."
+msgstr "Episoden Zusammenfassung (&lt;itunes:summary&gt;)."
+
+#: settings.php:254
+#@ multi-feed-reader
+msgid "Episode link (&lt;link&gt;)."
+msgstr "Episoden Link (&lt;link&gt;)."
+
+#: settings.php:255
+#@ multi-feed-reader
+msgid "Episode Globally Unique Identifier (&lt;guid&gt;)"
+msgstr "Episoden Globally Unique Identifier (&lt;guid&gt;)"
+
+#: settings.php:256
+#@ multi-feed-reader
+msgid "Episode description (&lt;itunes:description&gt;)."
+msgstr "Episode Beschreibung (&lt;itunes:description&gt;)."
+
+#: settings.php:257
+#@ multi-feed-reader
+msgid "Same as above but truncated to the given amount of words."
+msgstr "Wie oben aber auf die angegebene Zahl Worte begrenzt."
+
+#: settings.php:258
+#@ multi-feed-reader
+msgid "Url of first episode enclosure (&lt;enclosure&gt; url attribute)."
+msgstr "Url der ersten Enclosure (&lt;enclosure&gt; url attribute)."
+
+#: settings.php:259
+#@ multi-feed-reader
+msgid "Thumbnail tag in original size (&lt;itunes:image&gt;)."
+msgstr "Thumbnail tag in Originalgröße (&lt;itunes:image&gt;)."
+
+#: settings.php:260
+#, php-format
+#@ multi-feed-reader
+msgid "Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>."
+msgstr "Wie oben aber mit angegebener Größe. Example: <pre>%THUMBNAIL|75x75%</pre>."
+
+#: settings.php:261
+#@ multi-feed-reader
+msgid "Episode publish date (&lt;pubDate&gt;) in WordPress default format. "
+msgstr "Episoden Veröffentlichungsdatum (&lt;pubDate&gt;) im WordPress Standardformat. "
+
+#: settings.php:262
+#, php-format
+#@ multi-feed-reader
+msgid "Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>."
+msgstr "Wie oben aber in eigenem Format. Beispiel: <pre>%DATE|Y/m/d%</pre>."
+
+#: settings.php:264
+#@ multi-feed-reader
+msgid "App Store data"
+msgstr "App Store Daten"
+
+#: settings.php:266
+#@ multi-feed-reader
+msgid "App name."
+msgstr "App Name."
+
+#: settings.php:267
+#@ multi-feed-reader
+msgid "App price."
+msgstr "App Preis."
+
+#: settings.php:268
+#@ multi-feed-reader
+msgid "App Icon as HTML image."
+msgstr "App Icon als HTML Bild."
+
+#: settings.php:269
+#@ multi-feed-reader
+msgid "App artist / publisher."
+msgstr "App Artist / Publisher."
+
+#: settings.php:270
+#@ multi-feed-reader
+msgid "App release date in WordPress format."
+msgstr "App Releasedatum in WordPress Format."
+
+#: settings.php:272
+#@ multi-feed-reader
+msgid "Global feed data"
+msgstr "Globale Feeddaten"
+
+#: settings.php:298
+#: settings.php:334
+#@ multi-feed-reader
+msgid "Choose Template"
+msgstr "Template wählen"
+
+#: settings.php:319
+#@ multi-feed-reader
+msgid "Template to Edit"
+msgstr "Zu bearbeitendes Template"
+
+#: settings.php:344
+#, php-format
+#@ multi-feed-reader
+msgid "Settings for \"%1s\" Collection"
+msgstr "Einstellungen für Sammlung \"%1s\""
+
+#: settings.php:368
+#@ multi-feed-reader
+msgid "Feeds"
+msgstr "Feeds"
+
+#: settings.php:383
+#@ multi-feed-reader
+msgid "Template Options"
+msgstr "Template Einstellungen"
+
+#: settings.php:388
+#@ multi-feed-reader
+msgid "Template Name"
+msgstr "Template Name"
+
+#: settings.php:396
+#@ multi-feed-reader
+msgid "Before Template"
+msgstr "Vor dem Template"
+
+#: settings.php:404
+#@ multi-feed-reader
+msgid "Body Template"
+msgstr "Haupttemplate"
+
+#: settings.php:412
+#@ multi-feed-reader
+msgid "After Template"
+msgstr "Nach dem Template"
+
+#: settings.php:423
+#@ multi-feed-reader
 msgid "delete permanently"
 msgstr "permanent löschen"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:434
+#: settings.php:442
+#@ multi-feed-reader
 msgid "New Feedcollection Name"
-msgstr "Neuer Feedsammlungs Name"
+msgstr "Name neuer Feedsammlung"
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:439
+#: settings.php:447
+#@ multi-feed-reader
 msgid "This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection \"rockstar\", then you can use it with the shortcode <em>[multi-feed-reader template=\"rockstar\"]</em>"
-msgstr "Dieser Name wird im Shortcode benutzt werden, um die Feedsammlung zu identifizieren.<br/>Beispiel: Wenn du die Sammlung \"rockstar\" nennst, dann kannst du sie mit folgendem Shortcode aufrufen: <em>[multi-feed-reader template=\"rockstar\"]</em>"
+msgstr "Dieser Name wird im Shortcode benutzt, um die Sammlung zu identifizieren.<br/>Beispiel: Wenn du die Sammling \"rockstar\" nennst, kannst du sie mit dem Shortcode <em>[multi-feed-reader template=\"rockstar\"]</em> einbinden."
 
-#: /Users/ericteubert/code/multi-feed-reader/settings.php:447
+#: settings.php:455
+#@ multi-feed-reader
 msgid "Add New Feedcollection"
-msgstr "Neue Feedsammlung Hinzufügen"
+msgstr "Neue Feedsammlung hinzufügen"
+
+#: settings.php:274
+#@ multi-feed-reader
+msgid "Feed title (&lt;title&gt;)."
+msgstr "Feed Titel (&lt;title&gt;)."
+
+#: settings.php:275
+#@ multi-feed-reader
+msgid "Feed subtitle (&lt;itunes:subtitle&gt;)."
+msgstr "Feed Untertitel (&lt;itunes:subtitle&gt;)."
+
+#: settings.php:276
+#@ multi-feed-reader
+msgid "Feed summary (&lt;itunes:summary&gt;)."
+msgstr "Feed Zusammenfassung (&lt;itunes:summary&gt;)."
+
+#: settings.php:277
+#@ multi-feed-reader
+msgid "Feed link (&lt;link&gt;)."
+msgstr "Feed Link (&lt;link&gt;)."
+
+#: settings.php:278
+#@ multi-feed-reader
+msgid "Feed language (&lt;language&gt;)."
+msgstr "Feed Sprache (&lt;language&gt;)."
+
+#: settings.php:279
+#@ multi-feed-reader
+msgid "Feed image (&lt;itunes:image&gt;)."
+msgstr "Feed Bild (&lt;itunes:image&gt;)."
+
+#: settings.php:280
+#, php-format
+#@ multi-feed-reader
+msgid "Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
+msgstr "Wie oben aber mit angegebener Größe. Beispiel: <pre>%FEEDTHUMBNAIL|75x75%</pre>."
 

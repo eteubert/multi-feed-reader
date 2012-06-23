@@ -57,7 +57,7 @@ class Feed extends Base
 			'summary'  => $this->get_itunes_channel_tag( $feed, 'summary' ),
 			'image'    => $feed->get_image_url()
 		);
-		
+
 		// read feed items
 		$result[ 'items' ] = array();
 		
@@ -81,8 +81,14 @@ class Feed extends Base
 				'pubDateTime' => strtotime( $item->get_date() ),
 				'guid'        => $item->get_id(),
 				'description' => $description,
-				'enclosure'   => $item->get_enclosure()->link
+				'enclosure'   => $item->get_enclosure()->link,
+				'app_name'        => $this->get_appstore_item_tag( $item, 'name' ), 
+				'app_price'       => $this->get_appstore_item_tag( $item, 'price' ), 
+				'app_image'       => $this->get_appstore_item_tag( $item, 'image' ), 
+				'app_artist'      => $this->get_appstore_item_tag( $item, 'artist' ),
+				'app_releaseDate' => strtotime( $this->get_appstore_item_tag( $item, 'releaseDate' ) )
 			);
+
 		}
 		$timer->stop( 'parse' );
 
@@ -98,6 +104,15 @@ class Feed extends Base
 		return $result;
 	}
 	
+	private function get_appstore_item_tag( $item, $tag ) {
+		$raw = $item->get_item_tags( 'http://itunes.apple.com/rss', $tag );
+
+		if ( $raw && isset( $raw[0]['data'] ) )
+			return $raw[0]['data'];
+		else
+			return '';	
+	}
+
 	public static function find_by_feed_collection_id( $id ) {
 		global $wpdb;
 

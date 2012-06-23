@@ -48,12 +48,19 @@ function parse( $template, $values, $feed ) {
 	$template = str_replace( '%ENCLOSURE%', $values[ 'enclosure' ], $template );
 	$template = str_replace( '%DATE%', date( get_option( 'date_format' ), $values[ 'pubDateTime' ] ), $template );
 	
+	// App Store stuff
+	$template = str_replace( '%APPNAME%', $values[ 'app_name' ], $template );
+	$template = str_replace( '%APPPRICE%', $values[ 'app_price' ], $template );
+	$template = str_replace( '%APPIMAGE%', '<img src="' . $values[ 'app_image' ] . '" />', $template );
+	$template = str_replace( '%APPARTIST%', $values[ 'app_artist' ], $template );
+	$template = str_replace( '%APPRELEASE%', date( get_option( 'date_format' ), $values[ 'app_releaseDate' ] ), $template );
+
 	// truncated description
 	$template = preg_replace_callback(
 	    '/%DESCRIPTION\|(\d+)%/',
 	    function ( $matches ) use ( $values ) {
 			$stripped = strip_tags( $values[ 'description' ] );
-			$short = preg_replace( '/((\S+\s){' . $matches[ 1 ] . '}(\w+))(.*)/i', '${1}', $stripped );
+			$short = implode( ' ', array_slice( explode( ' ', $stripped ), 0, $matches[1] ) );
 			
 			$ellipsis = '';
 			if ( $short != $stripped )

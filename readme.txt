@@ -44,6 +44,14 @@ Use HTML and any of the following template placeholders.
 - `%DATE%` - Episode publish date (&lt;pubDate&gt;) in WordPress default format. 
 - `%DATE|...%` - Same as above but in a custom format. Example: `%DATE|Y/m/d%`.
 
+Access data from app store feeds:
+
+- %APPNAME% - App name.
+- %APPPRICE% - App price.
+- %APPIMAGE% - App Icon as HTML image.
+- %APPARTIST% - App artist / publisher.
+- %APPRELEASE% - App release date in WordPress format.
+
 Use these placeholders to access global feed data:
 
 - `%FEEDTITLE%` - Feed title (&lt;title&gt;).
@@ -87,6 +95,11 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 2. Example Archive
 
 == Changelog ==
+
+= 2.1.0 =
+* add support for some iTunes App Store tags (name, price, icon, releasedate). Please see readme for usage.
+* bugfix concerning description truncating
+* internal translation API changes
 
 = 2.0.0 =
 * finally supports a wide variety of feeds

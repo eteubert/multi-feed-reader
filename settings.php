@@ -124,8 +124,8 @@ add_action( 'admin_init', 'MultiFeedReader\Settings\process_forms' );
  */
 function initialize() {
 	$tabs = new \MultiFeedReader\Tabs;
-	$tabs->set_tab( 'edit', \MultiFeedReader\t( 'Edit Feedcollection' ) );
-	$tabs->set_tab( 'add', \MultiFeedReader\t( 'Add Feedcollection' ) );
+	$tabs->set_tab( 'edit', __( 'Edit Feedcollection', 'multi-feed-reader' ) );
+	$tabs->set_tab( 'add', __( 'Add Feedcollection', 'multi-feed-reader' ) );
 	$tabs->set_default( 'edit' );
 	
 	if ( ! FeedCollection::has_entries() ) {
@@ -190,10 +190,10 @@ function initialize() {
  * @todo this should be a template/partial
  */
 function display_creator_metabox() {
-	postbox( \MultiFeedReader\t( 'Creator' ), function () {
+	postbox( __( 'Creator', 'multi-feed-reader' ), function () {
 		?>
 		<p>
-			<?php echo \MultiFeedReader\t( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.' ) ?>
+			<?php echo __( 'Hey, I\'m Eric. I created this plugin.<br/> If you like it, consider to flattr me a beer.', 'multi-feed-reader' ) ?>
 		</p>
 		<script type="text/javascript">
 		/* <![CDATA[ */
@@ -209,7 +209,7 @@ function display_creator_metabox() {
 		<noscript><a href="http://flattr.com/thing/474620/WordPress-Plugin-Multi-Feed-Reader" target="_blank">
 		<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 		<p>
-			<?php echo wp_sprintf( \MultiFeedReader\t( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert' ) ?>
+			<?php echo wp_sprintf( __( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.', 'multi-feed-reader' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert', 'multi-feed-reader' ) ?>
 		</p>
 		<?php
 	});
@@ -218,17 +218,17 @@ function display_creator_metabox() {
 function display_help_metabox( $tabs ) {
 	if ( $tabs->get_current_tab() == 'edit' && $c = FeedCollection::current() ) {
 		$value = '[' . \MultiFeedReader\SHORTCODE . ' template=&quot;' . $c->name . '&quot;';
-		postbox( \MultiFeedReader\t( 'Usage' ), function () use ( $value ) {
+		postbox( __( 'Usage', 'multi-feed-reader' ), function () use ( $value ) {
 			?>
 			<p>
 				<?php
-				echo \MultiFeedReader\t( 'Use this shortcode in any post or page:' );
+				echo __( 'Use this shortcode in any post or page:', 'multi-feed-reader' );
 				?>
 				<input type="text" class="large-text" value="<?php echo $value . ']'; ?>" />
 			</p>
 			<p>
 				<?php
-				echo \MultiFeedReader\t( 'You can limit the amount of posts displayed:' );
+				echo __( 'You can limit the amount of posts displayed:', 'multi-feed-reader' );
 				?>
 				<input type="text" class="large-text" value="<?php echo $value . ' limit=&quot;5&quot;]'; ?>" />				
 			</p>
@@ -236,7 +236,7 @@ function display_help_metabox( $tabs ) {
 		});
 	}
 	
-    postbox( \MultiFeedReader\t( 'Placeholders' ), function () {
+    postbox( __( 'Placeholders', 'multi-feed-reader' ), function () {
 		?>
         <style type="text/css" media="screen">
     		.inline-pre pre {
@@ -244,32 +244,40 @@ function display_help_metabox( $tabs ) {
     		}
     	</style>
     	<div class="inline-pre">
-			<strong><?php echo \MultiFeedReader\t( 'Feed item data' ); ?></strong>
+			<strong><?php echo __( 'Feed item data', 'multi-feed-reader' ); ?></strong>
 			<p>
-           		<pre>%TITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode title (&lt;title&gt;).' ); ?><br/><br/>
-           		<pre>%SUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode subtitle (&lt;itunes:subtitle&gt;).' ); ?><br/><br/>
-           		<pre>%CONTENT%</pre><br/><?php echo \MultiFeedReader\t( 'Episode content (&lt;content:encoded&gt;).' ); ?><br/><br/>
-           		<pre>%DURATION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode duration (&lt;itunes:duration&gt;).' ); ?><br/><br/>
-           		<pre>%SUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Episode summary (&lt;itunes:summary&gt;).' ); ?><br/><br/>
-           		<pre>%LINK%</pre><br/><?php echo \MultiFeedReader\t( 'Episode link (&lt;link&gt;).' ); ?><br/><br/>
-           		<pre>%GUID%</pre><br/><?php echo \MultiFeedReader\t( 'Episode Globally Unique Identifier (&lt;guid&gt;)' ); ?><br/><br/>
-           		<pre>%DESCRIPTION%</pre><br/><?php echo \MultiFeedReader\t( 'Episode description (&lt;itunes:description&gt;).' ); ?><br/><br/>
-           		<pre>%DESCRIPTION|...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but truncated to the given amount of words.' ); ?><br/><br/>
-           		<pre>%ENCLOSURE%</pre><br/><?php echo \MultiFeedReader\t( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).' ); ?><br/><br/>
-            	<pre>%THUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Thumbnail tag in original size (&lt;itunes:image&gt;).' ); ?><br/><br/>
-            	<pre>%THUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.' ); ?><br/><br/>
-            	<pre>%DATE%</pre><br/><?php echo \MultiFeedReader\t( 'Episode publish date (&lt;pubDate&gt;) in WordPress default format. ' ); ?><br/><br/>
-            	<pre>%DATE|...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>.' ); ?><br/><br/>
+           		<pre>%TITLE%</pre><br/><?php echo __( 'Episode title (&lt;title&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%SUBTITLE%</pre><br/><?php echo __( 'Episode subtitle (&lt;itunes:subtitle&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%CONTENT%</pre><br/><?php echo __( 'Episode content (&lt;content:encoded&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%DURATION%</pre><br/><?php echo __( 'Episode duration (&lt;itunes:duration&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%SUMMARY%</pre><br/><?php echo __( 'Episode summary (&lt;itunes:summary&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%LINK%</pre><br/><?php echo __( 'Episode link (&lt;link&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%GUID%</pre><br/><?php echo __( 'Episode Globally Unique Identifier (&lt;guid&gt;)', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%DESCRIPTION%</pre><br/><?php echo __( 'Episode description (&lt;itunes:description&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%DESCRIPTION|...%</pre><br/><?php echo __( 'Same as above but truncated to the given amount of words.', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%ENCLOSURE%</pre><br/><?php echo __( 'Url of first episode enclosure (&lt;enclosure&gt; url attribute).', 'multi-feed-reader' ); ?><br/><br/>
+            	<pre>%THUMBNAIL%</pre><br/><?php echo __( 'Thumbnail tag in original size (&lt;itunes:image&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+            	<pre>%THUMBNAIL|...x...%</pre><br/><?php echo __( 'Same as above but with certain dimensions. Example: <pre>%THUMBNAIL|75x75%</pre>.', 'multi-feed-reader' ); ?><br/><br/>
+            	<pre>%DATE%</pre><br/><?php echo __( 'Episode publish date (&lt;pubDate&gt;) in WordPress default format. ', 'multi-feed-reader' ); ?><br/><br/>
+            	<pre>%DATE|...%</pre><br/><?php echo __( 'Same as above but in a custom format. Example: <pre>%DATE|Y/m/d%</pre>.', 'multi-feed-reader' ); ?><br/><br/>
 			</p>
-			<strong><?php echo \MultiFeedReader\t( 'Global feed data' ); ?></strong>
+			<strong><?php echo __( 'App Store data', 'multi-feed-reader' ); ?></strong>
 			<p>
-				<pre>%FEEDTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed title (&lt;title&gt;).'); ?><br/><br/>
-				<pre>%FEEDSUBTITLE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed subtitle (&lt;itunes:subtitle&gt;).'); ?><br/><br/>
-				<pre>%FEEDSUMMARY%</pre><br/><?php echo \MultiFeedReader\t( 'Feed summary (&lt;itunes:summary&gt;).'); ?><br/><br/>
-				<pre>%FEEDLINK%</pre><br/><?php echo \MultiFeedReader\t( 'Feed link (&lt;link&gt;).'); ?><br/><br/>
-				<pre>%FEEDLANGUAGE%</pre><br/><?php echo \MultiFeedReader\t( 'Feed language (&lt;language&gt;).'); ?><br/><br/>
-				<pre>%FEEDTHUMBNAIL%</pre><br/><?php echo \MultiFeedReader\t( 'Feed image (&lt;itunes:image&gt;).'); ?><br/><br/>
-				<pre>%FEEDTHUMBNAIL|...x...%</pre><br/><?php echo \MultiFeedReader\t( 'Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>.'); ?><br/><br/>
+				<pre>%APPNAME%</pre><br/><?php echo __( 'App name.', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%APPPRICE%</pre><br/><?php echo __( 'App price.', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%APPIMAGE%</pre><br/><?php echo __( 'App Icon as HTML image.', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%APPARTIST%</pre><br/><?php echo __( 'App artist / publisher.', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%APPRELEASE%</pre><br/><?php echo __( 'App release date in WordPress format.', 'multi-feed-reader' ); ?><br/><br/>
+			</p>
+			<strong><?php echo __( 'Global feed data', 'multi-feed-reader' ); ?></strong>
+			<p>
+				<pre>%FEEDTITLE%</pre><br/><?php echo __( 'Feed title (&lt;title&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDSUBTITLE%</pre><br/><?php echo __( 'Feed subtitle (&lt;itunes:subtitle&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDSUMMARY%</pre><br/><?php echo __( 'Feed summary (&lt;itunes:summary&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDLINK%</pre><br/><?php echo __( 'Feed link (&lt;link&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDLANGUAGE%</pre><br/><?php echo __( 'Feed language (&lt;language&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDTHUMBNAIL%</pre><br/><?php echo __( 'Feed image (&lt;itunes:image&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+				<pre>%FEEDTHUMBNAIL|...x...%</pre><br/><?php echo __( 'Same as above but with certain dimensions. Example: <pre>%FEEDTHUMBNAIL|75x75%</pre>.', 'multi-feed-reader' ); ?><br/><br/>
 				
 			</p>
     	</div>
@@ -287,7 +295,7 @@ function display_help_metabox( $tabs ) {
  */
 function display_edit_page() {
 	if ( FeedCollection::count() > 1 ) {
-		postbox( \MultiFeedReader\t( 'Choose Template' ), function () {
+		postbox( __( 'Choose Template', 'multi-feed-reader' ), function () {
 			$all = FeedCollection::all();
 			?>
 			<form action="<?php echo admin_url( 'options-general.php' ) ?>" method="get">
@@ -308,7 +316,7 @@ function display_edit_page() {
 					<tbody>
 						<tr>
 							<th scope="row">
-								<?php echo \MultiFeedReader\t( 'Template to Edit' ) ?>
+								<?php echo __( 'Template to Edit', 'multi-feed-reader' ) ?>
 							</th>
 							<td>
 								<select name="choose_template_id" id="choose_template_id" style="width:99%">
@@ -323,7 +331,7 @@ function display_edit_page() {
 				</table>
 
 				<p class="submit" id="choose_template_button">
-					<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Choose Template' ) ?>" />
+					<input type="submit" class="button-primary" value="<?php echo __( 'Choose Template', 'multi-feed-reader' ) ?>" />
 				</p>
 
 				<br class="clear" />
@@ -333,7 +341,7 @@ function display_edit_page() {
 		});
 	}
 	
-	postbox( wp_sprintf( \MultiFeedReader\t( 'Settings for "%1s" Collection' ), FeedCollection::current()->name ), function () {
+	postbox( wp_sprintf( __( 'Settings for "%1s" Collection', 'multi-feed-reader' ), FeedCollection::current()->name ), function () {
 		$current = FeedCollection::current();
 		$feeds = $current->feeds();
 		?>
@@ -357,7 +365,7 @@ function display_edit_page() {
 				<tbody>
 					<tr valign="top">
 						<th scope="row">
-							<h4><?php echo \MultiFeedReader\t( 'Feeds' ) ?></h4>
+							<h4><?php echo __( 'Feeds', 'multi-feed-reader' ) ?></h4>
 						</th>
 						<td scope="row" id="feed_form">
 							<?php if ( $feeds ): ?>
@@ -372,12 +380,12 @@ function display_edit_page() {
 					</tr>
 					<tr valign="top">
 						<th scope="row" colspan="2">
-							<h4><?php echo \MultiFeedReader\t( 'Template Options' ) ?></h4>
+							<h4><?php echo __( 'Template Options', 'multi-feed-reader' ) ?></h4>
 						</th>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'Template Name' ) ?>
+							<?php echo __( 'Template Name', 'multi-feed-reader' ) ?>
 						</th>
 						<td>
 							<input type="text" name="feedcollection[name]" value="<?php echo $current->name ?>" class="large-text">
@@ -385,7 +393,7 @@ function display_edit_page() {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'Before Template' ) ?>
+							<?php echo __( 'Before Template', 'multi-feed-reader' ) ?>
 						</th>
 						<td>
 							<textarea name="feedcollection[before_template]" rows="10" class="large-text"><?php echo $current->before_template ?></textarea>
@@ -393,7 +401,7 @@ function display_edit_page() {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'Body Template' ) ?>
+							<?php echo __( 'Body Template', 'multi-feed-reader' ) ?>
 						</th>
 						<td>
 							<textarea name="feedcollection[body_template]" rows="10" class="large-text"><?php echo $current->body_template ?></textarea>
@@ -401,7 +409,7 @@ function display_edit_page() {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'After Template' ) ?>
+							<?php echo __( 'After Template', 'multi-feed-reader' ) ?>
 						</th>
 						<td>
 							<textarea name="feedcollection[after_template]" rows="10" class="large-text"><?php echo $current->after_template ?></textarea>
@@ -412,7 +420,7 @@ function display_edit_page() {
 			
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e( 'Save Changes' ) ?>" style="float:right" />
-				<input type="submit" class="button-secondary" style="color:#BC0B0B; margin-right:20px; float: right" name="delete" value="<?php echo \MultiFeedReader\t( 'delete permanently' ) ?>">
+				<input type="submit" class="button-secondary" style="color:#BC0B0B; margin-right:20px; float: right" name="delete" value="<?php echo __( 'delete permanently', 'multi-feed-reader' ) ?>">
 			</p>
 			
 			<br class="clear" />
@@ -423,7 +431,7 @@ function display_edit_page() {
 }
 
 function display_add_page() {
-	postbox( \MultiFeedReader\t( 'Add Feedcollection' ), function () {
+	postbox( __( 'Add Feedcollection', 'multi-feed-reader' ), function () {
 		?>
 		<form action="" method="post">
 
@@ -431,12 +439,12 @@ function display_add_page() {
 				<tbody>
 					<tr>
 						<th scope="row">
-							<?php echo \MultiFeedReader\t( 'New Feedcollection Name' ); ?>
+							<?php echo __( 'New Feedcollection Name', 'multi-feed-reader' ); ?>
 						</th>
 						<td>
 							<input type="text" name="mfr_new_feedcollection_name" value="" id="mfr_new_feedcollection_name" class="large-text">
 							<p>
-								<small><?php echo \MultiFeedReader\t( 'This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection "rockstar", then you can use it with the shortcode <em>[multi-feed-reader template="rockstar"]</em>' ); ?></small>
+								<small><?php echo __( 'This name will be used in the shortcode to identify the feedcollection.<br/>Example: If you name the collection "rockstar", then you can use it with the shortcode <em>[multi-feed-reader template="rockstar"]</em>', 'multi-feed-reader' ); ?></small>
 							</p>
 						</td>
 					</tr>
@@ -444,7 +452,7 @@ function display_add_page() {
 			</table>
 
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php echo \MultiFeedReader\t( 'Add New Feedcollection' ); ?>" />
+				<input type="submit" class="button-primary" value="<?php echo __( 'Add New Feedcollection', 'multi-feed-reader' ); ?>" />
 			</p>
 			
 			<br class="clear" />
