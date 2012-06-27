@@ -37,6 +37,11 @@ class Feed extends Base
 
 		$timer->start( 'load' );
 		$feed = new \SimplePie();
+
+		// allow class attributes to stay
+		if ( $feed->sanitize && $feed->sanitize->strip_attributes )
+			$feed->sanitize->strip_attributes = array_diff( $feed->sanitize->strip_attributes, array( 'class' ) );
+
 		// $feed->handle_content_type();
 		$feed->set_feed_url( $this->url );
 		$feed->set_cache_duration( 3600 ); // 1 hour is default
@@ -73,8 +78,7 @@ class Feed extends Base
 			if ( $enclosure ) {
 				$enclosure_link = $enclosure->link;
 			}
-			
-			
+
 			$result[ 'items' ][] = array(
 				'feed_id'     => $this->id,
 				'content'     => $item->get_content(),
