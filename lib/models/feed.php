@@ -67,6 +67,13 @@ class Feed extends Base
 			$description = $this->get_itunes_item_tag( $item, 'description' );
 			if ( ! $description )
 				$description = $item->get_description();
+
+			$enclosure = $item->get_enclosure();
+			$enclosure_link = '';
+			if ( $enclosure ) {
+				$enclosure_link = $enclosure->link;
+			}
+			
 			
 			$result[ 'items' ][] = array(
 				'feed_id'     => $this->id,
@@ -81,7 +88,7 @@ class Feed extends Base
 				'pubDateTime' => strtotime( $item->get_date() ),
 				'guid'        => $item->get_id(),
 				'description' => $description,
-				'enclosure'   => $item->get_enclosure()->link,
+				'enclosure'   => $enclosure_link,
 				'app_name'        => $this->get_appstore_item_tag( $item, 'name' ), 
 				'app_price'       => $this->get_appstore_item_tag( $item, 'price' ), 
 				'app_image'       => $this->get_appstore_item_tag( $item, 'image' ), 
