@@ -96,6 +96,9 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 2.1.1 =
+* if there are class attributes the description html, they will now correctly be displayed
+
 = 2.1.0 =
 * add support for some iTunes App Store tags (name, price, icon, releasedate). Please see readme for usage.
 * bugfix concerning description truncating
