@@ -24,9 +24,9 @@ function mfr_autoloader( $class_name ) {
 	// register all possible paths for the class
 	$possibilities = array();
 	if ( count( $namespaces ) >= 1 ) {
-		$possibilities[] = strtolower( $lib . implode( '/', $namespaces ) . '/' . $class_name . '.php' );
+		$possibilities[] = $lib . strtolower( implode( '/', $namespaces ) . '/' . $class_name . '.php' );
 	} else {
-		$possibilities[] = strtolower( $lib . $class_name . '.php' );
+		$possibilities[] = $lib . strtolower( $class_name . '.php' );
 	}
 	
 	// search for the class

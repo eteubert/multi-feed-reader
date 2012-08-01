@@ -96,6 +96,12 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 2.1.3 =
+* class loading fix
+
+= 2.1.2 =
+* compatibility fix
+
 = 2.1.1 =
 * if there are class attributes the description html, they will now correctly be displayed
 
