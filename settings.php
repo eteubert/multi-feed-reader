@@ -320,8 +320,9 @@ function display_edit_page() {
 							</th>
 							<td>
 								<select name="choose_template_id" id="choose_template_id" style="width:99%">
+									<?php $selected_choose_template_id = isset( $_REQUEST[ 'choose_template_id' ] ) ? $_REQUEST[ 'choose_template_id' ] : 0; ?>
 									<?php foreach ( $all as $c ): ?>
-										<?php $selected = ( $_REQUEST[ 'choose_template_id' ] == $c->id ) ? 'selected="selected"' : ''; ?>
+										<?php $selected = ( $selected_choose_template_id == $c->id ) ? 'selected="selected"' : ''; ?>
 										<option value="<?php echo $c->id ?>" <?php echo $selected ?>><?php echo $c->name ?></option>
 									<?php endforeach ?>
 								</select>

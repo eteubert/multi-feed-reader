@@ -32,26 +32,26 @@ function add_menu_entry() {
 }
 
 function shortcode( $attributes ) {
+
 	extract(
 		shortcode_atts(
 			array(
-				'template' => DEFAULT_TEMPLATE,
-				'limit'    => DEFAULT_LIMIT,
-				'nocache'  => isset( $_GET[ 'nocache' ] )
+				'template'  => DEFAULT_TEMPLATE,
+				'limit'     => DEFAULT_LIMIT,
+				'nocache'   => isset( $_GET[ 'nocache' ] ),
+				'cachetime' => DEFAULT_CACHETIME
 			),
 			$attributes
 		)
 	);
-	
-	if ( $nocache === false ) {
-		$cache_key = get_cache_key( $template . $limit );
-	    if ( false === ( $out = get_transient( $cache_key ) ) ) {
-	        $out = generate_html_by_template( $template, $limit );
-	        set_transient( $cache_key, $out, 60 * 5 ); // 5 minutes
-	    }
-	} else {
+
+	$cache_key = get_cache_key( $template . $limit );
+	$out = get_transient( $cache_key );
+
+	if ( $nocache || ! $out )
 		$out = generate_html_by_template( $template, $limit );
-	}
+
+	set_transient( $cache_key, $out, $cachetime );
 
 	return $out;
 }

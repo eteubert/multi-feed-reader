@@ -20,8 +20,20 @@ Create a page and paste in one of these shortocdes:
 
 	[multi-feed-reader template="myfeeds"]
 	[multi-feed-reader template="myfeeds" limit="10"]
+	[multi-feed-reader template="myfeeds" cachetime="300"]
 	
 Enjoy :)
+
+= Parameters =
+
+- `template`: (required) name of the template
+- `limit`: (optional) maximum number of items per feed. default: 15
+- `cachetime`: (optional) time in seconds to cache results. default: 300
+- `nocache`: (optional) set to "1" to deactivate cache. not recommended, will make your multifeed-page very slow. default: 0
+
+= Force Cache Refresh =
+
+To clear the cache, call the site with parameter `?nocache=1`. So if your site is `example.com/archives`, open `example.com/archives?nocache=1` in your browser. You should then see the refreshed page immediately.
 
 = Placeholders =
 
@@ -95,6 +107,11 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 2. Example Archive
 
 == Changelog ==
+
+= 2.2.0 =
+* add documentation for all parameters
+* cache duration is configurable via `cachetime` parameter
+* minor fixes / enhancements
 
 = 2.1.3 =
 * class loading fix
