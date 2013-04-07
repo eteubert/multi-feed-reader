@@ -72,22 +72,21 @@ function parse( $template, $values, $feed ) {
 	 	$template
 	 );
 
-    // truncated content
-    $template = preg_replace_callback(
-        '/%CONTENT\|(\d+)%/',
-        function ( $matches ) use ( $values ) {
-                    $stripped = strip_tags( $values[ 'content' ] );
-                    $short = implode( ' ', array_slice( explode( ' ', $stripped ), 0, $matches[1] ) );
+	// truncated content
+	$template = preg_replace_callback(
+		'/%CONTENT\|(\d+)%/',
+		function ( $matches ) use ( $values ) {
+			$stripped = strip_tags( $values[ 'content' ] );
+			$short = implode( ' ', array_slice( explode( ' ', $stripped ), 0, $matches[1] ) );
 
-                    $ellipsis = '';
-                    if ( $short != $stripped )
-                            $ellipsis = ' ...';
+			$ellipsis = '';
+			if ( $short != $stripped )
+				$ellipsis = ' ...';
 
-
-            return $short . $ellipsis;
-        },
-            $template
-     );
+			return $short . $ellipsis;
+		},
+		$template
+	);
 
 	// custom date format
 	$template = preg_replace_callback(

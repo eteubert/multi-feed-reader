@@ -249,6 +249,7 @@ function display_help_metabox( $tabs ) {
            		<pre>%TITLE%</pre><br/><?php echo __( 'Episode title (&lt;title&gt;).', 'multi-feed-reader' ); ?><br/><br/>
            		<pre>%SUBTITLE%</pre><br/><?php echo __( 'Episode subtitle (&lt;itunes:subtitle&gt;).', 'multi-feed-reader' ); ?><br/><br/>
            		<pre>%CONTENT%</pre><br/><?php echo __( 'Episode content (&lt;content:encoded&gt;).', 'multi-feed-reader' ); ?><br/><br/>
+           		<pre>%CONTENT|...%</pre><br/><?php echo __( 'Same as above but truncated to the given amount of words.', 'multi-feed-reader' ); ?><br/><br/>
            		<pre>%DURATION%</pre><br/><?php echo __( 'Episode duration (&lt;itunes:duration&gt;).', 'multi-feed-reader' ); ?><br/><br/>
            		<pre>%SUMMARY%</pre><br/><?php echo __( 'Episode summary (&lt;itunes:summary&gt;).', 'multi-feed-reader' ); ?><br/><br/>
            		<pre>%LINK%</pre><br/><?php echo __( 'Episode link (&lt;link&gt;).', 'multi-feed-reader' ); ?><br/><br/>

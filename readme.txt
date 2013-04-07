@@ -44,6 +44,7 @@ Use HTML and any of the following template placeholders.
 - `%TITLE%` - Episode title (&lt;title&gt;).
 - `%SUBTITLE%` - Episode subtitle (&lt;itunes:subtitle&gt;).
 - `%CONTENT%` - Episode content (&lt;content:encoded&gt;).
+- `%CONTENT|...%` - Same as above but truncated to the given amount of words.
 - `%DURATION%` - Episode duration (&lt;itunes:duration&gt;).
 - `%SUMMARY%` - Episode summary (&lt;itunes:summary&gt;).
 - `%LINK%` - Episode link (&lt;link&gt;).
@@ -109,6 +110,7 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 == Changelog ==
 
 = 2.2.0 =
+* new placeholder: `%CONTENT|...%`
 * add documentation for all parameters
 * cache duration is configurable via `cachetime` parameter
 * minor fixes / enhancements
