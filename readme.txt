@@ -109,6 +109,9 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 2.2.1 =
+* fix issue for windows based servers
+
 = 2.2.0 =
 * new placeholder: `%CONTENT|...%`
 * add documentation for all parameters

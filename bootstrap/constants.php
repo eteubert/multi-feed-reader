@@ -12,7 +12,7 @@ namespace MultiFeedReader;
  */
 define( 'PLUGIN_FILE_NAME', strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', __NAMESPACE__ ) ) . '.php' );
 $dir = dirname( __FILE__ );
-define( 'PLUGIN_DIR' , substr( $dir, 0, strrpos( $dir, '/' ) + 1 ) );
+define( 'PLUGIN_DIR' , substr( $dir, 0, strrpos( $dir, DIRECTORY_SEPARATOR ) + 1 ) );
 define( 'PLUGIN_FILE', PLUGIN_DIR . PLUGIN_FILE_NAME );
 
 /**
