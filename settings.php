@@ -209,7 +209,7 @@ function display_creator_metabox() {
 		<noscript><a href="http://flattr.com/thing/474620/WordPress-Plugin-Multi-Feed-Reader" target="_blank">
 		<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 		<p>
-			<?php echo wp_sprintf( __( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.', 'multi-feed-reader' ), 'http://www.FarBeyondProgramming.com/', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert', 'multi-feed-reader' ) ?>
+			<?php echo wp_sprintf( __( 'Get in touch: Visit my <a href="%1s">Homepage</a>, follow me on <a href="%2s">Twitter</a> or look at my projects on <a href="%3s">GitHub</a>.', 'multi-feed-reader' ), 'http://www.ericteubert.de', 'http://www.twitter.com/ericteubert', 'https://github.com/eteubert', 'multi-feed-reader' ) ?>
 		</p>
 		<?php
 	});
