@@ -109,6 +109,9 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 2.2.2 =
+* apparently having a settings.php in your plugin breaks the network pages. Yay WordPress. *slow clap*
+
 = 2.2.1 =
 * fix issue for windows based servers
 
