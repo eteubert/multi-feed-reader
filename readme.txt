@@ -109,6 +109,10 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 
 == Changelog ==
 
+= 2.2.3 =
+
+* fix error (use of deprecated function `mysql_insert_id()`)
+
 = 2.2.2 =
 * apparently having a settings.php in your plugin breaks the network pages. Yay WordPress. *slow clap*
 
