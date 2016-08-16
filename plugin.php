@@ -97,10 +97,22 @@ function generate_html_by_template( $template, $limit ) {
 	
 	$timer->start( 'render' );
 	$out = $collection->before_template;
-	foreach ( $feed_items as $item ) {
-		$out .= Parser\parse( $collection->body_template, $item, $feed_data[ $item[ 'feed_id' ] ] );
+	if ($collection->before_template_shortcodes == '1') {
+		$out = do_shortcode($out);
 	}
-	$out .= $collection->after_template;
+	foreach ( $feed_items as $item ) {
+		$body_template = $collection->body_template;
+		if ($collection->body_template_shortcodes == '1') {
+			$body_template = do_shortcode($body_template);
+		}
+		$out .= Parser\parse( $body_template, $item, $feed_data[ $item[ 'feed_id' ] ] );
+	}
+	$after_template = $collection->after_template;
+	if ($collection->after_template_shortcodes == '1') {
+		$after_template = do_shortcode($after_template);
+	}
+	$out .= $after_template;
+
 	$timer->stop( 'render' );
 
 	write_log(

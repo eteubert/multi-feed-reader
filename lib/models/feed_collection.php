@@ -51,6 +51,9 @@ class FeedCollection extends Base
 FeedCollection::property( 'id', 'INT NOT NULL AUTO_INCREMENT PRIMARY KEY' );
 FeedCollection::property( 'name', 'VARCHAR(255)' );
 FeedCollection::property( 'before_template', 'TEXT' );
+FeedCollection::property( 'before_template_shortcodes', 'TINYINT' );
 FeedCollection::property( 'body_template', 'TEXT' );
+FeedCollection::property( 'body_template_shortcodes', 'TINYINT' );
 FeedCollection::property( 'after_template', 'TEXT' );
+FeedCollection::property( 'after_template_shortcodes', 'TINYINT' );
 // FeedCollection::has_many( 'MultiFeedReader\Models\Feed', array( 'plural' => 'feeds' ) );
