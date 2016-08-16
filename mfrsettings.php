@@ -399,6 +399,14 @@ function display_edit_page() {
 						</th>
 						<td>
 							<textarea name="feedcollection[before_template]" rows="10" class="large-text"><?php echo $current->before_template ?></textarea>
+							<br />
+							<fieldset>
+								<legend><?php echo __( 'WP shortcodes', 'multi-feed-reader' ) ?>:</legend>
+								<input type="radio" name="feedcollection[before_template_shortcodes]" value="1" id="before_template_shortcodes_enable"<?= $current->before_template_shortcodes == '1' ? ' checked="checked"' : '' ?> />
+								<label for="before_template_shortcodes_enable"><?php echo __( 'enabled', 'multi-feed-reader' ) ?></label>
+								<input type="radio" name="feedcollection[before_template_shortcodes]" value="0" id="before_template_shortcodes_disable"<?= $current->before_template_shortcodes != '1' ? ' checked="checked"' : '' ?> />
+								<label for="before_template_shortcodes_disable"><?php echo __( 'disabled', 'multi-feed-reader' ) ?></label>
+							</fieldset>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -407,6 +415,14 @@ function display_edit_page() {
 						</th>
 						<td>
 							<textarea name="feedcollection[body_template]" rows="10" class="large-text"><?php echo $current->body_template ?></textarea>
+							<br />
+							<fieldset>
+								<legend><?php echo __( 'WP shortcodes', 'multi-feed-reader' ) ?>:</legend>
+								<input type="radio" name="feedcollection[body_template_shortcodes]" value="1" id="body_template_shortcodes_enable"<?= $current->body_template_shortcodes == '1' ? ' checked="checked"' : '' ?> />
+								<label for="body_template_shortcodes_enable"><?php echo __( 'enabled', 'multi-feed-reader' ) ?></label>
+								<input type="radio" name="feedcollection[body_template_shortcodes]" value="0" id="body_template_shortcodes_disable"<?= $current->body_template_shortcodes != '1' ? ' checked="checked"' : '' ?> />
+								<label for="body_template_shortcodes_disable"><?php echo __( 'disabled', 'multi-feed-reader' ) ?></label>
+							</fieldset>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -415,6 +431,14 @@ function display_edit_page() {
 						</th>
 						<td>
 							<textarea name="feedcollection[after_template]" rows="10" class="large-text"><?php echo $current->after_template ?></textarea>
+							<br />
+							<fieldset>
+								<legend><?php echo __( 'WP shortcodes', 'multi-feed-reader' ) ?>:</legend>
+								<input type="radio" name="feedcollection[after_template_shortcodes]" value="1" id="after_template_shortcodes_enable"<?= $current->after_template_shortcodes == '1' ? ' checked="checked"' : '' ?> />
+								<label for="after_template_shortcodes_enable"><?php echo __( 'enabled', 'multi-feed-reader' ) ?></label>
+								<input type="radio" name="feedcollection[after_template_shortcodes]" value="0" id="after_template_shortcodes_disable"<?= $current->after_template_shortcodes != '1' ? ' checked="checked"' : '' ?> />
+								<label for="after_template_shortcodes_disable"><?php echo __( 'disabled', 'multi-feed-reader' ) ?></label>
+							</fieldset>
 						</td>
 					</tr>
 				</tbody>
