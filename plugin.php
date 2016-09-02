@@ -103,6 +103,8 @@ function generate_html_by_template( $template, $limit ) {
 	$out .= $collection->after_template;
 	$timer->stop( 'render' );
 
+	$out = do_shortcode($out);
+
 	write_log(
 		sprintf(
 			'template generated. fetch: %ss, parse: %ss, sort: %ss, render: %ss',
