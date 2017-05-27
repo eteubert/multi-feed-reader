@@ -148,7 +148,7 @@ abstract class Base
 		$model->flag_as_not_new();
 		
 		$row = $wpdb->get_row(
-			'SELECT * FROM ' . self::table_name() . ' WHERE ' . $property .  ' = \'' . $value . '\' LIMIT 0,1'
+			'SELECT * FROM ' . self::table_name() . ' WHERE ' . $property .  ' = \'' . esc_sql( $value ) . '\' LIMIT 0,1'
 		);
 		
 		if ( ! $row ) {
@@ -265,7 +265,7 @@ abstract class Base
 			$sql = 'UPDATE ' . self::table_name()
 			     . ' SET '
 			     . implode( ',', array_map( array( $this, 'property_name_to_sql_update_statement' ), self::property_names() ) )
-			     . ' WHERE id = ' . $this->id
+			     . ' WHERE id = ' . (int) $this->id
 			;
 			$success = $wpdb->query( $sql );
 		}
@@ -280,7 +280,7 @@ abstract class Base
 		
 		$sql = 'DELETE FROM '
 		     . self::table_name()
-		     . ' WHERE id = ' . $this->id;
+		     . ' WHERE id = ' . (int) $this->id;
 
 		return $wpdb->query( $sql );
 	}

@@ -3,7 +3,7 @@ Contributors: eteubert
 Donate link: https://flattr.com/thing/474620/WordPress-Plugin-Multi-Feed-Reader
 Tags: feed, rss, archive, shortcode, custom, template, html, customizable
 Requires at least: 3.0
-Tested up to: 3.3.2
+Tested up to: 3.7.5
 Stable tag: trunk
 
 Reads multiple feeds. Output can be customized via templates. Is displayed via Shortcodes.
@@ -108,6 +108,10 @@ Visit https://github.com/eteubert/multi-feed-reader, fork the project, add your 
 2. Example Archive
 
 == Changelog ==
+
+= 2.2.4 =
+
+* security: fix SQL injection (thanks to JPCERT)
 
 = 2.2.3 =
 
